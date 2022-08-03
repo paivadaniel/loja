@@ -98,7 +98,7 @@ a:hover,
 a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #ffffff;
+	/*color: #ffffff;*/
 }
 
 ul,
@@ -167,7 +167,7 @@ ol {
 	color: #ffffff;
 	text-transform: uppercase;
 	font-weight: 700;
-	background: #3990ad; /* essa cor foi alterada e muda muita coisa no tema */
+	background: #3990ad; /* essa cor foi alterada e muda muita coisa no tema, para mudar a cor do tema todo, dê um ctrl + f nessa cor e replace All com a nova cor */
 	letter-spacing: 2px;
 }
 
@@ -745,12 +745,13 @@ ol {
 	font-size: 46px;
 	color: #252525;
 	line-height: 52px;
-	font-weight: 700;
+	font-weight: 600;
 	margin: 10px 0;
 }
 
 .hero__text p {
 	margin-bottom: 35px;
+
 }
 
 /*---------------------

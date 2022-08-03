@@ -6,6 +6,7 @@
 -->
       
    <!-- Hero Section Begin -->
+
     <section class="hero hero-normal">
         <div class="container">
             <div class="row">
@@ -13,7 +14,7 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>Categorias</span>
                         </div>
                         <ul>
                             <li><a href="#">Fresh Meat</a></li>
@@ -34,21 +35,25 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
+                                <!--
+                                    <div class="hero__search__categories">
+                                Produtos
+                                    <span class="arrow_carrot-right"></span>
                                 </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                                -->
+                                <input type="text" placeholder="O que você precisa?">
+                                <button type="submit" class="site-btn">BUSCAR</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
+                                <!-- <i class="fa fa-phone"></i> -->
+                                <a href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_loja_link ?>" title="<?php echo $whatsapp_loja ?>" target="_blank"><i class="fa fa-whatsapp"></i></a>
+
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
+                                <h5><?php echo $whatsapp_loja ?></h5>
+                                <span>Contate-nos!</span>
                             </div>
                         </div>
                     </div>

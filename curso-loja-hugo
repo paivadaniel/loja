@@ -1,0 +1,794 @@
+----------- módulo 01
+
+melhores aulas: 48
+
+----- 03
+
+sass é css para uma área definida.
+
+todas as extensões de página deverão ser alteradas de html para php.
+
+pode chamar require_once de quatro formas:
+require_once ('header.php')
+require_once 'header.php'
+require_once ("header.php")
+require_once "header.php"
+
+----- 06
+
+o template ogani tem uma particularidade. em index.html, a parte onde iniciava hero section era diferente do hero section das demais páginas, por exemplo, a de contato, pois mantinha o menu de categorias aberto e um banner.
+
+por conta disso, o cabeçalho para ser incluso nas páginas teve que ser dividido em dois, e o hero section da index.html não foi apagado.
+
+header.php = até <!-- Header Section End -->
+header-search.php = hero section das outras páginas (menos o da index que é diferente)
+
+então, na index não foi excluido a parte do hero section, e foi incluso header.php
+
+já em contact.php foi excluido Header Section e Hero Section e dado dois requires, o de header.php (header section) e o de header-search.php (o de hero section)
+
+----- 07
+
+criado config.php para armazenar variáveis globais.
+
+----- 08
+
+autor recomenda apagar o pre-loader do header, que é aquela tela preta com ícone de atualizar que aparece antes de carregar as páginas, pois ele diz que já em outros templates, quando tinha problema com o php, o pre-loader ficava carregando e não mostrava o erro (aquela tela que mostra os erros do php, que para ser visualizada tem que deixar display_erros = On no php.ini)
+
+para alterar o link da logo, tem que alterar:
+
+            <a href="index.php"><img src="img/logo.png" alt=""></a>
+
+                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
+
+o template trabalha com dois logos pois um é para mobile, outro para desktop. para ficar mais fácil encontrá-los no header. procure por "logo.png"
+
+não vai utiliar phpmailer, pois quando ocorre atualização do php, fica complicado para fazer manutenção.
+
+----- 09
+
+trocou logo por um bem maior. a menor tinha 119x50
+
+apagou alguns elementos que julgou desnecessário. como um item para o usuário salvar seus itens em um coraçãozinho, uma espécie de curtir
+
+----- 10
+
+trocou a logo por uma 119x50
+
+para alterar a cor do template, abra o arquivo style.css
+
+citou o hex color do google
+
+replace all no VS Code: Ctrl + H, Ctrl + alt + enter
+
+depois da alteração da cor, limpe o cache, e reinicie o navegador para ver as mudanças
+
+----- 11
+
+fa é ícone do fontawesome, portanto, basta trocar:
+
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+
+por
+
+            <a href="#"><i class="fa fa-whatsapp"></i></a>
+
+----- 12
+
+gerando link do whatsapp no https://www.convertte.com.br/:
+
+https://api.whatsapp.com/send?phone=5515991805895&text=Ol%C3%A1%2C%20como%20podemos%20lhe%20ajudar%3F
+
+----- 13
+
+para reindentar (reorganizar) código no VS Code. Ctrl + A para selecionar tudo e Ctrl + shift + I.
+
+adicionou a classe bootstrap chamada text-success para alterar a cor do ícone do whatsapp para verde, e text-info para alterar a cor do ícone do facebook para azul.
+
+ele colocou um href sem # e sem .php, nem .html:
+
+                <a href="sistema"><i class="fa fa-user"></i> Login</a>
+
+----- 14
+
+para alterar o espaçamento entre os itens do menu, no header.php ele copiou a classe do elemento, que é header__menu, e foi procurá-la no style.css
+
+fez a primeira alteração e não teve sucesso, mas acerto na segunda, na primeira tentou alterar o padding dentro de:
+
+.header__menu {
+	padding: 24px 0;
+}
+
+na segunda, tentou alterar o margin-right dentro de:
+
+.header__menu ul li {
+	list-style: none;
+	display: inline-block;
+	margin-right: 25px;
+	position: relative;
+}
+
+----- 15
+
+removeu esse span:
+
+                                    <span class="arrow_carrot-down"></span>
+
+
+pois só tem uma forma de pesquisa, não mais de uma, e esse span imprime uma seta para baixo, como se se clicasse nela aparecessem várias opções de busca.
+
+O placeholder é o texto que vai aparecer na tela, aqui traduzimos para:
+
+                                <input type="text" placeholder="O que você precisa?">
+
+----- 16
+
+meu hover do whatsapp link não ficou branco
+
+não mudou nada adicionar a classe "text-info"
+
+----- 17
+
+                            <span><?php echo strtoupper($nome_loja) ?></span>
+
+
+strtoupper não mudou em nada, é desnecessário. com span já está ficando maiúsculo o nome da loja, pois no span já estilo estilo "uppercase":
+
+
+.hero__text span {
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 4px;
+	color: #3990ad;
+}
+
+----- 18
+
+require_once tem que ser dado bem onde quero colocar aquele código, por exemplo, se eu der um require_once "footer.php" logo no início do código, ele vai colocar o footer no início da página, portanto, esse require tem que ficar no final da página
+
+----- 19
+
+alterou 
+            <div class="col-lg-3 col-md-6 col-sm-6">
+
+para:
+
+            <div class="col-lg-4 col-md-6 col-sm-6">
+
+alterou:
+
+            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+
+
+para:
+            <div class="col-lg-3 col-md-6 col-sm-6 offset-lg-1">
+
+alterou:
+
+                        <input type="text" placeholder="Enter your mail">
+
+para:
+
+                        <input type="email" placeholder="Digite seu email" required>
+
+----- 22
+
+<link rel="shortcut icon" href="img/logoicone1.ico" type="image/x-icon>
+<link rel="icon" href="img/logoicone1.ico" type="image/x-icon">
+
+----- 23
+
+falou para inserir até 15 keywors em meta name="keywords".
+
+----- 24
+
+trocou o ícone do telefone de contato por um da https://fontawesome.com/
+
+No site:
+
+<i class="fas fa-phone-alt"></i>
+
+repare que a primeira classe é fas, e não funcionou, utilizamos:
+
+<i class="fa fa-phone"></i>
+
+----- 25
+
+para pegar o iframe do mapa, basta ir em maps do google, digitar o endereço, clicar no menu hamburguer, e selecionar "compartilhar ou incorporar mapa", escolher "incorporar um mapa", e copiar o iframe.
+
+----- 26
+
+o form não precisará ter action, pois iremos passar os dados com AJAX para que não tenha passagem de parâmetros entre páginas e muito menos carregamento.
+
+trocou o button type="submit" para type="button", pois não iremos submeter nenhum dado do formulário, e foi adicionado um name e um id para ele. o name e o id foram ambos: "btn-enviar-email"
+
+deixou como sugestão usar a classe form-group do bootstrap. tentei colocá-la aqui:             <div class="row">
+
+mas não mudou nada.
+
+construímos o primeiro script: mascara.js, para mascarar o telefone. máscara é como se fosse uma expressão regular para telefone, cep, cpf, cnpj etc. nos campos que tiveram máscara tem que colocar o id.
+
+para a máscara funcionar tive que ser incluso no footer.php:
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+<script src="js/mascara.js"></script>
+
+o primeiro arquivo é o jquery necessário para a maścara funcionar, e o segundo é a própria máscara que fizemos.
+
+----- 27
+
+em contact.php, acrescentou a classe bg-light do bootstrap aqui:
+
+<!-- Contact Form Begin -->
+<div class="contact-form spad bg-light">
+
+usa data-filter no li, procurei referências no google de data-filter html, mas não encontrei nada direto ao ponto.
+
+----- 29
+
+ele fez um filtro de produtos usando apenas data-filter e as classes, sem usar GET nem POST. 
+
+----- 31
+
+Seguinte código foi adicionado em substituição à img banner-1.jpg:
+
+                <div class="banner__pic">
+
+                    <img src="img/banner/banner-1.jpg" alt="">
+
+Foi esse código:
+
+		</div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <img src="img/product/calca.jpg" alt="">
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 mt-4">
+                            <div class="hero__text">
+                                <h3>Promoção Camisas</h3>
+                                <p>Descrição da promoção que virá do BD!</p>
+                                <a href="#" class="primary-btn">VER PROMOÇÃO!</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+----- 32
+
+para inserir classes do bootstrap, elas não precisam estar declaradas no style.css, outra forma de não usar o style.css é fazer direto:
+
+<div class="row" style="
+                            align-items: center;
+                            display:flex;
+                            flex-direction:row;
+                            flex-wrap: wrap;
+                            justify-content: center;">
+
+
+----- 36
+
+tem um tag html chamada <samp> </samp> que é para dar destaque no texto.
+
+----- 37
+
+utilizou bannersnack para editar um arquivo psd.
+
+----- 41
+
+não sei porque mas só consigo usar margin-left até 5 bootstrap. se colocar a partir de 6 não funciona:
+
+                                        <i class="fa fa-search ml-6"></i>
+
+não dá para passar link pelo form, ainda que com type="submit":
+
+                                    <form action="list-products.php" method="post">
+                                        <input type="text" id="minamount">
+                                        <input type="text" id="maxamount">
+                                        <a type="submit"><i class="fa fa-search ml-5"></i>
+                                        </a>
+                                        
+                                    </form>
+
+
+o link quando clicado não redireciona para a página list-products.php apontada no action do form. tem que ser button type="submit" ou por ajax por exemplo.
+
+<a class="text-dark" faz com que não pegue nenhuma classe diferente para link caso ela já exista no style.css.
+
+----- 42
+
+optei por deixar produtos, não apagar o sort by default e não colocar mais vendidos.
+
+----- 43
+
+optei por não retirar a paginação
+
+----- 44
+
+class text-muted do bootstrap deixa a cor do texto mais fraca.
+
+----- 45
+
+html tem uma tag para diminuir o tamanho da letra, chama <small>texto</small>
+
+class="active" está sendo usada em INÍCIO, no menu do topo, no header.php, isso não é legal, pois se formos para a página products, por exemplo, INÍCIO ainda estará destacado, como se estivéssemos navegando na página INÍCIO.
+
+----- 46
+
+deu problema na página porque ao adicionar um filtro de buscar produtos não colocamos ele dentro de uma classe do tipo linha, ou seja, class="row"
+
+----- 48
+
+editou:
+
+          <div class="col-lg-4 col-md-4 col-sm-6">
+
+e mudou a responsividade do blog e o número de colunas que aparecem em diferentes dispositivos.
+
+----- 51
+
+para ativar a classe btn success tem que chamar primeiro a btn:
+
+                    <a href="#" class="primary-btn cart-btn cart-btn-right btn btn-success">CONTINUE COMPRANDO</a>
+
+o botão atualizar carrinho foi deletado pois não será necessário o usuário clicar no botão para atualizar o carrinho, a atualização será feita por AJAX, ao incrementar ou decrementar as unidades do produto.
+
+                    <a href="#" class="primary-btn cart-btn">
+                        ATUALIZAR CARRINHO</a>
+
+----- 54
+
+para implementar um modal do botão finalizar compra no checkout, ele fez com bootstrap 4, de uma maneira muito simples, no botão adicionou duas classes: data-toggle e data-target. E inseriu o código do modal. Ficou assim (repare que o id em data-target é o mesmo id declarado no Modal):
+
+                                <button type="submit" class="site-btn" data-toggle="modal" data-target="#modalPagamento">FINALIZAR COMPRA</button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalPagamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal Pagamento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+o id é o usado no ajax, por exemplo, e o name, é o que aparece na URL, que pode ser pego por exemplo com GET: /checkout.php?nome=&
+
+----- 55
+
+foi criado uma pasta sistema onde ficará o painel administrativo (da loja), o do cliente, e a tela de login. Esses painéis necessitam ter seu próprio index (que é a tela de login), por isso, além do index na raiz, haverá outro nessa pasta.
+
+foi baixado um template bootstrap para login em bootsnipp.com
+
+para linkar com a folha de estilo, não podemos esquecer que estamos na pasta sistema, então temos que voltar um diretório e em seguida acessar a pasta css, portanto:
+
+<link rel="stylesheet" href="../css/login.css">
+
+----- 58
+
+modal do bootstrap não funcionou porque em sistema/index.php não foi carregado o script do bootstrap. já no checkout.php a modal funcionava porque o script do bootstrap estava sendo carregado em header.php (não achei onde, já que o abaixo é um css:
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+)
+
+Para carregar acessamos o site do bootstrap, e vamos em getting started, copiamos os scripts javascript:
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+----- 59
+
+o botão de cadastrar novo usuário ele alterou o type="submit" para type="submit", pois irá usar AJAX, ainda assim o botão tem que ficar dentro do form.
+
+----------- módulo 02
+
+melhores aulas: 45
+
+mal explicadas: 57
+
+não entendi
+aula 57: AJAX para enviar imagem
+aula 57: função carregarImg(), não sei sobre o querySelector nem sobre a class FileReader
+
+----- 03
+
+ao criar uma tabela, no ID, não precisa preencher com valor por ele ser um inteiro.
+
+VARCHAR é para texto pequeno e médio. Para textos maiores, como o de mensagens, usa TEXT
+
+em nome não foi marcado NOT NULL, pois eventualmente é possível importar um txt ou csv com emails de clientes para o banco de dados, e não se tem o nome desses clientes.
+
+----- 05
+
+quando é um nome de um elemento html, para usar no javascript tem que colocar entre aspas, diferente, por exemplo, de document:
+
+$(document).ready(function(){
+
+})
+
+$('div#btn-enviar-email).click(function() {
+
+})
+
+o AJAX serve para passar parâmetros, daria para passar da mesma página para a mesma página, apenas em outro trecho de código, porém, por uma questão de organização, tudo que for inserção, deleção, etc, é inserido em uma página diferente, como a enviar.php
+
+----- 06
+
+        event.preventDefault();
+
+método que não permite que a página seja atualizada, ou seja, se a pessoa clicar no botão de enviar, a página não será redirecionada para outra página, até porque a requisição será executada por AJAX.
+
+autor utiliza no ajax
+
+method: "post",
+
+mas pode ser também:
+
+type: "post"
+
+serialize()
+Serialização de objetos é um conceito que se expande em quase todas as linguagens de programação, o principal objetivo desta é transformar um objeto em uma forma binária ou mesmo em formato de texto (como XML, por exemplo) para poder transmiti-lo via rede ou armazenar seu conteúdo sem perda de dados.
+ 
+Se você tem uma String “olá mundo” e deseja armazená-la no seu computador, você pode fazer isso facilmente com funções para escrever em arquivos, como o método fwrite. Se por outro lado você desejar enviar essa String via rede, também não tem mistério algum.
+
+Agora imagine que você possui um objeto USUARIO que possui as propriedades id, nome, email e senha. Qual a maneira correta de salvar esse conteúdo para reutilizá-lo? A resposta é serializando. Serializando o objeto USUARIO você o transforma em um “pacote de bytes” e pode enviá-lo para onde desejar, e na outra ponta você irá fazer o processo inverso à serialização, a desserialização, ou seja, transformá-lo novamente em um objeto USUARIO.
+
+----- 07
+
+            if(mensagem.trim() === "Enviados com Sucesso") {
+                //trim remove espaços
+                alert(mensagem); //para testar se está exibindo o que recebe de enviar.php //para testar se está exibindo o que recebe de enviar.php
+            }
+
+trim() remove espaços
+usou == ao invés de === para comparar
+
+= é usado para atribuir valores a uma variável
+== é usado para comparar duas variáveis, mas ignora o tipo de dados da variável
+=== é usado para comparar duas variáveis, mas este operador também verifica o tipo de dados e compara dois valores
+
+addClass é para adicionar classe ao elemento
+
+----- 11
+
+a função mail do php não envia email de um servidor local, precisa estar em um servidor de hospedagem. porém, podemos verificar se o email foi enviado com sucesso não verificando um erro relacionado à porta.
+
+----- 14
+
+coloca @ na frente de uma função para que ela não execute, por exemplo:
+
+@mail($destinatario, $assunto, $mensagem, $cabecalho);
+
+quando se trabalha com ajax ele não faz o submit do formulário, portanto, não adianta colocar required nos inputs.
+
+----- 15
+
+$connect = new PDO('mysql:host=localhost;dbname=hugo_loja', root, dap);
+
+----- 16
+
+a forma mais segura de se conectar com o banco de dados é com PDO, daí não tem problemas com SQL injection.
+
+O PDO (PHP Data Object) é uma extensão da linguagem PHP para acesso a banco de dados. 
+
+----- 18
+
+sempre que estou passando uma requisição por PDO ao banco de dados, e é por formulário, uso o método prepare(), que protege contra SQL Injection, se não tiver dados de formulário, posso usar direto o método query().
+
+quando coloco dois pontos na frente de algo, define que aquilo não é um valor, e sim um parâmetro, por exemplo:
+
+$pdo->prepare("INSERT into emails (nome, email, ativo) values (:nome, :email, :ativo)");
+
+quando passamos parâmetros, temos que recuperá-los, com bindValue, ou bindParam
+
+bindParam, apesar do nome, só aceita variáveis, e não parâmetros, e no caso, :ativo é um parâmetro, que guarda se o usuário está inscrito na Newsletter ou não, portanto, pode assumir valores "sim" e "nao".
+
+$pdo->bindValue(":n",$nome);
+$pdo->bindValue(":e", $email);
+$pdo->bindValue(":a", "sim");
+
+Quando usar o método prepare, o padrão é isso:
+
+$result = $pdo->prepare("INSERT into emails (nome, email, ativo) values (:n, :e, :a)");
+
+$result->bindValue(":n",$nome); //funciona com bindParam
+$result->bindValue(":e", $email); //funciona com bindParam
+$result->bindValue(":a", "sim"); //não funciona com bindParam
+$result->execute();
+
+Quando usar o método query(), o padrão é isso (e apenas isso):
+
+$result = $pdo->query("INSERT into emails (nome, email, ativo) values (:n, :e, :a)");
+
+se o prepare() ver que os parâmetros estão recebendo caracteres que não são comuns, ele irá abortar, e não ocorrerá sql Injection.
+
+----- 19
+
+no meu não estava passando nome e email para o banco de dados e estava aparecendo "Erro ao enviar o email", pois em enviar.php, estava:
+
+$res->bindValue(":e", $$_POST['email']);
+
+com um $ a mais.
+
+----- 20
+
+quando passar um $_POST[''], dentro de uma instrução em sql, elimine as aspas simples dentro dos colchetes do POST:
+
+$res = $pdo->query("SELECT * FROM emails WHERE email = '$_POST[email]'");
+
+ou seja, não coloque:
+
+'$_POST['email']'
+
+----- 21
+
+$res = $pdo->query("SELECT * FROM emails WHERE email = '$_POST[email]'");
+
+não necessita de prepare na consulta acima, pois ela não requer envio de dados preenchidos de um formulário
+
+o prepare usa quando o usuário preenche dados em um formulário.
+
+coloque arroba na frente de funções para descartar possíveis mensagens de warning devido à diferenças entre versões do php, por exemplo:
+
+if(@count($dados) == 0) {
+
+----- 23
+
+basta acessar a página de login do sistema (http://localhost/hugo-cursos_ecommerce-php/sistema/), que automaticamente é criado um usuário admin e inserido no banco e dados. Isso é feito por meio do código a seguir (em sistema/index.php):
+
+$res = $pdo->query("SELECT * FROM usuarios");
+$dados = $res->fetchAll(PDO::FETCH_ASSOC);
+
+if (@count($dados) == 0) {
+
+    $res = $pdo->query("INSERT into usuarios (nome, cpf, email, senha, nivel) values ('Administrador', '000.000.000-00', '$email_loja', '123', 'Admin')");
+}
+
+para criar a senha criptografada da senha 123, fazemos:
+
+$senha_crip = md5('123');
+
+não pode transmitir informações de usuário e senha por ajax, pois ele faz com que o teste de execução seja muito rápido, o que facilita para programas mal intencionados que testam milhares de senhas para conseguir login por força bruta.
+
+----- 28
+
+o trecho de código abaixo, copia o email que acabou de ser cadastrado pelo usuário para a tela de login.
+
+                    $('#email-login').val(document.getElementById('email-cadastrar').value)
+
+----- 30
+
+deu conflito com name="email-cadastrar" no PDO. Tive que alterar os name para name="email_cadastrar":
+
+    $res = $pdo->query("SELECT * FROM emails WHERE email = '$_POST[email_cadastrar]'");
+
+o login será feito com form action="autenticar.php", diferente do formulário de contato e registro de novos usuários que foram feitos com AJAX.
+
+----- 31
+
+autor disse que já teve problemas em alguns servidores como hostgator ao redirecionar com header location, e recomenda fazer os redirecionamentos com script.
+
+----- 32
+
+$res = $pdo->query("SELECT * FROM usuarios WHERE email = '$_POST[email_login]' AND senha_crip = '$senha' ");
+$dados = $res->fetchAll(PDO::FETCH_ASSOC); //FETCH_ASSOC retorna uma matriz
+
+if(@count($dados) > 0) {
+
+    $_SESSION['nome_usuario'] = $dados[0]['nome'];
+    echo $dados[0]['email'];
+
+No trecho de código acima, dados se refere à tabela usuários, [0] à primeira linha de resultados da matriz, e ['nome'] ao campo nome da tabela.
+
+Na linha que contém:
+
+    echo $dados[0]['email'];
+
+É recuperado o campo nome (da tabela usuários) do usuário que acabou de efetuar login no sistema.
+
+----- 33
+
+se for trabalhar com aspas dentro de aspas, tem que ser dupla por fora, e simples por dentro. exemplo:
+
+        echo "<script language='javascript'> window.location='painel-admin' </script>";
+
+Se o usuário e senha não for encontrado, o form está redirecionando para "autenticar.php", por isso, para isso não ocorrer fazemos:
+
+    echo "<script language='javascript'> window.alert('Dados Incorretos!') </script>";
+
+    echo "<script language='javascript'> window.location='index.php' </script>";
+
+Redirecionando para a própria página de login.
+
+----- 34
+
+para poder logar com cpf ou email alterou input type="email" para input type="text".
+
+----- 37
+
+novamente ao utilizar a função mail, o php não deu nenhum warning.
+
+    $senha = $dados[0]['senha'];
+
+    $destinatario = $_POST['email_recuperar'];
+    $assunto = $nome_loja . ' - Recuperar Senha';
+    
+    //utf8_decode é usada para tratar caracteres especiais
+    $mensagem = utf8_decode("Sua senha é: ".$senha);
+    
+    $cabecalho = "From: ".$_POST['email_recuperar'];
+    
+    mail($destinatario, $assunto, $mensagem, $cabecalho);
+
+----- 40
+
+qualquer um conseguia acessar o painel admin digitando a URI no browser. Para evitar isso:
+
+    if (@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != "Admin") {
+        echo "<script language='javascript'> window.location='../index.php' </script>";
+
+    }
+
+Repare nos @ na frente das variáveis de sessão, para não mostrar warnings, pois essas variáveis não existem (são criadas no autenticar.php, que é chamado em sistema/index.php.
+
+----- 45
+
+ele passa ID e CPF antigo como type=hidden.
+
+----- 50
+
+autor menciona classe de tabelas, e tableless, o que é novo para mim.
+
+nunca salvamos uma imagem diretamente no banco de dados, apenas uma referência do endereço dela, por isso devemos declarar como VARCHAR.
+
+----- 52
+
+classe "d-block d-sm-none" faz com que botão seja diferente no mobile, porém, se for diminuindo o browser, num certo tamanho intermediário, não há qualquer botão, nem o "Nova Categoria, nem o "+", e então diminui mais e aparece o "+".
+
+----- 56
+
+onChange="carregarImg();
+
+carregarImg é uma função que será criada na aula 57, já onChange é uma tag HTML, que não foi bem explicada pelo autor, que disse apenas que ao carregar uma imagem, altera em uma div.
+
+----- 57
+
+novo bloco de ajax que trabalha com imagem, utiliza a classe FormData, que aliás vai em data: formData.
+
+----- 58
+
+para não aparecer o warning de variável indefinida em $imagem2, tive que adicionar o @ na frente:
+
+                    <?php if(@$imagem2 != "") { ?>
+
+é pela razão que ele coloca @ na frente de $nome2, nessa parte do código:
+
+                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome2" name="nome2" placeholder="Nome">
+
+Como estamos trabalhando com inserção de nome ($nome2) e imagem ($imagem2) das categorias, essas variáveis não têm nada dentro, daí será mostrado um warning de variável indefinida caso não seja utilizado @ na frente das variáveis, segue o warning:
+
+<br /><b>Warning</b>:  Undefined variable $nome2 in <b>/var/www/html/hugo-cursos_ecommerce-php/sistema/painel-admin/categorias.php</b> on line <b>127</b><br />
+
+em inserir.php não precisa colocar $id = @$_POST['id-cat'], mesmo que a categoria ainda não existe, ou seja, o $id receberá vazio, como está sendo utilizado POST, não precisa colocar @ na frente de $_POST, apenas: $id = $_POST['id-cat']
+
+Sobre o FormData:
+Fonte: https://pt.stackoverflow.com/questions/151465/por-que-tenho-que-usar-formdata-para-enviar-arquivos-via-ajax
+
+Existe um atributo no formulário chamado enctype, nele é definido como os dados do formulário deverão ser codificados quando enviá-los para o servidor.
+
+Por padrão enctype="application/x-www-form-urlencoded" caso nada seja especificado, e neste caso não é possível enviar arquivos para o servidor.
+
+Para resolver isso basta especificar o valor do atributo como multipart/form-data, pois nesse formato de codificação é possível enviar arquivos para o servidor. E então não é necessário o ajax, mas basta fazer tudo normalmente com o submit do formulário.
+
+Mas caso o envio esteja sendo feito diretamente no javascript com ajax (ele usa como padrão o mesmo tipo de codificação), então basta usar a interface FormData referenciada na pergunta.
+
+NÃO ENTENDI
+a função carregarImg(), não sei sobre o querySelector nem sobre a class FileReader.
+
+    function carregarImg() {
+
+        var target = document.getElementById('target'); //passa a div da imagem
+        var file = document.querySelector("input[type=file]").files[0]; //arquivo de imagem
+        var reader = new FileReader(); //devolve o resultado
+
+        //toda vez que a imagem é alterada, target.src vai receber o caminho da nova imagem
+        reader.onloadend = function () {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+
+        } else {
+            target.src = "";
+        }
+    }
+
+Não entendi o AJAX para enviar imagem:
+   $("#form").submit(function () {
+        var pag = "<?=$pag?>";
+        event.preventDefault();
+        //para enviar arquivos como imagem pelo AJAX é obrigatório o uso de FormData
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: pag + "/inserir.php",
+            type: 'POST',
+            data: formData, //para enviar arquivos como imagem pelo AJAX é obrigatório o uso de FormData
+
+            success: function (msg) {
+
+                $('#mensagem').removeClass()
+
+                if (msg.trim() == "Salvo com Sucesso!!") {
+                    $('#mensagem').addClass('text-success');
+
+                    $('#btn-fechar').click();
+                    window.location = "index.php?pag="+pag;
+
+                } else {
+
+                    $('#mensagem').addClass('text-danger')
+                }
+
+                $('#mensagem').text(msg)
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function () {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
+            }
+        });
+    });
+
+-------------------- mod 03
+
+----- 03
+
+não pode criar nome de tabela com hífen, e sim com underline:
+
+errado: sub-categorias
+certo: sub_categorias
+
+----- 04
+
+sempre para relacionar tabelas utilizamos o id de uma com o id de outra, em que o id da primeira tabela (sub-categoria) é chamado de chave primária, e o id da tabela que se relaciona à ela (categoria) é chamado de chave estrangeira, que na verdade é a chave primária de uma outra tabela nela. Nesse caso, para a tabela sub_categorias, id é a chave primária, e id_categoria é a chave estrangeira.
+
+utilizamos id ao invés de nome para relacionar tabelas pois o id de uma linha de uma tabela nunca mudará, ao contrário do campo nome dessa linha.
+
+----- 13
+
+qual a diferença entre tipo DOUBLE e DECIMAL no banco de dados?
+
+-----
+
+parei na 14 ou algumas aulas um pouco depois, continuar na 15
+
+

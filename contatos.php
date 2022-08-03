@@ -6,7 +6,7 @@ require_once('cabecalho-busca.php');
 ?>
 
 
-    <!-- Breadcrumb Section Begin -->
+    <!-- Breadcrumb Section Begin
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
@@ -22,38 +22,40 @@ require_once('cabecalho-busca.php');
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
+   Breadcrumb Section End -->
 
     <!-- Contact Section Begin -->
-    <section class="contact spad">
-        <div class="container">
+    <section class="contact spad bg-light">
+    <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                     <div class="contact__widget">
-                        <span class="icon_phone"></span>
-                        <h4>Phone</h4>
-                        <p>+01-3-8888-6868</p>
+                        <span><i class="fa fa-phone"></i></span>
+                        <h4>Telefone</h4>
+                        <p><?php echo $tel_loja ?></p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                     <div class="contact__widget">
-                        <span class="icon_pin_alt"></span>
-                        <h4>Address</h4>
-                        <p>60-49 Road 11378 New York</p>
+                        <span class="icon_whatsapp">
+                            <a target="_blank" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp text-info"></i></a>
+                        </span>
+                        <h4>Whatsapp</h4>
+                        <p><?php echo $whatsapp_loja ?></p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                     <div class="contact__widget">
-                        <span class="icon_clock_alt"></span>
-                        <h4>Open time</h4>
-                        <p>10:00 am to 23:00 pm</p>
+                        <span><i class="fa fa-history"></i></span>
+                        <h4>Horário Atendimento</h4>
+                        <p>09:00 ás 19:00 </p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                     <div class="contact__widget">
-                        <span class="icon_mail_alt"></span>
+                        <span><i class="fa fa-envelope"></i></span>
                         <h4>Email</h4>
-                        <p>hello@colorlib.com</p>
+                        <p><?php echo $email_loja ?></p>
                     </div>
                 </div>
             </div>
@@ -61,7 +63,9 @@ require_once('cabecalho-busca.php');
     </section>
     <!-- Contact Section End -->
 
-    <!-- Map Begin -->
+    <!-- Map Begin 
+    mod01 aula25 02:50
+    
     <div class="map">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49116.39176087041!2d-86.41867791216099!3d39.69977417971648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x886ca48c841038a1%3A0x70cfba96bf847f0!2sPlainfield%2C%20IN%2C%20USA!5e0!3m2!1sen!2sbd!4v1586106673811!5m2!1sen!2sbd"
@@ -77,7 +81,7 @@ require_once('cabecalho-busca.php');
             </div>
         </div>
     </div>
-    <!-- Map End -->
+    Map End -->
 
     <!-- Contact Form Begin -->
     <div class="contact-form spad">
@@ -85,21 +89,25 @@ require_once('cabecalho-busca.php');
             <div class="row">
                 <div class="col-lg-12">
                     <div class="contact__form__title">
-                        <h2>Leave Message</h2>
+                        <h2>Fale Conosco</h2>
                     </div>
                 </div>
             </div>
-            <form action="#">
+            <form id="form-contato">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your name">
+                    <div class="col-lg-4 col-md-6">
+                        <input type="text" name="nome" id="nome" placeholder="Nome" required>
                     </div>
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your Email">
+                    <div class="col-lg-4 col-md-6">
+                        <input type="email" name="email" id="email" placeholder="Email" required>
                     </div>
+                    <div class="col-lg-4 col-md-6">
+                        <input type="text" name="telefone" id="telefone" placeholder="Telefone" required>
+                    </div>
+
                     <div class="col-lg-12 text-center">
-                        <textarea placeholder="Your message"></textarea>
-                        <button type="submit" class="site-btn">SEND MESSAGE</button>
+                        <textarea name="mensagem" id="mensagem" placeholder="Mensagem"></textarea>
+                        <button type="submit" name="btn-contato" id="btn-contato" class="site-btn">Enviar</button>
                     </div>
                 </div>
             </form>
