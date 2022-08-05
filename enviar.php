@@ -1,6 +1,6 @@
 <?php
 
-require_once('config.php');
+require_once('conexao.php');
 
 $destinatario = $email_loja; //variável global em config.php
 $assunto = 'Nova Mensagem do Formulário de Contato - '.$nome_loja;
@@ -36,8 +36,28 @@ $cabecalhos = 'From: '.$remetente;
 @mail($destinatario, $assunto, $mensagem_email, $remetente); //o cabecalho já recebe o remetente
 //coloca @ para ignorar a mensagem de warning, e então para o if dentro do success (em contatos.php) ser ativado sem cair no else
 
+//CAPTURAR EMAIL DO CONTATO PARA O BANCO DE DADOS
+
+//verifica se o email já está cadastrado na lista
+//quando ativo a query abaixo está dando erro
+$query =$pdo->query("SELECT * FROM emails WHERE email = '$remetente'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$total_reg = @count($res);
+
 echo "Enviado com Sucesso!";
 
+if($total_reg == 0) {//se o email não estiver cadastrado na lista
+
+    //$query =$pdo->prepare("INSERT INTO emails SET email = :remetente");
+
+    $query = $pdo->prepare("INSERT INTO emails (nome, email, ativo) values(:nome_cliente, :remetente, 'Sim')");
+
+    $query->bindValue(":nome_cliente", "$nome_cliente");
+    $query->bindValue(":remetente", "$remetente");
+
+    $query->execute();
+
+}
 
 
 ?>

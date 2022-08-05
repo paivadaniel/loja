@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05-Ago-2022 às 21:13
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 06-Ago-2022 às 01:40
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,6 +35,17 @@ CREATE TABLE `emails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Extraindo dados da tabela `emails`
+--
+
+INSERT INTO `emails` (`id`, `nome`, `email`, `ativo`) VALUES
+(1, 'Marley Junior Aparecido', 'paiva.s2.paula@hotmail.com', 'Sim'),
+(3, 'Marley Junior', 'admin@gmail.com', 'Sim'),
+(4, 'cadada', 'jj@gmail.com', 'Sim'),
+(5, 'Marley Junior', 'ped@hotmail.com', 'Sim'),
+(6, 'Marley Junior Aparecido', 'ped2@hotmail.com', 'Sim');
+
+--
 -- Índices para tabelas despejadas
 --
 
@@ -52,7 +63,7 @@ ALTER TABLE `emails`
 -- AUTO_INCREMENT de tabela `emails`
 --
 ALTER TABLE `emails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
