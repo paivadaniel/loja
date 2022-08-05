@@ -70,7 +70,49 @@ require_once('cabecalho-busca.php');
                         <a href="#" class="primary-btn">ADD TO CARD</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Produtos</b> <span>Em Estoque</span></li>
+                            <li><b>Produtos</b> <span>108 em Estoque</span></li>
+
+                            <div class="sidebar__item sidebar__item__color--option">
+                        <h4>Cores</h4>
+                        <div class="sidebar__item__color sidebar__item__color--white">
+                            <label for="white">
+                                White
+                                <input type="radio" id="white">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--gray">
+                            <label for="gray">
+                                Gray
+                                <input type="radio" id="gray">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--red">
+                            <label for="red">
+                                Red
+                                <input type="radio" id="red">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--black">
+                            <label for="black">
+                                Black
+                                <input type="radio" id="black">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--blue">
+                            <label for="blue">
+                                Blue
+                                <input type="radio" id="blue">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--green">
+                            <label for="green">
+                                Green
+                                <input type="radio" id="green">
+                            </label>
+                        </div>
+                    </div>
+
+                            <li><b>Tamanho</b> <span>Tamanhos</span></li>
 
                         </ul>
                     </div>
@@ -154,14 +196,14 @@ require_once('cabecalho-busca.php');
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title related__product__title">
-                        <h2>Related Product</h2>
+                        <h2>Produtos Relacionados</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -169,8 +211,8 @@ require_once('cabecalho-busca.php');
                             </ul>
                         </div>
                         <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                            <h6><a href="#">Tênis Masculino</a></h6>
+                            <h5>R$130,00</h5>
                         </div>
                     </div>
                 </div>
