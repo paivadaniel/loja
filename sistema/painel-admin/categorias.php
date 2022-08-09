@@ -110,7 +110,7 @@ $pag = 'categorias';
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" method="POST">
+            <form id="form-inserir-editar-categoria" method="POST">
                 <div class="modal-body">
 
                     <div class="form-group">
@@ -155,7 +155,7 @@ $pag = 'categorias';
                     <!-- passa o antigoNome pois se houver alteração de nome, tem que ser feita a verificação se o nome da nova categoria já existe no banco de dados -->
 
                     <button type="button" id="btn-fechar-editar-inserir-categoria" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" name="btn-salvar" id="btn-fechar-editar-inserir-categoria" class="btn btn-primary">Salvar</button>
+                    <button type="submit" name="btn-salvar" id="btn-salvar-editar-inserir-categoria" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -221,7 +221,7 @@ $pag = 'categorias';
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
-    $("#form").submit(function () {
+    $("#form-inserir-editar-categoria").submit(function () {
         var pag = "<?=$pag?>";
         event.preventDefault();
         var formData = new FormData(this); //não tem quando se trabalha apenas com type="text"
@@ -233,13 +233,16 @@ $pag = 'categorias';
 
             success: function (mensagem) {
 
-                $('#mensagem').removeClass()
+                $('#mensagem-inserir-editar-categoria').removeClass()
 
-                if (mensagem.trim() == "Salvo com Sucesso!!") {
-                    $('#mensagem-inserir-editar-categoria').addClass('text-success');
+                if (mensagem.trim() == "Salvo com Sucesso!") {
+                    $('#mensagem-inserir-editar-categoria').addClass('text-success')
                     //$('#nome').val('');
                     //$('#cpf').val('');
-                    $('#btn-fechar').click();
+
+                    $('#mensagem-inserir-editar-categoria').text(mensagem)
+
+                    //$('#btn-fechar-editar-inserir-categoria').click();
                     window.location = "index.php?pag="+pag;
 
                 } else {
