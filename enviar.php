@@ -40,7 +40,14 @@ $cabecalhos = 'From: '.$remetente;
 
 //verifica se o email já está cadastrado na lista
 //quando ativo a query abaixo está dando erro
+
 $query =$pdo->query("SELECT * FROM emails WHERE email = '$remetente'");
+
+/*pode executar com prepare também, porém, é desnecessário nesse caso
+$query =$pdo->prepare("SELECT * FROM emails WHERE email = '$remetente'");
+$query->execute();
+*/
+
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
@@ -50,7 +57,7 @@ if($total_reg == 0) {//se o email não estiver cadastrado na lista
 
     //$query =$pdo->prepare("INSERT INTO emails SET email = :remetente");
 
-    $query = $pdo->prepare("INSERT INTO emails (nome, email, ativo) values(:nome_cliente, :remetente, 'Sim')");
+    $query = $pdo->prepare("INSERT INTO emails (nome, email, ativo) values (:nome_cliente, :remetente, 'Sim')");
 
     $query->bindValue(":nome_cliente", "$nome_cliente");
     $query->bindValue(":remetente", "$remetente");
