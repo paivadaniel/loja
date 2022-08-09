@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09-Ago-2022 às 21:26
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 10-Ago-2022 às 01:08
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,9 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`id`, `nome`, `nome_url`, `imagem`, `itens`) VALUES
 (1, 'categoria teste', 'categoria-teste', 'categoria-teste.jpg', 10),
-(2, 'Moda feminina', 'moda-feminina', '', 41);
+(2, 'Moda feminina', 'moda-feminina', '', 41),
+(3, 'galo-teste', '', 'galo-teste-imagem.jpg', 0),
+(4, 'cerveja', '', 'garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -164,7 +166,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `clientes`
