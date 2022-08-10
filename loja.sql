@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10-Ago-2022 às 01:08
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 10-Ago-2022 às 22:15
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,9 +41,12 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`id`, `nome`, `nome_url`, `imagem`, `itens`) VALUES
 (1, 'categoria teste', 'categoria-teste', 'categoria-teste.jpg', 10),
-(2, 'Moda feminina', 'moda-feminina', '', 41),
-(3, 'galo-teste', '', 'galo-teste-imagem.jpg', 0),
-(4, 'cerveja', '', 'garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 0);
+(2, 'Moda feminina da juju', 'moda-feminina-da-juju', '', 41),
+(3, 'galo-teste', 'galo-teste', 'sem-foto.jpg', 0),
+(4, 'cerveja 2', 'cerveja-2', 'sem-foto.jpg', 0),
+(5, 'Laranja', '', 'laranja-01.jpg', 0),
+(8, 'doces coloridos da tia mafalda', 'doces-coloridos-da-tia-mafalda', 'sem-foto.jpg', 0),
+(9, 'tetsfsf 2', 'tetsfsf-2', 'laranja-01.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -106,6 +109,28 @@ INSERT INTO `emails` (`id`, `nome`, `email`, `ativo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `subcategorias`
+--
+
+CREATE TABLE `subcategorias` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `nome_url` varchar(50) NOT NULL,
+  `imagem` varchar(150) NOT NULL,
+  `produtos` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `subcategorias`
+--
+
+INSERT INTO `subcategorias` (`id`, `nome`, `nome_url`, `imagem`, `produtos`, `id_categoria`) VALUES
+(1, 'tênis', 'tenis', 'sem-foto.jpg', 0, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuarios`
 --
 
@@ -153,6 +178,12 @@ ALTER TABLE `emails`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -166,7 +197,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `clientes`
@@ -179,6 +210,12 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `emails`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de tabela `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`

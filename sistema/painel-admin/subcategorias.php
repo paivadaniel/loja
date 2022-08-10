@@ -11,13 +11,13 @@ http://localhost/dashboard/www/loja/sistema/painel-admin/categorias.php
 
 */
 
-$pag = 'categorias';
+$pag = 'subcategorias';
 
 ?>
 
 <!-- botão nova categoria -->
 <div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria</a>
+    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Subcategoria</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-md-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
 
 </div>
@@ -32,7 +32,8 @@ $pag = 'categorias';
                     <tr>
                         <th>Nome</th>
                         <th>Imagem</th>
-                        <th>Itens</th>
+                        <th>Produtos</th>
+                        <th>Categoria</th>
 
                         <th>Ações</th>
                     </tr>
@@ -42,7 +43,7 @@ $pag = 'categorias';
 
                     <?php
 
-                    $query = $pdo->query("SELECT * FROM categorias order by nome asc ");
+                    $query = $pdo->query("SELECT * FROM subcategorias order by nome asc ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     for ($i = 0; $i < count($res); $i++) {
@@ -51,18 +52,24 @@ $pag = 'categorias';
 
                         $nome = $res[$i]['nome'];
                         $imagem = $res[$i]['imagem'];
-                        $itens = $res[$i]['itens'];
-
+                        $produtos = $res[$i]['produtos'];
+                        $id_categoria = $res[$i]['id_categoria'];
                         $id = $res[$i]['id'];
 
+                        //busca nome da categoria a partir do id dela
+                        $query2 = $pdo->query("SELECT * FROM categorias where id = '$id_categoria'");
+                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                        $nome_categoria = $res2[0]['nome'];
 
                     ?>
 
 
                         <tr>
                             <td><?php echo $nome ?></td>
-                            <td><img src="../../img/categorias/<?php echo $imagem ?>" width="50px"> </img></td>
-                            <td><?php echo $itens ?></td>
+                            <td><img src="../../img/subcategorias/<?php echo $imagem ?>" width="50px"> </img></td>
+                            <td><?php echo $produtos ?></td>
+                            <td><?php echo $nome_categoria ?></td>
+
 
 
                             <td>
@@ -93,13 +100,13 @@ $pag = 'categorias';
                     $titulo = "Editar Registro";
                     $id2 = $_GET['id'];
 
-                    //$query = $pdo->query("SELECT * FROM categorias where id = '" . $id2 . "' ");
-                    $query = $pdo->query("SELECT * FROM categorias where id = '$id2'");
+                    $query = $pdo->query("SELECT * FROM subcategorias where id = '$id2'");
 
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     $nome2 = $res[0]['nome'];
                     $imagem2 = $res[0]['imagem'];
+                    $id_categoria2 = $res[0]['id_categoria'];
                 } else {
                     $titulo = "Inserir Registro";
                 }
@@ -110,17 +117,50 @@ $pag = 'categorias';
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form-inserir-editar-categoria" method="POST">
+            <form id="form-inserir-editar-subcategoria" method="POST">
                 <div class="modal-body">
 
                     <div class="form-group">
                         <label>Nome</label>
-                        <input type="text" value="<?php echo @$nome2 ?>" class="form-control" id="nome-categoria" name="nome-categoria" placeholder="Nome">
+                        <input type="text" value="<?php echo @$nome2 ?>" class="form-control form-control-sm" id="nome-subcategoria" name="nome-subcategoria" placeholder="Nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select class="form-control form-control-sm" name="categoria" id="categoria">
+                            <?php
+
+                            if (@$_GET['funcao'] == 'editar') {
+
+                                $query2 = $pdo->query("SELECT * FROM categorias where id = '$id_categoria2'");
+                                $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                                $nome_categoria2 = $res2[0]['nome'];
+
+                                echo "<option value='" . $id_categoria2 . "'>" . $nome_categoria2 . "</option>";
+                            }
+
+                            //mesmo que já tenha categoria (ou seja, se for edição), é possível trocá-la, para isso é necessário listar todas
+
+                            $query3 = $pdo->query("SELECT * FROM categorias order by nome asc");
+                            $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+
+                            for ($i = 0; $i < count($res3); $i++) {
+                                foreach ($res3[$i] as $key => $value) {
+                                }
+
+                                if (@$nome_categoria2 != $res3[$i]['nome']) { //arrobar pois nome_categoria2 não existe na inserção
+                                    echo "<option value='" . $res3[$i]['id'] . "'>" . $res3[$i]['nome'] . "</option>";
+                                }
+                            }
+                            ?>
+
+                        </select>
+
                     </div>
 
                     <div class="form-group">
                         <label>Imagem</label>
-                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem-categoria" name="imagem-categoria" onChange="carregarImg()">
+                        <input type="file" value="<?php echo @$imagem2 ?>" class="form-control-file" id="imagem-subcategoria" name="imagem-subcategoria" onChange="carregarImg()">
                         <!-- com o onChange, todas as vezes que eu alterar a imagem, ele irá chamar uma função que irá alterar a imagem chamando o id dela na div dela -->
                     </div>
 
@@ -128,20 +168,20 @@ $pag = 'categorias';
 
                     if (@$imagem2 != '') { //editar
                     ?>
-                        <img src="../../img/categorias/<?php echo $imagem2 ?>" alt="" width="200px" id="target-imagem-categoria">
+                        <img src="../../img/subcategorias/<?php echo $imagem2 ?>" alt="" width="200px" id="target-imagem-subcategoria">
 
                     <?php
                     } else { //inserir (ou editar, se não tiver sido colocada outra imagem diferente de 'sem-foto.jgp' antes)
                     ?>
 
-                        <img src="../../img/categorias/sem-foto.jpg" alt="" width="200px" id="target-imagem-categoria">
+                        <img src="../../img/subcategorias/sem-foto.jpg" alt="" width="200px" id="target-imagem-subcategoria">
 
                     <?php
                     }
                     ?>
 
                     <small>
-                        <div id="mensagem-inserir-editar-categoria" align="center">
+                        <div id="mensagem-inserir-editar-subcategoria" align="center">
 
                         </div>
                     </small>
@@ -150,12 +190,12 @@ $pag = 'categorias';
 
                 <div class="modal-footer">
 
-                    <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2"> <!-- chamei de txtid2, pois index.php que carrega categorias.php já tem txtid -->
-                    <input value="<?php echo @$nome2 ?>" type="hidden" name="antigoNomeCategoria" id="antigoNomeCategoria">
+                    <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2"> <!-- chamei de txtid2, pois index.php que carrega subcategorias.php já tem txtid -->
+                    <input value="<?php echo @$nome2 ?>" type="hidden" name="antigoNomeCategoria" id="antigoNomeSubcategoria">
                     <!-- passa o antigoNome pois se houver alteração de nome, tem que ser feita a verificação se o nome da nova categoria já existe no banco de dados -->
 
-                    <button type="button" id="btn-fechar-editar-inserir-categoria" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" name="btn-salvar" id="btn-salvar-editar-inserir-categoria" class="btn btn-primary">Salvar</button>
+                    <button type="button" id="btn-fechar-editar-inserir-subcategoria" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="btn-salvar" id="btn-salvar-editar-inserir-subcategoria" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -197,14 +237,13 @@ $pag = 'categorias';
 
 <!--SCRIPT PARA CARREGAR IMAGEM -->
 <script type="text/javascript">
-
     function carregarImg() {
 
-        var target = document.getElementById('target-imagem-categoria');
+        var target = document.getElementById('target-imagem-subcategoria');
         var file = document.querySelector("input[type=file]").files[0]; //pega um input qualquer do tipo file
         var reader = new FileReader();
 
-        reader.onloadend = function () {
+        reader.onloadend = function() {
             target.src = reader.result; //caminho do campo de imagem recebe o valor que está no input
         };
 
@@ -216,13 +255,12 @@ $pag = 'categorias';
             target.src = "";
         }
     }
-
 </script>
 
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
-    $("#form-inserir-editar-categoria").submit(function () {
-        var pag = "<?=$pag?>";
+    $("#form-inserir-editar-subcategoria").submit(function() {
+        var pag = "<?= $pag ?>";
         event.preventDefault();
         var formData = new FormData(this); //não tem quando se trabalha apenas com type="text"
 
@@ -231,26 +269,26 @@ $pag = 'categorias';
             type: 'POST', //pode ser method ao invés de type?
             data: formData,
 
-            success: function (mensagem) {
+            success: function(mensagem) {
 
-                $('#mensagem-inserir-editar-categoria').removeClass()
+                $('#mensagem-inserir-editar-subcategoria').removeClass()
 
                 if (mensagem.trim() == "Salvo com Sucesso!") {
-                    $('#mensagem-inserir-editar-categoria').addClass('text-success')
+                    $('#mensagem-inserir-editar-subcategoria').addClass('text-success')
                     //$('#nome').val('');
                     //$('#cpf').val('');
 
-                    $('#mensagem-inserir-editar-categoria').text(mensagem)
+                    $('#mensagem-inserir-editar-subcategoria').text(mensagem)
 
                     //$('#btn-fechar-editar-inserir-categoria').click();
-                    window.location = "index.php?pag="+pag; //refresh na página
+                    window.location = "index.php?pag=" + pag; //refresh na página
 
                 } else {
 
-                    $('#mensagem-inserir-editar-categoria').addClass('text-danger')
+                    $('#mensagem-inserir-editar-subcategoria').addClass('text-danger')
                 }
 
-                $('#mensagem-inserir-editar-categoria').text(mensagem)
+                $('#mensagem-inserir-editar-subcategoria').text(mensagem)
 
             },
 
@@ -258,10 +296,10 @@ $pag = 'categorias';
             cache: false,
             contentType: false, //tem contentType ao invés de dataType
             processData: false,
-            xhr: function () {  // Custom XMLHttpRequest
+            xhr: function() { // Custom XMLHttpRequest
                 var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                    myXhr.upload.addEventListener('progress', function () {
+                    myXhr.upload.addEventListener('progress', function() {
                         /* faz alguma coisa durante o progresso do upload */
                     }, false);
                 }
@@ -273,9 +311,9 @@ $pag = 'categorias';
 
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        var pag = "<?=$pag?>";
-        $('#btn-excluir').click(function (event) {
+    $(document).ready(function() {
+        var pag = "<?= $pag ?>";
+        $('#btn-excluir').click(function(event) {
             event.preventDefault();
 
             $.ajax({
@@ -283,7 +321,7 @@ $pag = 'categorias';
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (mensagem) {
+                success: function(mensagem) {
 
                     if (mensagem.trim() === 'Excluído com Sucesso!') {
 

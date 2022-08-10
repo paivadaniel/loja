@@ -361,5 +361,6 @@ require_once('verificar.php'); //já executa session_start()
 
 </html>
 
-
-
+<!-- script mascara.js necessita do jquery para funcionar, e portanto, o jquery deve vir primeiro que o mascara.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+<script src="../../js/mascara.js"></script>
