@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10-Ago-2022 às 22:15
+-- Tempo de geração: 12-Ago-2022 às 21:18
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -24,6 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `carac`
+--
+
+CREATE TABLE `carac` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `categorias`
 --
 
@@ -31,22 +42,21 @@ CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `nome_url` varchar(50) NOT NULL,
-  `imagem` varchar(150) NOT NULL,
-  `itens` int(11) NOT NULL
+  `imagem` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `categorias`
 --
 
-INSERT INTO `categorias` (`id`, `nome`, `nome_url`, `imagem`, `itens`) VALUES
-(1, 'categoria teste', 'categoria-teste', 'categoria-teste.jpg', 10),
-(2, 'Moda feminina da juju', 'moda-feminina-da-juju', '', 41),
-(3, 'galo-teste', 'galo-teste', 'sem-foto.jpg', 0),
-(4, 'cerveja 2', 'cerveja-2', 'sem-foto.jpg', 0),
-(5, 'Laranja', '', 'laranja-01.jpg', 0),
-(8, 'doces coloridos da tia mafalda', 'doces-coloridos-da-tia-mafalda', 'sem-foto.jpg', 0),
-(9, 'tetsfsf 2', 'tetsfsf-2', 'laranja-01.jpg', 0);
+INSERT INTO `categorias` (`id`, `nome`, `nome_url`, `imagem`) VALUES
+(1, 'categoria teste bica', 'categoria-teste-bica', 'categoria-teste.jpg'),
+(2, 'Moda feminina da juju', 'moda-feminina-da-juju', ''),
+(3, 'galo-teste', 'galo-teste', 'sem-foto.jpg'),
+(4, 'cerveja 2', 'cerveja-2', 'sem-foto.jpg'),
+(5, 'Laranja', '', 'laranja-01.jpg'),
+(8, 'doces coloridos da tia mafalda', 'doces-coloridos-da-tia-mafalda', 'sem-foto.jpg'),
+(9, 'tetsfsf 2', 'tetsfsf-2', 'laranja-01.jpg');
 
 -- --------------------------------------------------------
 
@@ -109,6 +119,62 @@ INSERT INTO `emails` (`id`, `nome`, `email`, `ativo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `imagens`
+--
+
+CREATE TABLE `imagens` (
+  `id` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `imagem` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `imagens`
+--
+
+INSERT INTO `imagens` (`id`, `id_produto`, `imagem`) VALUES
+(4, 4, 'cat-1.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `produtos`
+--
+
+CREATE TABLE `produtos` (
+  `id` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  `id_subcategoria` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `nome_url` varchar(100) NOT NULL,
+  `descricao` varchar(1000) NOT NULL,
+  `descricao_longa` text NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `imagem` varchar(100) NOT NULL,
+  `estoque` int(11) NOT NULL,
+  `tipo_envio` int(11) NOT NULL,
+  `palavras` varchar(250) NOT NULL,
+  `ativo` varchar(5) NOT NULL,
+  `peso` double(8,2) DEFAULT NULL,
+  `largura` double(8,2) DEFAULT NULL,
+  `altura` double(8,2) DEFAULT NULL,
+  `comprimento` double(8,2) DEFAULT NULL,
+  `modelo` varchar(100) NOT NULL,
+  `valor_frete` decimal(8,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`) VALUES
+(2, 5, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32.00, 12.00, 24.00, 'doce', '32.00'),
+(3, 1, 3, 'dadada', 'dadada', '', '', '41.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00'),
+(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '24.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `subcategorias`
 --
 
@@ -117,7 +183,6 @@ CREATE TABLE `subcategorias` (
   `nome` varchar(50) NOT NULL,
   `nome_url` varchar(50) NOT NULL,
   `imagem` varchar(150) NOT NULL,
-  `produtos` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -125,8 +190,33 @@ CREATE TABLE `subcategorias` (
 -- Extraindo dados da tabela `subcategorias`
 --
 
-INSERT INTO `subcategorias` (`id`, `nome`, `nome_url`, `imagem`, `produtos`, `id_categoria`) VALUES
-(1, 'tênis', 'tenis', 'sem-foto.jpg', 0, 2);
+INSERT INTO `subcategorias` (`id`, `nome`, `nome_url`, `imagem`, `id_categoria`) VALUES
+(1, 'tênis', 'tenis', 'cat-6.jpg', 2),
+(2, 'tênis 2', 'tenis-2', 'cat-5.jpg', 8),
+(3, 'dindu', 'dindu', 'sem-foto.jpg', 1),
+(4, 'deido', 'deido', 'garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 5),
+(6, 'bund', 'bund', 'sem-foto.jpg', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tipo_envios`
+--
+
+CREATE TABLE `tipo_envios` (
+  `id` int(11) NOT NULL,
+  `tipo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tipo_envios`
+--
+
+INSERT INTO `tipo_envios` (`id`, `tipo`) VALUES
+(1, 'correios'),
+(2, 'valor fixo'),
+(3, 'sem frete'),
+(4, 'digital');
 
 -- --------------------------------------------------------
 
@@ -160,6 +250,12 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `senha_crip`, `ni
 --
 
 --
+-- Índices para tabela `carac`
+--
+ALTER TABLE `carac`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -178,9 +274,27 @@ ALTER TABLE `emails`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `imagens`
+--
+ALTER TABLE `imagens`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `produtos`
+--
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `subcategorias`
 --
 ALTER TABLE `subcategorias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `tipo_envios`
+--
+ALTER TABLE `tipo_envios`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -192,6 +306,12 @@ ALTER TABLE `usuarios`
 --
 -- AUTO_INCREMENT de tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `carac`
+--
+ALTER TABLE `carac`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -212,10 +332,28 @@ ALTER TABLE `emails`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT de tabela `imagens`
+--
+ALTER TABLE `imagens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `produtos`
+--
+ALTER TABLE `produtos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de tabela `subcategorias`
 --
 ALTER TABLE `subcategorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `tipo_envios`
+--
+ALTER TABLE `tipo_envios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`

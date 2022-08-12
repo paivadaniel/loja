@@ -61,11 +61,12 @@ $pag = 'subcategorias';
                         $nome_categoria = $res2[0]['nome'];
 
                         //traz o total de produtos
-                        $query3 = $pdo->query("SELECT * FROM produtos WHERE id_subcategoria = '$id'");
+                        /*$query3 = $pdo->query("SELECT * FROM produtos WHERE id_subcategoria = '$id'");
                         $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
                         $produtos = @count($res3);
-                        
-                        
+                        */
+                        $produtos = 0;
+
                     ?>
 
 

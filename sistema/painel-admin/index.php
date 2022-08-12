@@ -13,6 +13,8 @@ $menu5 = "promocoes";
 $menu6 = "clientes";
 $menu7 = "vendas";
 $menu8 = "backup";
+$menu9 = "tipo-envios";
+$menu10 = "carac";
 
 $query = $pdo->query("SELECT * FROM usuarios WHERE id = '$_SESSION[id_usuario]' and nivel = 'Administrador'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -96,6 +98,9 @@ $email_usuario = $res[0]['email'];
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Produtos</a>
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Categorias</a>
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Subcategorias</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu9 ?>">Tipo Envios</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu10 ?>">Características</a>
+
 
                     </div>
                 </div>
@@ -123,8 +128,6 @@ $email_usuario = $res[0]['email'];
             <div class="sidebar-heading">
                 Consultas
             </div>
-
-
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -171,12 +174,8 @@ $email_usuario = $res[0]['email'];
                         <i class="fa fa-bars"></i>
                     </button>
 
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -226,6 +225,10 @@ $email_usuario = $res[0]['email'];
                         include_once($menu7 . ".php");
                     } else if ($pag == $menu8) {
                         include_once($menu8 . ".php");
+                    } else if ($pag == $menu9) {
+                        include_once($menu9 . ".php");
+                    } else if ($pag == $menu10) {
+                        include_once($menu10 . ".php");
                     } else {
                         include_once("home.php");
                     }
@@ -319,11 +322,13 @@ $email_usuario = $res[0]['email'];
                             <div class="col-md-6 col-sm-12">
                                 <div class="col-md-12 form-group">
                                     <label>Foto</label>
-                                    <input value="<?php //echo $img ?>" type="file" class="form-control-file" id="imagem" name="imagem" onchange="carregarImg();">
+                                    <input value="<?php //echo $img 
+                                                    ?>" type="file" class="form-control-file" id="imagem" name="imagem" onchange="carregarImg();">
 
                                 </div>
                                 <div class="col-md-12 mb-2">
-                                    <img src="../img/profiles/<?php //echo $img ?>" alt="Carregue sua Imagem" id="target" width="100%">
+                                    <img src="../img/profiles/<?php //echo $img 
+                                                                ?>" alt="Carregue sua Imagem" id="target" width="100%">
                                 </div>
                             </div>
 
