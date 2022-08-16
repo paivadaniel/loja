@@ -11,13 +11,13 @@ http://localhost/dashboard/www/loja/sistema/painel-admin/categorias.php
 
 */
 
-$pag = 'produtos';
+$pag = 'combos';
 
 ?>
 
 <!-- botão nova categoria -->
 <div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Produto</a>
+    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Combo</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-md-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
 
 </div>
@@ -33,9 +33,7 @@ $pag = 'produtos';
                         <th>Nome</th>
                         <th>Imagem</th>
                         <th>Valor</th>
-                        <th>Estoque</th>
-                        <th>Subcategoria</th>
-
+                        <th>Produtos</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -44,7 +42,7 @@ $pag = 'produtos';
 
                     <?php
 
-                    $query = $pdo->query("SELECT * FROM produtos order by id desc");
+                    $query = $pdo->query("SELECT * FROM combos order by id desc");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     for ($i = 0; $i < count($res); $i++) {
@@ -55,8 +53,6 @@ $pag = 'produtos';
                         $nome = $res[$i]['nome'];
                         $imagem = $res[$i]['imagem'];
                         $valor = $res[$i]['valor'];
-                        $estoque = $res[$i]['estoque'];
-                        $id_subcategoria = $res[$i]['id_subcategoria'];
                         $ativo = $res[$i]['ativo'];
 
                         $valor = number_format($valor, 2, ',', '.');
@@ -64,6 +60,10 @@ $pag = 'produtos';
                         /* achava que str_replace era exclusiva para passar para o banco de dados, mas não tem nada a ver
                         pelo que entendi, a única diferença dela é que ela não tem o argumento para limitar o número de casas decimais, que utilizamos acima como 2 
                         */
+
+                        $query2 = $pdo->query("SELECT * FROM prod_combos WHERE id_combo = '$id'");
+                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                        $produtos_do_combo = @count($res2);
 
                         $classe = '';
 
@@ -73,29 +73,22 @@ $pag = 'produtos';
                             $classe = 'text-secondary';
                         }
 
-                        //busca nome da subcategoria a partir do id dela
-                        $query2 = $pdo->query("SELECT * FROM subcategorias where id = '$id_subcategoria'");
-                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                        $nome_subcategoria = $res2[0]['nome'];
-
                     ?>
 
 
                         <tr>
                             <td><i class='fas fa-square <?php echo $classe ?>'></i>
-                                <a href="index.php?pag=<?php echo $pag ?>&funcao=carac&id=<?php echo $id ?>" class="text-secondary" title="Adicionar Características">
+                                <a href="index.php?pag=<?php echo $pag ?>&funcao=produtos&id=<?php echo $id ?>" class="text-secondary" title="Adicionar Características">
                                     <?php echo $nome ?>
                                 </a>
                             </td>
-                            <td><img src="../../img/produtos/<?php echo $imagem ?>" width="50px"> </img></td>
+                            <td><img src="../../img/combos/<?php echo $imagem ?>" width="50px"> </img></td>
                             <td>R$ <?php echo $valor ?></td>
-                            <td><?php echo $estoque ?></td>
-                            <td><?php echo $nome_subcategoria ?></td>
+                            <td><?php echo $produtos_do_combo ?></td>
 
                             <td>
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
-                                <a href="index.php?pag=<?php echo $pag ?>&funcao=imagens&id=<?php echo $id ?>" class='text-info mr-1' title='Inserir Imagens'><i class='fas fa-images'></i></a>
 
                             </td>
                         </tr>
@@ -121,16 +114,13 @@ $pag = 'produtos';
                     $titulo = "Editar Registro";
                     $id2 = $_GET['id'];
 
-                    $query = $pdo->query("SELECT * FROM produtos where id = '$id2'");
+                    $query = $pdo->query("SELECT * FROM combos where id = '$id2'");
 
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     $nome2 = $res[0]['nome'];
                     $imagem2 = $res[0]['imagem'];
-                    $id_categoria2 = $res[0]['id_categoria'];
-                    $id_subcategoria2 = $res[0]['id_subcategoria'];
                     $valor2 = $res[0]['valor'];
-                    $estoque2 = $res[0]['estoque'];
                     $descricao2 = $res[0]['descricao'];
                     $descricao_longa2 = $res[0]['descricao_longa'];
                     $tipo_envio2 = $res[0]['tipo_envio'];
@@ -140,7 +130,6 @@ $pag = 'produtos';
                     $largura2 = $res[0]['largura'];
                     $altura2 = $res[0]['altura'];
                     $comprimento2 = $res[0]['comprimento'];
-                    $modelo2 = $res[0]['modelo'];
                     $valor_frete2 = $res[0]['valor_frete'];
                 } else {
                     $titulo = "Inserir Registro";
@@ -153,7 +142,7 @@ $pag = 'produtos';
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-inserir-editar-produto" method="POST">
+                <form id="form-inserir-editar-combo" method="POST">
 
 
                     <div class="row">
@@ -165,74 +154,6 @@ $pag = 'produtos';
 
                         </div>
 
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Categoria</label>
-                                <select class="form-control form-control-sm" name="categoria" id="categoria">
-                                    <?php
-                                    if (@$_GET['funcao'] == 'editar') {
-                                        $query = $pdo->query("SELECT * from categorias where id = '$id_categoria2' ");
-                                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
-                                        $nome_categoria = $res[0]['nome'];
-                                        echo "<option value='" . $id_categoria2 . "' >" . $nome_categoria . "</option>";
-                                    }
-
-                                    $query2 = $pdo->query("SELECT * from categorias order by nome asc ");
-                                    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                                    for ($i = 0; $i < count($res2); $i++) {
-                                        foreach ($res2[$i] as $key => $value) {
-                                        }
-
-                                        if (@$nome_categoria != $res2[$i]['nome']) {
-                                            echo "<option value='" . $res2[$i]['id'] . "' >" . $res2[$i]['nome'] . "</option>";
-                                        }
-                                    }
-
-
-                                    ?>
-                                </select>
-                                <input type="hidden" id="txtCat" name="txtCat">
-                                <input value="<?php echo $id_subcategoria2 ?>" type="hidden" id="txtSub" name="txtSub"> <!-- passa a subcategoria atual para o listar-subcat.php -->
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Sub Categoria</label>
-                                <span id="listar-subcat"></span>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Descrição Curta <small>(1000 caracteres) </small> </label>
-                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" maxlength="1000"><?php echo @$descricao2 ?></textarea>
-                            </div>
-
-
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Descrição Longa </label>
-                                <textarea class="form-control form-control-sm" id="descricao_longa" name="descricao_longa"><?php echo @$descricao_longa2 ?></textarea>
-                                <!-- sem limite de caracteres -->
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Valor </label>
@@ -241,13 +162,6 @@ $pag = 'produtos';
 
                         </div>
 
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Estoque </label>
-                                <input type="number" value="<?php echo @$estoque2 ?>" class="form-control form-control-sm" id="estoque" name="estoque">
-                            </div>
-                        </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
@@ -288,7 +202,7 @@ $pag = 'produtos';
 
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Ativo </label>
 
@@ -313,6 +227,31 @@ $pag = 'produtos';
                                     ?>
                                 </select>
 
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Descrição Curta <small>(1000 caracteres) </small> </label>
+                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" maxlength="1000"><?php echo @$descricao2 ?></textarea>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Descrição Longa </label>
+                                <textarea class="form-control form-control-sm" id="descricao_longa" name="descricao_longa"><?php echo @$descricao_longa2 ?></textarea>
+                                <!-- sem limite de caracteres -->
                             </div>
 
 
@@ -366,13 +305,6 @@ $pag = 'produtos';
 
                     <div class="row">
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Modelo </label>
-                                <input type="text" value="<?php echo @$modelo2 ?>" class="form-control form-control-sm" id="modelo" name="modelo">
-                            </div>
-
-                        </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
@@ -394,13 +326,13 @@ $pag = 'produtos';
 
                             if (@$imagem2 != '') { //editar
                             ?>
-                                <img src="../../img/produtos/<?php echo $imagem2 ?>" alt="" width="100px" id="target-imagem">
+                                <img src="../../img/combos/<?php echo $imagem2 ?>" alt="" width="100px" id="target-imagem">
 
                             <?php
                             } else { //inserir (ou editar, se não tiver sido colocada outra imagem diferente de 'sem-foto.jgp' antes)
                             ?>
 
-                                <img src="../../img/produtos/sem-foto.jpg" alt="" width="100px" id="target-imagem">
+                                <img src="../../img/combos/sem-foto.jpg" alt="" width="100px" id="target-imagem">
 
                             <?php
                             }
@@ -411,7 +343,7 @@ $pag = 'produtos';
                     </div>
 
                     <small>
-                        <div id="mensagem-inserir-editar-produto" align="center" style="margin-top:10px">
+                        <div id="mensagem-inserir-editar-combo" align="center" style="margin-top:10px">
 
                         </div>
                     </small>
@@ -421,11 +353,11 @@ $pag = 'produtos';
             <div class="modal-footer">
 
                 <input value="<?php echo @$_GET['id'] ?>" type="text" name="txtid2" id="txtid2"> <!-- chamei de txtid2, pois index.php que carrega subcategorias.php já tem txtid -->
-                <input value="<?php echo @$nome2 ?>" type="hidden" name="antigoNomeProduto" id="antigoNomeProduto">
+                <input value="<?php echo @$nome2 ?>" type="hidden" name="antigoNome" id="antigoNome">
                 <!-- passa o antigoNome pois se houver alteração de nome, tem que ser feita a verificação se o nome da nova categoria já existe no banco de dados -->
 
-                <button type="button" id="btn-fechar-produto" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" name="btn-salvar-produto" id="btn-salvar-produto" class="btn btn-primary">Salvar</button>
+                <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
             </div>
             </form>
         </div>
@@ -465,155 +397,106 @@ $pag = 'produtos';
     </div>
 </div>
 
-<!-- modal imagens -->
+<!-- modal adicionar produtos-->
 
-<div class="modal" id="modal-imagens" tabindex="-1" role="dialog">
+<div class="modal" id="modal-produtos" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Imagem do Produto</h5>
+                <h5 class="modal-title">Adicionar Produtos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
-                <form id="form-fotos" method="POST" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="col-md-12 form-group">
-                                <label>Imagens do Produto</label>
-                                <input type="file" class="form-control-file" id="img-produto" name="img-produto" onchange="carregarImgs();">
 
-                            </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card-body">
 
-                            <div class="col-md-12 mb-2">
-                                <img src="../../img/produtos/detalhes/sem-foto.jpg" alt="Carregue sua Imagem" id="target-imagens" width="100">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Valor</th>
+                                            <th>Adicionar</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <?php
+
+                                        $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim'");
+                                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                                        for ($i = 0; $i < count($res); $i++) {
+                                            foreach ($res[$i] as $key => $value) {
+                                            }
+
+                                            $id_prod = $res[$i]['id'];
+                                            $nome_prod = $res[$i]['nome'];
+                                            $valor_prod = $res[$i]['valor'];
+
+                                            $valor_prod = number_format($valor_prod, 2, ',', '.');
+
+                                        ?>
+
+                                            <tr>
+                                                <td><i class='fas fa-square <?php echo $classe ?>'></i>
+                                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=carac&id=<?php echo $id ?>" class="text-secondary" title="Adicionar Características">
+                                                        <?php echo $nome_prod ?>
+                                                    </a>
+                                                </td>
+                                                <td>R$ <?php echo $valor_prod ?></td>
+
+                                                <td>
+                                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=adicionar-produto&id=<?php echo $id_prod ?>" class='text-info mr-1' title='Adicionar Produto'><i class='fas fa-check'></i></a>
+
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+
+
+
+
+
+                                    </tbody>
+                                </table>
                             </div>
 
                         </div>
+                    </div>
 
-                        <div class="col-md-7" id="listar-imagens">
-
-                        </div>
-
-
+                    <div class="col-md-3">
+                        <p>Produtos do Pacote</p>
+                        <a href="" class="text-dark"><small>Camisa Azul</small></a>
+                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluirProduto&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
 
 
                     </div>
-
-                    <div class="col-md-12" align="right">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-fotos">Cancelar</button>
-
-                        <input type="hidden" id="id_produto" name="id_produto" value="<?php echo @$_GET['id'] ?>"> <!-- passa id do produto no form -->
-
-                        <button type="submit" id="btn-fotos" name="btn-fotos" class="btn btn-info">Salvar</button>
-
-                    </div>
-
-
-                    <small>
-                        <div align="center" id="mensagem_fotos" class="">
-
-                        </div>
-                    </small>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- modal deletar imagens -->
-
-<div class="modal" id="modalDeletarImg" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Excluir Registro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <p>Deseja realmente Excluir esta Imagem?</p>
-
-                <div align="center" id="mensagem_excluir_img" class="">
-
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-img">Cancelar</button>
-                <form method="post">
-                    <input type="hidden" name="id_foto" id="id_foto">
-                    <button type="button" id="btn-deletar-img" name="btn-deletar-img" class="btn btn-danger">Excluir</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal carac -->
-
-<div class="modal" id="modal-carac" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Adicionar Característica</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
                 <form id="form" method="post">
                     <!-- abertura do form -->
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Característica</label>
-                                <select class="form-control form-control-sm" name="id_carac" id="id_carac">
-                                    <?php
-
-                                    $query3 = $pdo->query("SELECT * FROM carac order by nome asc");
-                                    $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
-
-                                    for ($i = 0; $i < count($res3); $i++) {
-                                        foreach ($res3[$i] as $key => $value) {
-                                        }
-
-                                        echo "<option value='" . $res3[$i]['id'] . "'>" . $res3[$i]['nome'] . "</option>";
-                                    }
-                                    ?>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-                        <div class="col-md-6">
-
-                            <div id="listar-carac">
-
-                            </div>
-
-                        </div>
-                    </div>
 
 
-                    <div align="center" id="mensagem-carac">
+
+                    <div align="center" id="mensagem-produtos">
 
                     </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-carac">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-produtos">Cancelar</button>
 
                 <input type="hidden" id="id_prod_carac" name="id_prod_carac" value="<?php echo @$_GET['id'] ?>"> <!-- id do produto -->
 
-                <button type="button" id="btn-add-carac" name="btn-add-carac" class="btn btn-success">Adicionar</button>
+                <button type="button" id="btn-produtos" name="btn-produtos" class="btn btn-success">Adicionar</button>
                 </form> <!-- fechamento do form -->
 
             </div>
@@ -623,176 +506,42 @@ $pag = 'produtos';
 </div>
 
 
-<!-- modal deletar carac -->
-<!-- tem que vir depois da modal-carac, pois ela abre "dentro dela", e se vier primeiro, vai abrir atrás dela, e não na frente -->
+<!-- modal deletar produtos -->
+<!-- tem que vir depois da modal-produtos, pois ela abre "dentro dela", e se vier primeiro, vai abrir atrás dela, e não na frente -->
 
-<div class="modal" id="modalDeletarCarac" tabindex="-1" role="dialog">
+<div class="modal" id="modalExcluirProdutos" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Excluir Característica</h5>
+                <h5 class="modal-title">Excluir Produto</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <p>Deseja realmente Excluir esta Característica?</p>
+                <p>Deseja realmente Excluir este Produto?</p>
 
-                <div align="center" id="mensagem_excluir_carac" class="">
+                <div align="center" id="mensagem_excluir_produto" class="">
 
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir-carac">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir-produto">Cancelar</button>
                 <form method="post">
-                    <input type="hidden" name="id_carac_deletar" id="id_carac_deletar">
-                    <button type="button" id="btn-deletar-carac" name="btn-deletar-carac" class="btn btn-danger">Excluir</button>
+                    <input type="hidden" name="id_produto_excluir" id="id_produto_excluir">
+                    <button type="button" id="btn-excluir-produto" name="btn-excluir-produto" class="btn btn-danger">Excluir</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<!-- modal add item à carac -->
-
-<div class="modal" id="modalAddItem" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Adicionar Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-
-                <form id="form" method="post">
-
-                    <input type="hidden" name="id_carac_item_2" id="id_carac_item_2">
-
-                    <a id="btn-item-listar" name="btn-item-listar"></a>
-
-
-                </form>
-
-                <form id="form" method="post">
-
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Descrição do Item</label>
-                                <input type="text" value="<?php echo @$nome_item ?>" class="form-control" id="nome_item" name="nome_item">
-                            </div>
-                            <div class="form-group">
-                                <label>Valor do Item<small>(Exemplo: código hexadecimal da cor do item)</small></label>
-                                <input type="text" value="<?php echo @$valor_item ?>" class="form-control" id="valor_item" name="valor_item">
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div id="listar-itens">
-
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
-                    <div align="center" id="mensagem_add_item" class="">
-
-                    </div>
-
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" name="id_carac_item_1" id="id_carac_item_1">
-
-
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-add-item">Cancelar</button>
-                <button type="button" id="btn-add-item" name="btn-add-item" class="btn btn-info">Adicionar</button>
-                </form>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- modal deletar item -->
-<!-- tem que ser colocada embaixo da modalAddItem, pois abre dentro dela, e se vier primeiro no código, vai ficar atrás -->
-
-<div class="modal" id="modalDeletarItem" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Excluir Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <p>Deseja realmente Excluir este Item?</p>
-
-                <div align="center" id="mensagem_excluir_item" class="">
-
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir-item">Cancelar</button>
-                <form method="post">
-                    <input type="hidden" name="id_item_carac_deletar" id="id_item_carac_deletar">
-                    <button type="button" id="btn-deletar-item" name="btn-deletar-item" class="btn btn-danger">Excluir</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 <!--SCRIPT EXECUTADO AO CARREGAR A PÁGINA -->
 <script type="text/javascript">
     $(document).ready(function() {
         document.getElementById('txtCat').value = document.getElementById('categoria').value; //campo que recebe o valor do input do select da categoria na modal de Edição / Inserção
-        listarSubCat();
-        listarImagens();
-        listarCarac();
-    })
-</script>
-
-<script type="text/javascript">
-    function listarSubCat() {
-
-        var pag = "<?= $pag ?>"
-
-        $.ajax({
-            url: pag + "/listar-subcat.php",
-            method: "post",
-            data: $('form').serialize(),
-            dataType: "html",
-            success: function(result) {
-
-                $('#listar-subcat').html(result);
-            }
-        })
-    }
-</script>
-
-
-<!-- Script para buscar pelo select -->
-<script type="text/javascript">
-    $('#categoria').change(function() { //quando mudar a categoria escolhida no select
-        document.getElementById('txtCat').value = $(this).val();
-        document.getElementById('txtSub').value = ""; //limpa o input de subcategoria para na edição quando trocar a categoria, carregar as novas subcategorias dela, antes durante a aula do autor na edição do produto ele trocava de categoria e as subcategorias dela não apareciam, permaneciam as antigas, porém, no meu estava dando certo não sei porquê 
-        listarSubCat();
     })
 </script>
 
@@ -818,33 +567,9 @@ $pag = 'produtos';
     }
 </script>
 
-
-<!--SCRIPT PARA CARREGAR IMAGENS SECUNDÁRIAS DO PRODUTO -->
-<script type="text/javascript">
-    function carregarImgs() {
-
-        var target = document.getElementById('target-imagens');
-        var file = document.querySelector("input[id=img-produto]").files[0]; //pega um input qualquer do tipo file
-        var reader = new FileReader();
-
-        reader.onloadend = function() {
-            target.src = reader.result; //caminho do campo de imagem recebe o valor que está no input
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-
-
-        } else {
-            target.src = "";
-        }
-    }
-</script>
-
-
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
-    $("#form-inserir-editar-produto").submit(function() {
+    $("#form-inserir-editar-combo").submit(function() {
         var pag = "<?= $pag ?>";
         event.preventDefault();
         var formData = new FormData(this); //não tem quando se trabalha apenas com type="text"
@@ -856,22 +581,22 @@ $pag = 'produtos';
 
             success: function(mensagem) {
 
-                $('#mensagem-inserir-editar-produto').removeClass()
+                $('#mensagem-inserir-editar-combo').removeClass()
 
                 if (mensagem.trim() == "Salvo com Sucesso!") {
-                    $('#mensagem-inserir-editar-produto').addClass('text-success')
+                    $('#mensagem-inserir-editar-combo').addClass('text-success')
                     //$('#nome').val('');
                     //$('#cpf').val('');
 
-                    $('#mensagem-inserir-editar-produto').text(mensagem)
+                    $('#mensagem-inserir-editar-combo').text(mensagem)
 
                     //$('#btn-fechar-editar-inserir-categoria').click();
                     window.location = "index.php?pag=" + pag; //refresh na página
 
                 } else {
 
-                    $('#mensagem-inserir-editar-produto').addClass('text-danger')
-                    $('#mensagem-inserir-editar-produto').text(mensagem)
+                    $('#mensagem-inserir-editar-combo').addClass('text-danger')
+                    $('#mensagem-inserir-editar-combo').text(mensagem)
 
                 }
 
@@ -894,80 +619,6 @@ $pag = 'produtos';
         });
     });
 </script>
-
-<!--AJAX PARA INSERÇÃO E EDIÇÃO DAS IMAGENS SECUNDÁRIAS DO PRODUTO -->
-<script type="text/javascript">
-    $("#form-fotos").submit(function() {
-        var pag = "<?= $pag ?>";
-        event.preventDefault();
-        var formData = new FormData(this); //não tem quando se trabalha apenas com type="text"
-
-        $.ajax({
-            url: pag + "/inserir-imagens.php",
-            type: 'POST', //pode ser method ao invés de type?
-            data: formData,
-
-            success: function(mensagem) {
-
-                $('#mensagem_fotos').removeClass()
-
-                if (mensagem.trim() == "Salvo com Sucesso!") {
-                    $('#mensagem_fotos').addClass('text-success')
-                    //$('#nome').val('');
-                    //$('#cpf').val('');
-
-                    $('#mensagem_fotos').text(mensagem)
-                    listarImagens();
-                    //$('#btn-fechar-editar-inserir-categoria').click();
-                    //window.location = "index.php?pag=" + pag; //refresh na página
-
-                } else {
-
-                    $('#mensagem_fotos').addClass('text-danger')
-                    $('#mensagem_fotos').text(mensagem)
-
-                }
-
-
-            },
-
-            //a partir daqui é apenas para imagem, não tinha para type="text"
-            cache: false,
-            contentType: false, //tem contentType ao invés de dataType
-            processData: false,
-            xhr: function() { // Custom XMLHttpRequest
-                var myXhr = $.ajaxSettings.xhr();
-                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
-                    myXhr.upload.addEventListener('progress', function() {
-                        /* faz alguma coisa durante o progresso do upload */
-                    }, false);
-                }
-                return myXhr;
-            }
-        });
-    });
-</script>
-
-<!-- AJAX PARA LISTAR IMAGENS SECUNDÁRIAS -->
-
-<script type="text/javascript">
-    function listarImagens() {
-
-        var pag = "<?= $pag ?>"
-
-        $.ajax({
-            url: pag + "/listar-imagens.php",
-            method: "post",
-            data: $('form').serialize(),
-            dataType: "html",
-            success: function(result) {
-
-                $('#listar-imagens').html(result);
-            }
-        })
-    }
-</script>
-
 
 <!-- AJAX PARA LISTAR CARACTERÍSTICAS -->
 
@@ -1044,6 +695,15 @@ $pag = 'produtos';
 <script type="text/javascript">
     $(document).ready(function() {
         $('#dataTable').dataTable({
+            "ordering": false
+        })
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dataTable2').dataTable({
             "ordering": false
         })
 
@@ -1181,7 +841,7 @@ $pag = 'produtos';
 
                         $('#btn-item-listar').click(); //execução do botão
                         $('#btn-cancelar-excluir-item').click(); //fechar modal de excluir item
-                        
+
                     } else {
 
                         $('#mensagem_excluir_item').addClass('text-danger')
@@ -1284,12 +944,8 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     echo "<script>$('#modal-excluir').modal('show');</script>";
 }
 
-if (@$_GET["funcao"] != null && @$_GET["funcao"] == "imagens") {
-    echo "<script>$('#modal-imagens').modal('show');</script>";
-}
-
-if (@$_GET["funcao"] != null && @$_GET["funcao"] == "carac") {
-    echo "<script>$('#modal-carac').modal('show');</script>";
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "produtos") {
+    echo "<script>$('#modal-produtos').modal('show');</script>";
 }
 
 ?>

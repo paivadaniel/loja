@@ -158,7 +158,9 @@ $pag = 'tipo-envios';
     </div>
 </div>
 
+
 <!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
+<!-- usou ajax com imagem, mas não precisava pois não tem imagem, mas ainda assim deu certo -->
 <script type="text/javascript">
     $("#form-inserir-editar-categoria").submit(function () {
         var pag = "<?=$pag?>";

@@ -787,8 +787,13 @@ utilizamos id ao invés de nome para relacionar tabelas pois o id de uma linha d
 
 qual a diferença entre tipo DOUBLE e DECIMAL no banco de dados?
 
------
+----- PROBLEMAS
 
-parei na 14 ou algumas aulas um pouco depois, continuar na 15
+----- mod03 aula59
+
+não consegui excluir uma característica de um único produto, está excluindo de todas, por exemplo, numeração.
+autor passou id da tabela carac_prod para isso não ocorrer, como eu achei que isso estava errado, passei id_carac.
+
+
 
 
