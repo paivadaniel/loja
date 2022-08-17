@@ -141,8 +141,9 @@ $pag = 'combos';
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="form-inserir-editar-combo" method="POST">
+            <form id="form-inserir-editar-combo" method="POST">
+
+                <div class="modal-body">
 
 
                     <div class="row">
@@ -348,17 +349,17 @@ $pag = 'combos';
                         </div>
                     </small>
 
-            </div>
+                </div>
 
-            <div class="modal-footer">
+                <div class="modal-footer">
 
-                <input value="<?php echo @$_GET['id'] ?>" type="text" name="txtid2" id="txtid2"> <!-- chamei de txtid2, pois index.php que carrega subcategorias.php já tem txtid -->
-                <input value="<?php echo @$nome2 ?>" type="hidden" name="antigoNome" id="antigoNome">
-                <!-- passa o antigoNome pois se houver alteração de nome, tem que ser feita a verificação se o nome da nova categoria já existe no banco de dados -->
+                    <input value="<?php echo @$_GET['id'] ?>" type="text" name="txtid2" id="txtid2"> <!-- chamei de txtid2, pois index.php que carrega subcategorias.php já tem txtid -->
+                    <input value="<?php echo @$nome2 ?>" type="hidden" name="antigoNome" id="antigoNome">
+                    <!-- passa o antigoNome pois se houver alteração de nome, tem que ser feita a verificação se o nome da nova categoria já existe no banco de dados -->
 
-                <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
-            </div>
+                    <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
+                </div>
             </form>
         </div>
     </div>
@@ -370,14 +371,14 @@ $pag = 'combos';
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Excluir Registro</h5>
+                <h5 class="modal-title">Excluir Combo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <p>Deseja realmente Excluir este Registro?</p>
+                <p>Deseja realmente Excluir este Combo?</p>
 
                 <div align="center" id="mensagem_excluir" class="">
 
@@ -446,6 +447,7 @@ $pag = 'combos';
                                         ?>
 
                                             <tr>
+
                                                 <td><i class='fas fa-square <?php echo $classe ?>'></i>
                                                     <a href="index.php?pag=<?php echo $pag ?>&funcao=carac&id=<?php echo $id ?>" class="text-secondary" title="Adicionar Características">
                                                         <?php echo $nome_prod ?>
@@ -454,8 +456,15 @@ $pag = 'combos';
                                                 <td>R$ <?php echo $valor_prod ?></td>
 
                                                 <td>
-                                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=adicionar-produto&id=<?php echo $id_prod ?>" class='text-info mr-1' title='Adicionar Produto'><i class='fas fa-check'></i></a>
+                                                    <form id="add-produto" method="post">
 
+                                                        <input type="hidden" id="idtxtCombo" name="idtxtCombo" value="<?php echo @$_GET['id'] ?>"> <!-- id do combo -->
+
+                                                        <input type="hidden" id="idtxtProduto" name="idtxtProduto"> <!-- id do produto -->
+
+                                                        <a href="#" onClick="addProd(<?php echo $id_prod ?>)" class="text-success mr-1" title="Adicionar Produto"><i class="fas fa-check"></i></a>
+
+                                                    </form>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -472,57 +481,46 @@ $pag = 'combos';
                     </div>
 
                     <div class="col-md-3">
-                        <p>Produtos do Pacote</p>
-                        <a href="" class="text-dark"><small>Camisa Azul</small></a>
-                        <a href="index.php?pag=<?php echo $pag ?>&funcao=excluirProduto&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+                        <p>Produtos do Combo</p>
+                        <div id="produtos-combo">
 
+                            <hr>
+                        </div>
+
+                        <div align="center" id="mensagem_produtos" class="mt-3">
+
+                        </div>
 
                     </div>
                 </div>
 
-                <form id="form" method="post">
-                    <!-- abertura do form -->
 
-
-
-
-                    <div align="center" id="mensagem-produtos">
-
-                    </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-produtos">Cancelar</button>
 
-                <input type="hidden" id="id_prod_carac" name="id_prod_carac" value="<?php echo @$_GET['id'] ?>"> <!-- id do produto -->
-
-                <button type="button" id="btn-produtos" name="btn-produtos" class="btn btn-success">Adicionar</button>
-                </form> <!-- fechamento do form -->
-
-            </div>
 
         </div>
     </div>
 </div>
 
 
-<!-- modal deletar produtos -->
+<!-- modal deletar produtos do combo -->
 <!-- tem que vir depois da modal-produtos, pois ela abre "dentro dela", e se vier primeiro, vai abrir atrás dela, e não na frente -->
 
-<div class="modal" id="modalExcluirProdutos" tabindex="-1" role="dialog">
+<div class="modal" id="modalDeletarProdCombo" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Excluir Produto</h5>
+                <h5 class="modal-title">Excluir Produto do Combo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <p>Deseja realmente Excluir este Produto?</p>
+                <p>Deseja realmente Excluir este Produto do Combo?</p>
 
-                <div align="center" id="mensagem_excluir_produto" class="">
+                <div align="center" id="mensagem_deletar_produto_combo" class="">
 
                 </div>
 
@@ -530,8 +528,8 @@ $pag = 'combos';
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir-produto">Cancelar</button>
                 <form method="post">
-                    <input type="hidden" name="id_produto_excluir" id="id_produto_excluir">
-                    <button type="button" id="btn-excluir-produto" name="btn-excluir-produto" class="btn btn-danger">Excluir</button>
+                    <input type="hidden" name="id_prod_combo_deletar" id="id_prod_combo_deletar">
+                    <button type="button" id="btn-deletar-produto-combo" name="btn-deletar-produto-combo" class="btn btn-danger">Excluir</button>
                 </form>
             </div>
         </div>
@@ -541,11 +539,55 @@ $pag = 'combos';
 <!--SCRIPT EXECUTADO AO CARREGAR A PÁGINA -->
 <script type="text/javascript">
     $(document).ready(function() {
-        document.getElementById('txtCat').value = document.getElementById('categoria').value; //campo que recebe o valor do input do select da categoria na modal de Edição / Inserção
+        listarProd()
     })
 </script>
 
-<!--SCRIPT PARA CARREGAR IMAGEM PRINCIPAL DO PRODUTO -->
+<!--SCRIPT PARA ADICIONAR PRODUTO AO COMBO -->
+<script type="text/javascript">
+    function addProd(id) {
+        document.getElementById('idtxtProduto').value = id;
+
+        var idtxtProduto = document.getElementById('idtxtProduto').value;
+        var idtxtCombo = document.getElementById('idtxtCombo').value;
+
+        console.log(idtxtProduto)
+        console.log(idtxtCombo)
+
+        var pag = "<?= $pag ?>";
+        event.preventDefault();
+
+        $.ajax({
+            url: pag + '/add-produtos.php',
+            method: 'post',
+            data: {
+                idtxtProduto,
+                idtxtCombo
+            },
+            dataType: "text",
+            success: function(msg) {
+                if (msg.trim() === 'Produto Adicionado ao Combo com Sucesso!') {
+
+                    //$('#mensagem_produtos').removeClass();
+                    //$('#mensagem_produtos').addClass('text-success')
+                    //$('#mensagem_produtos').text(msg);
+
+                    listarProd()
+
+                } else {
+                    $('#mensagem_produtos').removeClass();
+                    $('#mensagem_produtos').addClass('text-danger')
+
+                    $('#mensagem_produtos').text(msg);
+                }
+            }
+        })
+
+    }
+</script>
+
+
+<!--SCRIPT PARA CARREGAR IMAGEM PRINCIPAL DO COMBO -->
 <script type="text/javascript">
     function carregarImg() {
 
@@ -567,7 +609,7 @@ $pag = 'combos';
     }
 </script>
 
-<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
+<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS DO COMBO COM IMAGEM -->
 <script type="text/javascript">
     $("#form-inserir-editar-combo").submit(function() {
         var pag = "<?= $pag ?>";
@@ -620,49 +662,32 @@ $pag = 'combos';
     });
 </script>
 
-<!-- AJAX PARA LISTAR CARACTERÍSTICAS -->
+<!-- AJAX PARA LISTAR PRODUTOS ADICIONADOS AO COMBO -->
 
 <script type="text/javascript">
-    function listarCarac() {
+    function listarProd() {
 
         var pag = "<?= $pag ?>"
+        var idtxtProduto = document.getElementById('idtxtProduto').value;
+        var idtxtCombo = document.getElementById('idtxtCombo').value;
 
         $.ajax({
-            url: pag + "/listar-carac.php",
+            url: pag + "/listar-produtos.php",
             method: "post",
-            data: $('form').serialize(),
+            data: {
+                idtxtCombo
+            }, //form-prod não tem no código, autor criou apenas para passar o botão de excluir
             dataType: "html",
             success: function(result) {
 
-                $('#listar-carac').html(result);
+                $('#produtos-combo').html(result);
             }
         })
     }
 </script>
 
-<!-- AJAX PARA LISTAR ITENS DAS CARACTERÍSTICAS -->
 
-<script type="text/javascript">
-    $('#btn-item-listar').click(function(event) {
-        event.preventDefault();
-        var pag = "<?= $pag ?>"
-
-        $.ajax({
-            url: pag + "/listar-itens.php",
-            method: "post",
-            data: $('form').serialize(),
-            dataType: "html",
-            success: function(result) {
-
-                $('#listar-itens').html(result);
-            }
-        })
-    })
-</script>
-
-
-
-<!--AJAX PARA EXCLUSÃO DOS DADOS -->
+<!--AJAX PARA EXCLUSÃO DO COMBO -->
 <script type="text/javascript">
     $(document).ready(function() {
         var pag = "<?= $pag ?>";
@@ -680,6 +705,35 @@ $pag = 'combos';
 
                         $('#btn-cancelar-excluir').click();
                         window.location = "index.php?pag=" + pag;
+                    }
+
+                    $('#mensagem_excluir').text(mensagem)
+                },
+
+            })
+        })
+    })
+</script>
+
+
+<!--AJAX PARA EXCLUSÃO DO PRODUTO DO COMBO -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var pag = "<?= $pag ?>";
+        $('#btn-deletar-produto-combo').click(function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: pag + "/excluir-produto.php",
+                method: "post",
+                data: $('form').serialize(),
+                dataType: "text",
+                success: function(mensagem) {
+
+                    if (mensagem.trim() === 'Produto Excluído do Combo com Sucesso!') {
+
+                        $('#btn-cancelar-excluir').click();
+                        //window.location = "index.php?pag=" + pag;
                     }
 
                     $('#mensagem_excluir').text(mensagem)
@@ -710,222 +764,14 @@ $pag = 'combos';
     });
 </script>
 
-<!--FUNCAO PARA CHAMAR MODAL DE DELETAR IMAGEM DAS FOTOS -->
+<!--FUNCAO PARA CHAMAR MODAL DE DELETAR PRODUTOS DO COMBO -->
 <script type="text/javascript">
-    function deletarImg(img) {
-        document.getElementById('id_foto').value = img;
-        $('#modalDeletarImg').modal('show');
-    }
-</script>
-
-<!--FUNCAO PARA CHAMAR MODAL DE DELETAR CARAC DOS PRODUTOS -->
-<script type="text/javascript">
-    function deletarCarac(id) {
-
-        document.getElementById('id_carac_deletar').value = id;
-        $('#modalDeletarCarac').modal('show');
+    function deletarProd(id) {
+        console.log(id)
+        document.getElementById('id_prod_combo_deletar').value = id;
+        $('#modalDeletarProdCombo').modal('show');
 
     }
-</script>
-
-<!--FUNCAO PARA CHAMAR MODAL DE DELETAR ITEM DAS CARAC DOS PRODUTOS -->
-<script type="text/javascript">
-    function deletarItem(id) {
-
-        document.getElementById('id_item_carac_deletar').value = id;
-        $('#modalDeletarItem').modal('show');
-
-    }
-</script>
-
-<!--FUNCAO PARA CHAMAR MODAL DE ADD ITEM A CARAC -->
-<script type="text/javascript">
-    function addItem(id) {
-
-        document.getElementById('id_carac_item_1').value = id;
-        document.getElementById('id_carac_item_2').value = id;
-
-        $('#btn-item-listar').click(); //execução do botão
-        //executando o botão ele tem que enviar um post com o campo id_carac_item_2
-
-        $('#modalAddItem').modal('show');
-
-    }
-</script>
-
-<!--AJAX PARA EXCLUSÃO DAS IMAGENS SECUNDÁRIAS -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        var pag = "<?= $pag ?>";
-        $('#btn-deletar-img').click(function(event) {
-            event.preventDefault();
-
-            $.ajax({
-                url: pag + "/excluir-imagens.php",
-                method: "post",
-                data: $('form').serialize(),
-                dataType: "text",
-                success: function(mensagem) {
-
-                    if (mensagem.trim() === 'Excluído com Sucesso!') {
-
-                        $('#mensagem_fotos').addClass('text-success')
-                        $('#mensagem_fotos').text(mensagem)
-
-                        $('#btn-cancelar-img').click();
-                        //window.location = "index.php?pag=" + pag;
-                        listarImagens();
-                    } else {
-                        $('#mensagem_fotos').addClass('text-danger')
-                        $('#mensagem_fotos').text(mensagem)
-
-                    }
-
-                },
-
-            })
-        })
-    })
-</script>
-
-<!--AJAX PARA EXCLUSÃO DAS CARACTERÍSTICAS -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        var pag = "<?= $pag ?>";
-        $('#btn-deletar-carac').click(function(event) {
-            event.preventDefault();
-
-            $.ajax({
-                url: pag + "/excluir-carac.php",
-                method: "post",
-                data: $('form').serialize(),
-                dataType: "text",
-                success: function(mensagem) {
-
-                    if (mensagem.trim() === 'Excluído com Sucesso!') {
-
-                        $('#mensagem_excluir_carac').addClass('text-success')
-                        $('#mensagem_excluir_carac').text(mensagem)
-
-                        //$('#btn-cancelar-excluir-carac').click();
-                        //window.location = "index.php?pag=" + pag;
-                        listarCarac();
-                    } else {
-                        $('#mensagem_excluir_carac').addClass('text-danger')
-                        $('#mensagem_excluir_carac').text(mensagem)
-
-                    }
-
-                },
-
-            })
-        })
-    })
-</script>
-
-
-<!--AJAX PARA EXCLUSÃO DOS ITENS DAS CARACTERÍSTICAS -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        var pag = "<?= $pag ?>";
-        $('#btn-deletar-item').click(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: pag + "/excluir-item.php",
-                method: "post",
-                data: $('form').serialize(),
-                dataType: "text",
-                success: function(mensagem) {
-
-                    if (mensagem.trim() === 'Excluído com Sucesso!') {
-
-                        $('#btn-item-listar').click(); //execução do botão
-                        $('#btn-cancelar-excluir-item').click(); //fechar modal de excluir item
-
-                    } else {
-
-                        $('#mensagem_excluir_item').addClass('text-danger')
-                        $('#mensagem_excluir_item').text(mensagem)
-
-                    }
-
-                },
-
-            })
-        })
-    })
-</script>
-
-<!-- ajax para caracteristicas -->
-
-<script type="text/javascript">
-    var pag = "<?= $pag ?>";
-
-    $('#btn-add-carac').click(function(event) {
-        event.preventDefault();
-
-        $.ajax({
-            url: pag + '/add-carac.php',
-            method: 'post',
-            data: $('form').serialize(),
-            dataType: "text",
-            success: function(msg) {
-                if (msg.trim() === 'Característica Adicionada com Sucesso!') {
-
-                    $('#mensagem-carac').removeClass();
-                    $('#mensagem-carac').addClass('text-success')
-
-                    $('#mensagem-carac').text(msg);
-                    listarCarac()
-
-                } else {
-                    $('#mensagem-carac').removeClass();
-                    $('#mensagem-carac').addClass('text-danger')
-
-                    $('#mensagem-carac').text(msg);
-
-                }
-            }
-        })
-
-    })
-</script>
-
-<!-- ajax para add item às características -->
-
-<script type="text/javascript">
-    $('#btn-add-item').click(function(event) {
-        event.preventDefault();
-        var pag = "<?= $pag ?>";
-
-        $.ajax({
-            url: pag + '/add-item.php',
-            method: 'post',
-            data: $('form').serialize(),
-            dataType: "text",
-            success: function(msg) {
-                if (msg.trim() === 'Item Adicionado com Sucesso!') {
-
-                    $('#mensagem_add_item').removeClass();
-                    $('#mensagem_add_item').addClass('text-success')
-
-                    $('#mensagem_add_item').text(msg);
-                    $('#btn-item-listar').click(); //execução do botão
-                    $('#nome_item').val(''); //limpa descrição do nome item
-                    $('#nome_item').focus(); //coloca cursor do mouse nesse input
-                    $('#valor_item').val(''); //limpa valor do item
-
-                } else {
-                    $('#mensagem_add_item').removeClass();
-                    $('#mensagem_add_item').addClass('text-danger')
-
-                    $('#mensagem_add_item').text(msg);
-
-                }
-            }
-        })
-
-    })
 </script>
 
 <!-- chamadas das modais -->

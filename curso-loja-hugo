@@ -794,6 +794,17 @@ qual a diferença entre tipo DOUBLE e DECIMAL no banco de dados?
 não consegui excluir uma característica de um único produto, está excluindo de todas, por exemplo, numeração.
 autor passou id da tabela carac_prod para isso não ocorrer, como eu achei que isso estava errado, passei id_carac.
 
+----- mod04 aula16 
+
+não teve jeito maneira de listarProd dos produtos do combo, o maldito form não abria fazendo:
+
+                data: $('add-produto').serialize(),
+
+passei os inputs da seguinte forma
+
+        var idtxtProduto = document.getElementById('idtxtProduto').value;
+        var idtxtCombo = document.getElementById('idtxtCombo').value;
+
 
 
 

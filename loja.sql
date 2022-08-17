@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12-Ago-2022 às 21:18
+-- Tempo de geração: 17-Ago-2022 às 22:21
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -31,6 +31,60 @@ CREATE TABLE `carac` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `carac`
+--
+
+INSERT INTO `carac` (`id`, `nome`) VALUES
+(3, 'Cor'),
+(4, 'Numeração'),
+(7, 'Tamanho');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `carac_itens`
+--
+
+CREATE TABLE `carac_itens` (
+  `id` int(11) NOT NULL,
+  `id_carac_prod` int(11) NOT NULL,
+  `nome_item` varchar(50) NOT NULL,
+  `valor_item` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `carac_itens`
+--
+
+INSERT INTO `carac_itens` (`id`, `id_carac_prod`, `nome_item`, `valor_item`) VALUES
+(1, 27, 'azul', '#wr2342'),
+(2, 28, 'branco', '#FFFFFF'),
+(7, 30, 'P', ''),
+(30, 28, 'azul', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `carac_prod`
+--
+
+CREATE TABLE `carac_prod` (
+  `id` int(11) NOT NULL,
+  `id_carac` int(11) NOT NULL,
+  `id_prod` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `carac_prod`
+--
+
+INSERT INTO `carac_prod` (`id`, `id_carac`, `id_prod`) VALUES
+(27, 3, 2),
+(28, 3, 3),
+(29, 4, 2),
+(30, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -86,6 +140,38 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id`, `nome`, `cpf`, `email`, `telefone`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `cep`, `pais`) VALUES
 (1, 'Adamastor Pereira', '919.191.991-11', 'pereira@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `combos`
+--
+
+CREATE TABLE `combos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `nome_url` varchar(50) NOT NULL,
+  `descricao` varchar(1000) NOT NULL,
+  `descricao_longa` text NOT NULL,
+  `valor` decimal(8,2) NOT NULL,
+  `imagem` varchar(100) NOT NULL,
+  `tipo_envio` int(11) NOT NULL,
+  `palavras` varchar(250) NOT NULL,
+  `ativo` varchar(5) NOT NULL,
+  `peso` double(8,2) NOT NULL,
+  `largura` double(8,2) NOT NULL,
+  `altura` double(8,2) NOT NULL,
+  `comprimento` double(8,2) NOT NULL,
+  `valor_frete` decimal(8,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `combos`
+--
+
+INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`) VALUES
+(3, '5 camisas', '5-camisas', '', '', '69.22', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00'),
+(6, '12 camisas regata', '12-camisas-regata', '', '', '120.00', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00');
 
 -- --------------------------------------------------------
 
@@ -169,8 +255,30 @@ CREATE TABLE `produtos` (
 
 INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`) VALUES
 (2, 5, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32.00, 12.00, 24.00, 'doce', '32.00'),
-(3, 1, 3, 'dadada', 'dadada', '', '', '41.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00'),
-(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '24.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00');
+(3, 1, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00'),
+(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '24.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00'),
+(6, 5, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `prod_combos`
+--
+
+CREATE TABLE `prod_combos` (
+  `id` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `id_combo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `prod_combos`
+--
+
+INSERT INTO `prod_combos` (`id`, `id_produto`, `id_combo`) VALUES
+(20, 2, 6),
+(21, 3, 6),
+(22, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -256,6 +364,18 @@ ALTER TABLE `carac`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `carac_itens`
+--
+ALTER TABLE `carac_itens`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `carac_prod`
+--
+ALTER TABLE `carac_prod`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -265,6 +385,12 @@ ALTER TABLE `categorias`
 -- Índices para tabela `clientes`
 --
 ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `combos`
+--
+ALTER TABLE `combos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -283,6 +409,12 @@ ALTER TABLE `imagens`
 -- Índices para tabela `produtos`
 --
 ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `prod_combos`
+--
+ALTER TABLE `prod_combos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -311,7 +443,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `carac`
 --
 ALTER TABLE `carac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `carac_itens`
+--
+ALTER TABLE `carac_itens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de tabela `carac_prod`
+--
+ALTER TABLE `carac_prod`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -324,6 +468,12 @@ ALTER TABLE `categorias`
 --
 ALTER TABLE `clientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `combos`
+--
+ALTER TABLE `combos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `emails`
@@ -341,7 +491,13 @@ ALTER TABLE `imagens`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `prod_combos`
+--
+ALTER TABLE `prod_combos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `subcategorias`
