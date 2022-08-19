@@ -15,7 +15,6 @@ $pag = 'combos';
 
 ?>
 
-<!-- botão nova categoria -->
 <div class="row mt-4 mb-4">
     <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Combo</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-md-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
@@ -104,7 +103,7 @@ $pag = 'combos';
     </div>
 </div>
 
-<!-- Modal Editar/Inserir -->
+<!-- Modal Editar/Inserir Combo -->
 <div class="modal fade" id="modalDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -365,7 +364,7 @@ $pag = 'combos';
     </div>
 </div>
 
-<!-- modal Excluir -->
+<!-- modal Excluir Combo -->
 
 <div class="modal" id="modal-excluir" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -526,7 +525,7 @@ $pag = 'combos';
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir-produto">Cancelar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-deletar-produto-combo">Cancelar</button>
                 <form method="post">
                     <input type="hidden" name="id_prod_combo_deletar" id="id_prod_combo_deletar">
                     <button type="button" id="btn-deletar-produto-combo" name="btn-deletar-produto-combo" class="btn btn-danger">Excluir</button>
@@ -573,6 +572,7 @@ $pag = 'combos';
                     //$('#mensagem_produtos').text(msg);
 
                     listarProd()
+                    $('#mensagem_produtos').text('')
 
                 } else {
                     $('#mensagem_produtos').removeClass();
@@ -732,11 +732,16 @@ $pag = 'combos';
 
                     if (mensagem.trim() === 'Produto Excluído do Combo com Sucesso!') {
 
-                        $('#btn-cancelar-excluir').click();
+                        $('#btn-cancelar-deletar-produto-combo').click();
                         //window.location = "index.php?pag=" + pag;
+                        listarProd()
+                        $('#mensagem_produtos').text('')
+                    } else {
+                        $('#mensagem-inserir-editar-combo').addClass('text-danger')
+                        $('#mensagem_deletar_produto_combo').text(mensagem)
+
                     }
 
-                    $('#mensagem_excluir').text(mensagem)
                 },
 
             })

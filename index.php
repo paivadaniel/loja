@@ -294,7 +294,7 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="">
-                    <img src="img/banner/banner-2.jpg" alt="">
+                    <img src="img/promocoes/banner-2.jpg" alt="">
                 </div>
             </div>
         </div>

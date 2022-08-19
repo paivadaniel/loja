@@ -20,7 +20,7 @@ for ($i = 0; $i < count($res); $i++) {
 
     echo"
     <span class='text-dark'><small>". @$nome_produto ."</small></span>
-    <a href='#' onclick='deletarProd(". @$res[$i]['id'] .")' class='text-danger mr-1' title='Excluir Produto'><small><i class='far fa-trash-alt'></i></a></small>";
+    <a href='#' onclick='deletarProd(". @$res[$i]['id'] .")' class='text-danger mr-1' title='Excluir Produto'><small><i class='far fa-trash-alt'></i></a></small><hr>";
 
 //$res[$i]['id'] é o id da linha de prod_combo, ela que terá que ser deletada, e não id_produto ou id_combo, pois se fossemos deletar o produto, teriam varios id_produto iguais na tabela prod_combos na hora de fazer WHERE id_produto = '$id_produto', e para achar exatamente aquela linha, teríamos que chamar também o id_combo para a página excluir-produto.php, mais fácil ir pela linha do id em prod_combos
 

@@ -13,6 +13,8 @@ http://localhost/dashboard/www/loja/sistema/painel-admin/categorias.php
 
 $pag = 'produtos';
 
+$agora = date('Y-m-d');
+
 ?>
 
 <!-- botão nova categoria -->
@@ -58,6 +60,7 @@ $pag = 'produtos';
                         $estoque = $res[$i]['estoque'];
                         $id_subcategoria = $res[$i]['id_subcategoria'];
                         $ativo = $res[$i]['ativo'];
+                        $promocao = $res[$i]['promocao'];
 
                         $valor = number_format($valor, 2, ',', '.');
                         //$valor = str_replace('.', ',', $valor);
@@ -71,6 +74,14 @@ $pag = 'produtos';
                             $classe = 'text-success';
                         } else {
                             $classe = 'text-secondary';
+                        }
+
+                        $classe2 = '';
+
+                        if ($promocao == 'Sim') {
+                            $classe2 = 'text-success';
+                        } else {
+                            $classe2 = 'text-danger';
                         }
 
                         //busca nome da subcategoria a partir do id dela
@@ -96,6 +107,15 @@ $pag = 'produtos';
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=imagens&id=<?php echo $id ?>" class='text-info mr-1' title='Inserir Imagens'><i class='fas fa-images'></i></a>
+                                <a href="index.php?pag=<?php echo $pag ?>&funcao=promocao&id=<?php echo $id ?>" class='text-success mr-1' title='Inserir Promoção'>
+
+                                    <?php
+                                    if ($promocao == 'Sim') {
+                                        echo "<i class='fas fa-dollar-sign " . $classe2 . "'></i></a>";
+                                    } else {
+                                        echo "<i class='fas fa-dollar-sign " . $classe2 . "'></i></a>";
+                                    }
+                                    ?>
 
                             </td>
                         </tr>
@@ -756,7 +776,130 @@ $pag = 'produtos';
     </div>
 </div>
 
+<!-- modal add promoção -->
 
+<div class="modal" id="modalAddPromocao" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Promoção</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+
+            <form id="form-promocao" method="post">
+
+                <div class="modal-body">
+
+
+                    <?php
+                    $id_produto = @$_GET['id'];
+
+                    $query = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto'");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                    if (@count($res) > 0) { //se for edição
+                        $ativo_promocao2 = @$res[0]['ativo'];
+                        $data_inicio = $res[0]['data_inicio'];
+                        $data_final = $res[0]['data_final'];
+                        $valor_promocao = $res[0]['valor'];
+                    } else { //se for inserção
+                        $data_inicio = $agora;
+                        $data_final = $agora;
+                        $ativo_promocao2 = @$res[0]['ativo'];
+
+                    }
+
+
+                    ?>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="valor_promocao">Valor Promoção</label>
+                                <input type="text" class="form-control" id="valor_promocao" name="valor_promocao" value="<?php echo @$valor_promocao ?>">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <label for="ativo_promocao">Ativa </label>
+
+                                <select class="form-control form-control-sm" name="ativo_promocao" id="ativo_promocao">
+
+                                    <?php
+
+                                    if (@count($res) > 0) {
+
+                                        echo "<option value='" . $ativo_promocao2 . "'>" . $ativo_promocao2 . "</option>";
+                                    }
+
+                                    if (@$ativo_promocao2 != 'Sim') {
+                                        echo "<option value='Sim'> Sim </option>";
+                                    }
+
+                                    if (@$ativo_promocao2 != 'Não') {
+                                        echo "<option value='Não'> Não </option>";
+                                    }
+
+
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="data_inicio_promocao">Data Início</label>
+                                <input type="date" class="form-control" id="data_inicio_promocao" name="data_inicio_promocao" value="<?php echo $data_inicio ?>">
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="data_final_promocao">Data Final</label>
+                                <input type="date" class="form-control" id="data_final_promocao" name="data_final_promocao" value="<?php echo $data_final ?>">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div align="center" id="mensagem_add_promocao" class="">
+
+</div>
+
+
+                </div>
+
+
+
+                <div class="modal-footer">
+                    <input type="hidden" name="id_produto_promocao" id="id_produto_promocao" value="<?php echo @$_GET['id'] ?>">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-promocao">Cancelar</button>
+                    <button type="button" id="btn-add-promocao" class="btn btn-info">Salvar</button>
+                    <!-- deixei texto do botão como Salvar ao invés de Adicionar/Inserir, pois pode ser edição de uma promoção -->
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
 
 <!--SCRIPT EXECUTADO AO CARREGAR A PÁGINA -->
 <script type="text/javascript">
@@ -817,7 +960,6 @@ $pag = 'produtos';
         }
     }
 </script>
-
 
 <!--SCRIPT PARA CARREGAR IMAGENS SECUNDÁRIAS DO PRODUTO -->
 <script type="text/javascript">
@@ -968,7 +1110,6 @@ $pag = 'produtos';
     }
 </script>
 
-
 <!-- AJAX PARA LISTAR CARACTERÍSTICAS -->
 
 <script type="text/javascript">
@@ -1009,8 +1150,6 @@ $pag = 'produtos';
     })
 </script>
 
-
-
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
     $(document).ready(function() {
@@ -1038,7 +1177,6 @@ $pag = 'produtos';
         })
     })
 </script>
-
 
 <!-- script para não permitir ordenamento por Data Tables, assim podemos ordenar na instrução SQL, com, por exemplo, order by nome asc -->
 <script type="text/javascript">
@@ -1181,7 +1319,7 @@ $pag = 'produtos';
 
                         $('#btn-item-listar').click(); //execução do botão
                         $('#btn-cancelar-excluir-item').click(); //fechar modal de excluir item
-                        
+
                     } else {
 
                         $('#mensagem_excluir_item').addClass('text-danger')
@@ -1268,6 +1406,37 @@ $pag = 'produtos';
     })
 </script>
 
+<!-- ajax para add promoção -->
+
+<script type="text/javascript">
+    $('#btn-add-promocao').click(function(event) {
+        event.preventDefault();
+        var pag = "<?= $pag ?>";
+
+        $.ajax({
+            url: pag + '/add-promocao.php',
+            method: 'post',
+            data: $('form').serialize(),
+            dataType: "text",
+            success: function(msg) {
+                if (msg.trim() === 'Promoção Inserida com Sucesso!') {
+
+                    $('#btn-cancelar-promocao').click();
+                    window.location = "index.php?pag=" + pag; //refresh na página
+
+                } else {
+                    $('#mensagem_add_promocao').removeClass();
+                    $('#mensagem_add_promocao').addClass('text-danger')
+
+                    $('#mensagem_add_promocao').text(msg);
+
+                }
+            }
+        })
+
+    })
+</script>
+
 <!-- chamadas das modais -->
 
 <?php
@@ -1290,6 +1459,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "imagens") {
 
 if (@$_GET["funcao"] != null && @$_GET["funcao"] == "carac") {
     echo "<script>$('#modal-carac').modal('show');</script>";
+}
+
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "promocao") {
+    echo "<script>$('#modalAddPromocao').modal('show');</script>";
 }
 
 ?>

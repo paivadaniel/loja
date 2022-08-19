@@ -806,5 +806,7 @@ passei os inputs da seguinte forma
         var idtxtCombo = document.getElementById('idtxtCombo').value;
 
 
+---- mod04 aula 59
+não testei, envio de email marketing
 
 

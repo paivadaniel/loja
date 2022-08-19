@@ -316,20 +316,17 @@ $pag = 'categorias';
 
 <!-- chamadas das modais -->
 
-<?php if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
+<?php 
+
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "novo") {
     echo "<script>$('#modalDados').modal('show');</script>";
 }
 
-?>
-
-<?php if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
     echo "<script>$('#modalDados').modal('show');</script>";
 }
 
-?>
-
-
-<?php if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
+if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     echo "<script>$('#modal-excluir').modal('show');</script>";
 }
 

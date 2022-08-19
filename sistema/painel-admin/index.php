@@ -9,12 +9,13 @@ $menu1 = "produtos";
 $menu2 = "categorias";
 $menu3 = "subcategorias";
 $menu4 = "combos";
-$menu5 = "promocoes";
+$menu5 = "promocoes_banner";
 $menu6 = "clientes";
 $menu7 = "vendas";
-$menu8 = "backup";
+$menu8 = "";
 $menu9 = "tipo-envios";
 $menu10 = "carac";
+$menu11 = "alertas";
 
 $query = $pdo->query("SELECT * FROM usuarios WHERE id = '$_SESSION[id_usuario]' and nivel = 'Administrador'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -23,6 +24,20 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $nome_usuario = $res[0]['nome'];
 $cpf_usuario = $res[0]['cpf'];
 $email_usuario = $res[0]['email'];
+
+//verifica produtos em promoção
+$query = $pdo->query("SELECT * FROM promocoes WHERE ativo = 'Sim' and data_inicio >= curDate() and data_final >= curDate() and data_inicio <= data_final");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+for ($i = 0; $i < count($res); $i++) {
+    foreach ($res[$i] as $key => $value) {
+    }
+
+    $id_produto = $res[$i]['id_produto'];
+
+    $pdo->query("UPDATE produtos SET promocao = 'Sim' WHERE id = '$id_produto'");
+}
+
 
 ?>
 
@@ -116,6 +131,7 @@ $email_usuario = $res[0]['email'];
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu4 ?>">Combos</a>
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Promoções</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu11 ?>">Alertas</a>
 
                     </div>
                 </div>
@@ -143,8 +159,16 @@ $email_usuario = $res[0]['email'];
                     <span>Vendas</span></a>
             </li>
 
+
             <li class="nav-item">
-                <a class="nav-link" href="index.php?pag=<?php echo $menu8 ?>">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#modalEmail">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Email Marketing</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="backup.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Backup</span></a>
             </li>
@@ -229,6 +253,8 @@ $email_usuario = $res[0]['email'];
                         include_once($menu9 . ".php");
                     } else if ($pag == $menu10) {
                         include_once($menu10 . ".php");
+                    } else if ($pag == $menu11) {
+                        include_once($menu11 . ".php");
                     } else {
                         include_once("home.php");
                     }
@@ -363,6 +389,83 @@ $email_usuario = $res[0]['email'];
     </div>
 
 
+    <!--  Modal Email-->
+    <div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Email Marketing</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <form id="form-email" method="POST">
+                    <div class="modal-body">
+
+                        <?php
+
+                        $query = $pdo->query("SELECT * FROM emails WHERE ativo = 'Sim'");
+                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                        $total_emails_clientes = @count($res);
+
+                        ?>
+
+
+                        <p><small>Total de Email Cadastrados - <?php echo $total_emails_clientes ?></small></p>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Assunto do Email <small>(Até 50 caracteres)</small></label>
+                                    <input type="text" class="form-control" id="assunto_email" name="assunto_email" maxlength="50" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Mensagem <small>(Até 1000 caracteres)</small></label>
+                                    <textarea maxlength="1000" class="form-control" id="mensagem_email" name="mensagem_email"> </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Link <small>(Se Tiver)</small></label>
+                                    <input type="text" class="form-control" id="link_email" name="link_email">
+                                </div>
+                            </div>
+                        </div>
+
+                        <small>
+                            <div id="mensagem-email" class="mr-4" align="center">
+
+                            </div>
+                        </small>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <button type="button" id="btn-cancelar-email" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="btn-enviar-email" id="btn-enviar-email" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- Core plugin JavaScript-->
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -392,6 +495,8 @@ $email_usuario = $res[0]['email'];
 <script src="../../js/mascara.js"></script>
 
 
+<!-- AJAX PARA SALVAR PERFIL -->
+
 <script type="text/javascript">
     $('#btn-salvar-perfil').click(function(event) {
         event.preventDefault();
@@ -408,12 +513,54 @@ $email_usuario = $res[0]['email'];
                     $('#mensagem-perfil').text(msg);
 
                     //fechar modal perfil
-                    //'#btn-fechar-perfil').click();
+                    //$('#btn-fechar-perfil').click();
 
                 } else {
                     $('#mensagem-perfil').removeClass();
                     $('#mensagem-perfil').addClass('text-danger');
                     $('#mensagem-perfil').text(msg);
+
+                }
+            }
+        })
+
+    })
+</script>
+
+<!-- AJAX PARA ENVIAR EMAIL MARKETING -->
+
+<script type="text/javascript">
+    $('#btn-enviar-email').click(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: 'email-marketing.php',
+            method: 'post',
+            data: $('form').serialize(),
+            dataType: "text",
+            success: function(msg) {
+
+                $('#mensagem-email').removeClass(); //remove todas as classes
+                $('#mensagem-email').addClass('text-info');
+                $('#mensagem-email').text('Enviando');
+
+                if (msg.trim() === 'Email Marketing Enviado com Sucesso!') {
+                    $('#mensagem-email').removeClass();
+                    $('#mensagem-email').addClass('text-success');
+                    $('#mensagem-email').text(msg);
+
+                    //limpar campos
+                    $('#assunto_email').val('');
+                    $('#mensagem_email').val('');
+                    $('#link_email').val('');
+
+                    //fechar modal perfil
+                    //$('#btn-cancelar-email').click();
+
+                } else {
+                    $('#mensagem-email').removeClass();
+                    $('#mensagem-email').addClass('text-danger');
+                    $('#mensagem-email').text(msg);
 
                 }
             }
