@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Ago-2022 às 21:23
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 20-Ago-2022 às 01:24
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -216,7 +216,7 @@ CREATE TABLE `emails` (
 
 INSERT INTO `emails` (`id`, `nome`, `email`, `ativo`) VALUES
 (1, 'Marley Junior Aparecido', 'paiva.s2.paula@hotmail.com', 'Sim'),
-(3, 'Marley Junior', 'admin@gmail.com', 'Sim'),
+(3, 'Marley Junior', 'admin@gmail.com', 'Não'),
 (4, 'cadada', 'jj@gmail.com', 'Sim'),
 (5, 'Marley Junior', 'ped@hotmail.com', 'Sim'),
 (6, 'Marley Junior Aparecido', 'ped2@hotmail.com', 'Sim'),
