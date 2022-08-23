@@ -32,7 +32,7 @@ $pag = 'categorias';
                     <tr>
                         <th>Nome</th>
                         <th>Imagem</th>
-                        <th>Itens</th>
+                        <th>Subcategorias</th>
 
                         <th>Ações</th>
                     </tr>

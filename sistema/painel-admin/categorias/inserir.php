@@ -39,13 +39,16 @@ if ($nomeNovo != $nomeAntigo) {
 }
 
 //SCRIPT PARA SUBIR FOTO NO BANCO
-$caminho = '../../../img/categorias/' . @$_FILES['imagem-categoria']['name'];
-if (@$_FILES['imagem-categoria']['name'] == "") {
-  $imagem = "sem-foto.jpg";
-} else {
-  $imagem = @$_FILES['imagem-categoria']['name'];
-}
+$nome_img = preg_replace('/[ -]+/', '-', @$_FILES['imagem']['name']);
 
+$caminho = '../../../img/categorias/' . $nome_img;
+if (@$_FILES['imagem']['name'] == "") {
+	$imagem = "sem-foto.jpg";
+} else {
+
+	$imagem = $nome_img;
+
+}
 $imagem_temp = @$_FILES['imagem-categoria']['tmp_name'];
 
 $ext = pathinfo($imagem, PATHINFO_EXTENSION); //para evitar inserção de arquivos maliciosos (por exemplo, tipo .exe) por scripts de terceiros, ainda que apenas administradores possam inserir imagem

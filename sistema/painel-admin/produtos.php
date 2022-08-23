@@ -440,7 +440,7 @@ $agora = date('Y-m-d');
 
             <div class="modal-footer">
 
-                <input value="<?php echo @$_GET['id'] ?>" type="text" name="txtid2" id="txtid2"> <!-- chamei de txtid2, pois index.php que carrega subcategorias.php já tem txtid -->
+                <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2"> <!-- chamei de txtid2, pois index.php que carrega subcategorias.php já tem txtid -->
                 <input value="<?php echo @$nome2 ?>" type="hidden" name="antigoNomeProduto" id="antigoNomeProduto">
                 <!-- passa o antigoNome pois se houver alteração de nome, tem que ser feita a verificação se o nome da nova categoria já existe no banco de dados -->
 
@@ -820,8 +820,8 @@ $agora = date('Y-m-d');
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="valor_promocao">Valor Promoção</label>
-                                <input type="text" class="form-control" id="valor_promocao" name="valor_promocao" value="<?php echo @$valor_promocao ?>">
+                                <label for="valor_promocao">% do Desconto<small>(Ex.: 20, 30 (em porcentagem, porém, não é necessário colocar o %))</small></label>
+                                <input type="number" class="form-control" id="valor_promocao" name="valor_promocao" value="<?php echo @$valor_promocao ?>">
                             </div>
                         </div>
 

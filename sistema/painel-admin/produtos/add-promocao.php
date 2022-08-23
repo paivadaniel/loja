@@ -4,7 +4,9 @@ require_once('../../../conexao.php');
 
 $id_prod = $_POST['id_produto_promocao']; //id do produto, passado em produtos.php com input tipo hidden
 
-$valor_promocao = $_POST['valor_promocao'];
+$desconto = $_POST['valor_promocao'];
+$desconto .= "%";
+
 $ativo_promocao = $_POST['ativo_promocao'];
 $data_inicio_promocao = $_POST['data_inicio_promocao'];
 $data_final_promocao = $_POST['data_final_promocao'];

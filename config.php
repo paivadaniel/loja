@@ -33,4 +33,7 @@ $whatsapp_loja_link = '5515991805895';
 $texto_destaque = 'Frete grátis para compras acima de R$100,00';
 $endereco_loja = 'Rua 1, do lado da rua 2, Centro, Sorocaba/SP';
 
+//VARIÁVEIS DO SITE
+$itens_por_pagina = 3;
+
 ?>

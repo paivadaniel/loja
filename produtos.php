@@ -31,16 +31,24 @@ require_once('cabecalho-busca.php');
                     <div class="sidebar__item">
                         <h4>Subcategorias</h4>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
+                        <?php
+                            $query = $pdo->query("SELECT * FROM subcategorias order by nome asc"); //pode passar sem aspas pois as duas variáveis são inteiras, apenas se fossem string teria que passar com aspas
+                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                            for ($i = 0; $i < count($res); $i++) {
+                                foreach ($res[$i] as $key => $value) {
+                                }
+                                $nome_url_subcategoria = $res[$i]['nome_url'];
+                                $nome_subcategoria = $res[$i]['nome'];
+
+                            ?>
+
+                                <li><a href="produtos-<?php echo $nome_url_subcategoria ?>"><?php echo $nome_subcategoria ?></a></li>
+
+                            <?php
+                            }
+                            ?>
+
                         </ul>
                     </div>
                     <div class="sidebar__item">

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Ago-2022 às 01:24
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 23-Ago-2022 às 21:32
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -129,7 +129,7 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nome`, `nome_url`, `imagem`) VALUES
-(1, 'categoria teste bica', 'categoria-teste-bica', 'categoria-teste.jpg'),
+(1, 'categoria teste bica', 'categoria-teste-bica', 'pintinho-amarelinho.jpg'),
 (3, 'galo-teste', 'galo-teste', 'sem-foto.jpg'),
 (4, 'cerveja 2', 'cerveja-2', 'sem-foto.jpg'),
 (8, 'doces coloridos da tia mafalda', 'doces-coloridos-da-tia-mafalda', 'sem-foto.jpg'),
@@ -221,7 +221,7 @@ INSERT INTO `emails` (`id`, `nome`, `email`, `ativo`) VALUES
 (5, 'Marley Junior', 'ped@hotmail.com', 'Sim'),
 (6, 'Marley Junior Aparecido', 'ped2@hotmail.com', 'Sim'),
 (7, 'Miséria', 'ped3@hotmail.com', 'Sim'),
-(8, 'aadadad', 'afafafa@mgail.com', 'Sim'),
+(8, 'aadadad', 'afafafa@mgail.com', 'Não'),
 (9, 'Marcelo Madureira', 'madureira@gmail.com', 'Sim'),
 (11, 'Mardoque', 'mardoqueu@gmail.com', 'Não'),
 (12, 'Adamastor Pereira', 'pereira@gmail.com', 'Sim');
@@ -271,20 +271,25 @@ CREATE TABLE `produtos` (
   `comprimento` double(8,2) DEFAULT NULL,
   `modelo` varchar(100) DEFAULT NULL,
   `valor_frete` decimal(8,2) DEFAULT NULL,
-  `promocao` varchar(5) DEFAULT NULL
+  `promocao` varchar(5) DEFAULT NULL,
+  `vendas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `produtos`
 --
 
-INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`) VALUES
-(2, 5, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32.00, 12.00, 24.00, 'doce', '32.00', 'Não'),
-(3, 1, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não'),
-(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '24.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não'),
-(6, 5, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não'),
-(7, 1, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não'),
-(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim');
+INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`, `vendas`) VALUES
+(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32.00, 12.00, 24.00, 'doce', '32.00', 'Não', 6),
+(3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '24.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', NULL),
+(9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', NULL),
+(13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(14, 1, 3, 'da422rafafa', 'da422rafafa', '', '', '64.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', 9);
 
 -- --------------------------------------------------------
 
@@ -328,7 +333,9 @@ CREATE TABLE `promocoes` (
 --
 
 INSERT INTO `promocoes` (`id`, `id_produto`, `valor`, `data_inicio`, `data_final`, `ativo`) VALUES
-(23, 8, '42.00', '2022-08-18', '2022-08-18', 'Sim');
+(23, 8, '42.00', '2022-08-18', '2022-08-18', 'Sim'),
+(24, 9, '9.00', '2022-08-22', '2022-08-27', 'Sim'),
+(25, 15, '24.00', '2022-08-23', '2022-08-23', 'Sim');
 
 -- --------------------------------------------------------
 
@@ -350,8 +357,8 @@ CREATE TABLE `promocoes_banner` (
 
 INSERT INTO `promocoes_banner` (`id`, `titulo`, `link`, `imagem`, `ativo`) VALUES
 (2, 'Cuzero Lindo', 'cruzeiro-lindo', 'banner-2.jpg', 'Sim'),
-(4, 'Segunda Promoção', 'cuzero-porco', 'banner-1.jpg', 'Não'),
-(5, 'bolsecudo', 'cuzero-master', 'banner-promo.jpg', 'Sim');
+(4, 'Segunda Promoção', 'cuzero-porco', 'banner-1.jpg', 'Sim'),
+(5, 'bolsecudo', 'cuzero-master', 'banner-promo.jpg', 'Não');
 
 -- --------------------------------------------------------
 
@@ -375,8 +382,8 @@ INSERT INTO `subcategorias` (`id`, `nome`, `nome_url`, `imagem`, `id_categoria`)
 (1, 'tênis', 'tenis', 'cat-6.jpg', 2),
 (2, 'tênis 2', 'tenis-2', 'cat-5.jpg', 8),
 (3, 'dindu', 'dindu', 'sem-foto.jpg', 1),
-(4, 'deido', 'deido', 'garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 5),
-(6, 'bund', 'bund', 'sem-foto.jpg', 5);
+(4, 'deido', 'deido', 'garrafa-de-cerveja-pequena-à-disposição-92840768.jpg', 8),
+(6, 'bund', 'bund', 'sem-foto.jpg', 8);
 
 -- --------------------------------------------------------
 
@@ -588,7 +595,7 @@ ALTER TABLE `imagens`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `prod_combos`
@@ -600,7 +607,7 @@ ALTER TABLE `prod_combos`
 -- AUTO_INCREMENT de tabela `promocoes`
 --
 ALTER TABLE `promocoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `promocoes_banner`

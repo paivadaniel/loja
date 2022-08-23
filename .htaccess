@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^categoria-(.*)$ categorias.php?nome=$1 [L]
+RewriteRule ^subcategoria-(.*)$ subcategorias.php?nome=$1 [L]
+RewriteRule ^produto-(.*)$ produtos.php?nome=$1 [L]
+RewriteRule ^produtos-(.*)$ lista-produtos.php?nome=$1 [L]

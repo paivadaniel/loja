@@ -54,13 +54,16 @@ if ($nome != $antigo) {
 }
 
 //SCRIPT PARA SUBIR FOTO NO BANCO
-$caminho = '../../../img/combos/' .@$_FILES['imagem']['name'];
-if (@$_FILES['imagem']['name'] == ""){
-  $imagem = "sem-foto.jpg";
-}else{
-  $imagem = @$_FILES['imagem']['name']; 
-}
+$nome_img = preg_replace('/[ -]+/', '-', @$_FILES['imagem']['name']);
 
+$caminho = '../../../img/combos/' . $nome_img;
+if (@$_FILES['imagem']['name'] == "") {
+	$imagem = "sem-foto.jpg";
+} else {
+
+	$imagem = $nome_img;
+
+}
 $imagem_temp = @$_FILES['imagem']['tmp_name']; 
 
 $ext = pathinfo($imagem, PATHINFO_EXTENSION);   
