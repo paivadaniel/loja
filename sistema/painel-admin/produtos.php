@@ -805,12 +805,12 @@ $agora = date('Y-m-d');
                         $ativo_promocao2 = @$res[0]['ativo'];
                         $data_inicio = $res[0]['data_inicio'];
                         $data_final = $res[0]['data_final'];
+                        $desconto_promocao = $res[0]['desconto'];
                         $valor_promocao = $res[0]['valor'];
                     } else { //se for inserção
                         $data_inicio = $agora;
                         $data_final = $agora;
                         $ativo_promocao2 = @$res[0]['ativo'];
-
                     }
 
 
@@ -820,8 +820,8 @@ $agora = date('Y-m-d');
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="valor_promocao">% do Desconto<small>(Ex.: 20, 30 (em porcentagem, porém, não é necessário colocar o %))</small></label>
-                                <input type="number" class="form-control" id="valor_promocao" name="valor_promocao" value="<?php echo @$valor_promocao ?>">
+                                <label for="valor_promocao">% do Desconto <small>(Ex.: 20, 30)</small></label>
+                                <input type="number" class="form-control" id="desconto_promocao" name="desconto_promocao" value="<?php echo @$desconto_promocao ?>">
                             </div>
                         </div>
 
@@ -876,9 +876,22 @@ $agora = date('Y-m-d');
                         </div>
                     </div>
 
+                    <?php
+
+                    if (@$desconto_promocao > 0) {
+
+                    ?>
+                        <p class="text-muted">Valor promocional = R$ <?php echo @$valor_promocao ?></p>
+
+                    <?php
+
+                    }
+
+                    ?>
+
                     <div align="center" id="mensagem_add_promocao" class="">
 
-</div>
+                    </div>
 
 
                 </div>

@@ -125,6 +125,11 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
+                    <a href="produtos.php" class="text-dark">
+                        <span>
+                            <small>Ver + Produtos</small>
+                        </span>
+                    </a>
                     <h2>Produtos de Destaque</h2>
                 </div>
                 <div class="featured__controls">
@@ -285,8 +290,19 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                                 $nome_produto_ultimos = $res[$i]['nome'];
                                 $valor_produto_ultimos = $res[$i]['valor'];
                                 $imagem_produto_ultimos = $res[$i]['imagem'];
+                                $promocao_produto_ultimos = $res[$i]['promocao'];
+                                $id_produto_ultimos = $res[$i]['id'];
 
-                                $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                if ($promocao_produto_ultimos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_ultimos = $resP[0]['valor'];
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                }
+
 
                             ?>
 
@@ -296,6 +312,7 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6><?php echo $nome_produto_ultimos ?></h6>
+
                                         <span>R$ <?php echo $valor_produto_ultimos ?></span>
                                     </div>
                                 </a>
@@ -321,7 +338,18 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                                 $valor_produto_ultimos = $res[$i]['valor'];
                                 $imagem_produto_ultimos = $res[$i]['imagem'];
 
-                                $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                $promocao_produto_ultimos = $res[$i]['promocao'];
+                                $id_produto_ultimos = $res[$i]['id'];
+
+                                if ($promocao_produto_ultimos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_ultimos = $resP[0]['valor'];
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                }
 
                             ?>
 
@@ -356,8 +384,18 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                                 $valor_produto_ultimos = $res[$i]['valor'];
                                 $imagem_produto_ultimos = $res[$i]['imagem'];
 
-                                $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                $promocao_produto_ultimos = $res[$i]['promocao'];
+                                $id_produto_ultimos = $res[$i]['id'];
 
+                                if ($promocao_produto_ultimos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_ultimos = $resP[0]['valor'];
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                }
                             ?>
 
                                 <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
@@ -399,7 +437,19 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                                 $valor_produto_mais_vendidos = $res[$i]['valor'];
                                 $imagem_produto_mais_vendidos = $res[$i]['imagem'];
 
-                                $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                $promocao_produto_mais_vendidos = $res[$i]['promocao'];
+                                $id_produto_mais_vendidos = $res[$i]['id'];
+
+                                if ($promocao_produto_mais_vendidos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_mais_vendidos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_mais_vendidos = $resP[0]['valor'];
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                }
+
 
                             ?>
 
@@ -434,7 +484,18 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                                 $valor_produto_mais_vendidos = $res[$i]['valor'];
                                 $imagem_produto_mais_vendidos = $res[$i]['imagem'];
 
-                                $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                $promocao_produto_mais_vendidos = $res[$i]['promocao'];
+                                $id_produto_mais_vendidos = $res[$i]['id'];
+
+                                if ($promocao_produto_mais_vendidos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_mais_vendidos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_mais_vendidos = $resP[0]['valor'];
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                }
 
                             ?>
 
@@ -469,7 +530,18 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                                 $valor_produto_mais_vendidos = $res[$i]['valor'];
                                 $imagem_produto_mais_vendidos = $res[$i]['imagem'];
 
-                                $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                $promocao_produto_mais_vendidos = $res[$i]['promocao'];
+                                $id_produto_mais_vendidos = $res[$i]['id'];
+
+                                if ($promocao_produto_mais_vendidos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_mais_vendidos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_mais_vendidos = $resP[0]['valor'];
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                }
 
                             ?>
 
@@ -604,7 +676,7 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                         </div>
 
                     </div>
-                        
+
                 </div>
             </div>
         </div>

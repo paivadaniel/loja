@@ -31,7 +31,7 @@ require_once('cabecalho-busca.php');
                     <div class="sidebar__item">
                         <h4>Subcategorias</h4>
                         <ul>
-                        <?php
+                            <?php
                             $query = $pdo->query("SELECT * FROM subcategorias order by nome asc"); //pode passar sem aspas pois as duas variáveis são inteiras, apenas se fossem string teria que passar com aspas
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -147,66 +147,148 @@ require_once('cabecalho-busca.php');
                     <div class="sidebar__item">
                         <div class="latest-product__text">
                             <h4>Lançamentos</h4>
+
                             <div class="latest-product__slider owl-carousel">
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-1.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-2.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="img/latest-product/lp-3.jpg" alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>Crab Pool Security</h6>
-                                            <span>$30.00</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                        <div class="latest-prdouct__slider__item">
+
+                            <?php
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3");
+                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                            for ($i = 0; $i < count($res); $i++) {
+                                foreach ($res[$i] as $key => $value) {
+                                }
+                                $nome_url_produto_ultimos = $res[$i]['nome_url'];
+                                $nome_produto_ultimos = $res[$i]['nome'];
+                                $valor_produto_ultimos = $res[$i]['valor'];
+                                $imagem_produto_ultimos = $res[$i]['imagem'];
+                                $promocao_produto_ultimos = $res[$i]['promocao'];
+                                $id_produto_ultimos = $res[$i]['id'];
+
+                                if ($promocao_produto_ultimos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_ultimos = $resP[0]['valor'];
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                }
+
+
+                            ?>
+
+                                <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6><?php echo $nome_produto_ultimos ?></h6>
+
+                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                    </div>
+                                </a>
+
+                            <?php
+                            }
+
+                            ?>
+
+                        </div>
+
+                        <div class="latest-prdouct__slider__item">
+
+                            <?php
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3, 3"); //limite de 3, a partir do 3
+                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                            for ($i = 0; $i < count($res); $i++) {
+                                foreach ($res[$i] as $key => $value) {
+                                }
+                                $nome_url_produto_ultimos = $res[$i]['nome_url'];
+                                $nome_produto_ultimos = $res[$i]['nome'];
+                                $valor_produto_ultimos = $res[$i]['valor'];
+                                $imagem_produto_ultimos = $res[$i]['imagem'];
+
+                                $promocao_produto_ultimos = $res[$i]['promocao'];
+                                $id_produto_ultimos = $res[$i]['id'];
+
+                                if ($promocao_produto_ultimos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_ultimos = $resP[0]['valor'];
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                }
+
+                            ?>
+
+                                <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6><?php echo $nome_produto_ultimos ?></h6>
+                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                    </div>
+                                </a>
+
+                            <?php
+                            }
+
+                            ?>
+
+                        </div>
+
+                        <div class="latest-prdouct__slider__item">
+
+                            <?php
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 6, 3"); //limite de 3, a partir do 6
+                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                            for ($i = 0; $i < count($res); $i++) {
+                                foreach ($res[$i] as $key => $value) {
+                                }
+                                $nome_url_produto_ultimos = $res[$i]['nome_url'];
+                                $nome_produto_ultimos = $res[$i]['nome'];
+                                $valor_produto_ultimos = $res[$i]['valor'];
+                                $imagem_produto_ultimos = $res[$i]['imagem'];
+
+                                $promocao_produto_ultimos = $res[$i]['promocao'];
+                                $id_produto_ultimos = $res[$i]['id'];
+
+                                if ($promocao_produto_ultimos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_ultimos = $resP[0]['valor'];
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                }
+                            ?>
+
+                                <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6><?php echo $nome_produto_ultimos ?></h6>
+                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                    </div>
+                                </a>
+
+                            <?php
+                            }
+
+                            ?>
+
+                        </div>
+
+                    </div>
+
                         </div>
                     </div>
                 </div>
