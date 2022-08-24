@@ -149,43 +149,183 @@ require_once('cabecalho-busca.php');
                             <h4>Lançamentos</h4>
 
                             <div class="latest-product__slider owl-carousel">
+                                <div class="latest-prdouct__slider__item">
+
+                                    <?php
+                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3");
+                                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                                    for ($i = 0; $i < count($res); $i++) {
+                                        foreach ($res[$i] as $key => $value) {
+                                        }
+                                        $nome_url_produto_ultimos = $res[$i]['nome_url'];
+                                        $nome_produto_ultimos = $res[$i]['nome'];
+                                        $valor_produto_ultimos = $res[$i]['valor'];
+                                        $imagem_produto_ultimos = $res[$i]['imagem'];
+                                        $promocao_produto_ultimos = $res[$i]['promocao'];
+                                        $id_produto_ultimos = $res[$i]['id'];
+
+                                        if ($promocao_produto_ultimos == 'Sim') {
+                                            $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                            $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                            $valor_produto_ultimos = $resP[0]['valor'];
+                                            $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                        } else {
+                                            $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                        }
+
+
+                                    ?>
+
+                                        <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            </div>
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_ultimos ?></h6>
+
+                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                            </div>
+                                        </a>
+
+                                    <?php
+                                    }
+
+                                    ?>
+
+                                </div>
+
+                                <div class="latest-prdouct__slider__item">
+
+                                    <?php
+                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3, 3"); //limite de 3, a partir do 3
+                                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                                    for ($i = 0; $i < count($res); $i++) {
+                                        foreach ($res[$i] as $key => $value) {
+                                        }
+                                        $nome_url_produto_ultimos = $res[$i]['nome_url'];
+                                        $nome_produto_ultimos = $res[$i]['nome'];
+                                        $valor_produto_ultimos = $res[$i]['valor'];
+                                        $imagem_produto_ultimos = $res[$i]['imagem'];
+
+                                        $promocao_produto_ultimos = $res[$i]['promocao'];
+                                        $id_produto_ultimos = $res[$i]['id'];
+
+                                        if ($promocao_produto_ultimos == 'Sim') {
+                                            $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                            $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                            $valor_produto_ultimos = $resP[0]['valor'];
+                                            $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                        } else {
+                                            $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                        }
+
+                                    ?>
+
+                                        <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            </div>
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_ultimos ?></h6>
+                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                            </div>
+                                        </a>
+
+                                    <?php
+                                    }
+
+                                    ?>
+
+                                </div>
+
+                                <div class="latest-prdouct__slider__item">
+
+                                    <?php
+                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 6, 3"); //limite de 3, a partir do 6
+                                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                                    for ($i = 0; $i < count($res); $i++) {
+                                        foreach ($res[$i] as $key => $value) {
+                                        }
+                                        $nome_url_produto_ultimos = $res[$i]['nome_url'];
+                                        $nome_produto_ultimos = $res[$i]['nome'];
+                                        $valor_produto_ultimos = $res[$i]['valor'];
+                                        $imagem_produto_ultimos = $res[$i]['imagem'];
+
+                                        $promocao_produto_ultimos = $res[$i]['promocao'];
+                                        $id_produto_ultimos = $res[$i]['id'];
+
+                                        if ($promocao_produto_ultimos == 'Sim') {
+                                            $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
+                                            $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                            $valor_produto_ultimos = $resP[0]['valor'];
+                                            $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                        } else {
+                                            $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
+                                        }
+                                    ?>
+
+                                        <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            </div>
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_ultimos ?></h6>
+                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                            </div>
+                                        </a>
+
+                                    <?php
+                                    }
+
+                                    ?>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="sidebar__item">
+                        <div class="latest-product__text">
+                            <h4>Combos</h4>
+
+                        </div>
+                    </div>
+
+                    <div class="latest-product__slider owl-carousel">
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3");
+                            $query = $pdo->query("SELECT * FROM combos WHERE ativo = 'Sim' order by id desc limit 3");
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
                                 foreach ($res[$i] as $key => $value) {
                                 }
-                                $nome_url_produto_ultimos = $res[$i]['nome_url'];
-                                $nome_produto_ultimos = $res[$i]['nome'];
-                                $valor_produto_ultimos = $res[$i]['valor'];
-                                $imagem_produto_ultimos = $res[$i]['imagem'];
-                                $promocao_produto_ultimos = $res[$i]['promocao'];
-                                $id_produto_ultimos = $res[$i]['id'];
+                                $nome_url_combo = $res[$i]['nome_url'];
+                                $nome_combo = $res[$i]['nome'];
+                                $valor_combo = $res[$i]['valor'];
+                                $imagem_combo = $res[$i]['imagem'];
 
-                                if ($promocao_produto_ultimos == 'Sim') {
-                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
-                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
-
-                                    $valor_produto_ultimos = $resP[0]['valor'];
-                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
-                                } else {
-                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
-                                }
-
+                                $valor_combo = number_format($valor_combo, 2, ',', '.');
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_ultimos ?></h6>
-
-                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                        <h6><?php echo $nome_combo ?></h6>
+                                        <span>R$ <?php echo $valor_combo ?></span>
                                     </div>
                                 </a>
 
@@ -199,39 +339,28 @@ require_once('cabecalho-busca.php');
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3, 3"); //limite de 3, a partir do 3
+                            $query = $pdo->query("SELECT * FROM combos WHERE ativo = 'Sim' order by id desc limit 3, 3"); //limite de 3, a partir do 3
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
                                 foreach ($res[$i] as $key => $value) {
                                 }
-                                $nome_url_produto_ultimos = $res[$i]['nome_url'];
-                                $nome_produto_ultimos = $res[$i]['nome'];
-                                $valor_produto_ultimos = $res[$i]['valor'];
-                                $imagem_produto_ultimos = $res[$i]['imagem'];
+                                $nome_url_combo = $res[$i]['nome_url'];
+                                $nome_combo = $res[$i]['nome'];
+                                $valor_combo = $res[$i]['valor'];
+                                $imagem_combo = $res[$i]['imagem'];
 
-                                $promocao_produto_ultimos = $res[$i]['promocao'];
-                                $id_produto_ultimos = $res[$i]['id'];
-
-                                if ($promocao_produto_ultimos == 'Sim') {
-                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
-                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
-
-                                    $valor_produto_ultimos = $resP[0]['valor'];
-                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
-                                } else {
-                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
-                                }
+                                $valor_combo = number_format($valor_combo, 2, ',', '.');
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_ultimos ?></h6>
-                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                        <h6><?php echo $nome_url_combo ?></h6>
+                                        <span>R$ <?php echo $valor_combo ?></span>
                                     </div>
                                 </a>
 
@@ -245,38 +374,28 @@ require_once('cabecalho-busca.php');
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 6, 3"); //limite de 3, a partir do 6
+                            $query = $pdo->query("SELECT * FROM combos WHERE ativo = 'Sim' order by id desc limit 6, 3"); //limite de 3, a partir do 6
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
                                 foreach ($res[$i] as $key => $value) {
                                 }
-                                $nome_url_produto_ultimos = $res[$i]['nome_url'];
-                                $nome_produto_ultimos = $res[$i]['nome'];
-                                $valor_produto_ultimos = $res[$i]['valor'];
-                                $imagem_produto_ultimos = $res[$i]['imagem'];
+                                $nome_url_combo = $res[$i]['nome_url'];
+                                $nome_combo = $res[$i]['nome'];
+                                $valor_combo = $res[$i]['valor'];
+                                $imagem_combo = $res[$i]['imagem'];
 
-                                $promocao_produto_ultimos = $res[$i]['promocao'];
-                                $id_produto_ultimos = $res[$i]['id'];
+                                $valor_combo = number_format($valor_combo, 2, ',', '.');
 
-                                if ($promocao_produto_ultimos == 'Sim') {
-                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_ultimos'");
-                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
-
-                                    $valor_produto_ultimos = $resP[0]['valor'];
-                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
-                                } else {
-                                    $valor_produto_ultimos = number_format($valor_produto_ultimos, 2, ',', '.');
-                                }
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
+                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_ultimos ?></h6>
-                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                        <h6><?php echo $nome_combo ?></h6>
+                                        <span>R$ <?php echo $valor_combo ?></span>
                                     </div>
                                 </a>
 
@@ -289,8 +408,7 @@ require_once('cabecalho-busca.php');
 
                     </div>
 
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="col-lg-9 col-md-7">
@@ -300,105 +418,55 @@ require_once('cabecalho-busca.php');
                     </div>
                     <div class="row">
                         <div class="product__discount__slider owl-carousel">
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/bota.jpg">
-                                        <div class="product__discount__percent">-20%</div>
-                                        <ul class="product__item__pic__hover">
-                                            <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                            <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Bota Masculina</a></h5>
-                                        <div class="product__item__price">R$30,00 <span>R$36,00</span></div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/bota.jpg">
-                                        <div class="product__discount__percent">-20%</div>
-                                        <ul class="product__item__pic__hover">
-                                            <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                            <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Bota Masculina</a></h5>
-                                        <div class="product__item__price">R$30,00 <span>R$36,00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/bota.jpg">
-                                        <div class="product__discount__percent">-20%</div>
-                                        <ul class="product__item__pic__hover">
-                                            <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                            <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Bota Masculina</a></h5>
-                                        <div class="product__item__price">R$30,00 <span>R$36,00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/bota.jpg">
-                                        <div class="product__discount__percent">-20%</div>
-                                        <ul class="product__item__pic__hover">
-                                            <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                            <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Bota Masculina</a></h5>
-                                        <div class="product__item__price">R$30,00 <span>R$36,00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/bota.jpg">
-                                        <div class="product__discount__percent">-20%</div>
-                                        <ul class="product__item__pic__hover">
-                                            <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                            <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Bota Masculina</a></h5>
-                                        <div class="product__item__price">R$30,00 <span>R$36,00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/bota.jpg">
-                                        <div class="product__discount__percent">-20%</div>
-                                        <ul class="product__item__pic__hover">
-                                            <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                            <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <h5><a href="#">Bota Masculina</a></h5>
-                                        <div class="product__item__price">R$30,00 <span>R$36,00</span></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                            $query = $pdo->query("SELECT * FROM produtos WHERE promocao = 'Sim'");
+                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                            >
+                            for ($i = 0; $i < count($res); $i++) {
+                                foreach ($res[$i] as $key => $value) {
+                                }
+                                $nome_url_produto_promocao = $res[$i]['nome_url'];
+                                $nome_produto_promocao = $res[$i]['nome'];
+                                $imagem_produto_promocao = $res[$i]['imagem'];
+                                $id_produto_promocao = $res[$i]['id'];
+                                $valor_sem_promocao = $res[$i]['valor'];
+
+                                $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_promocao'");
+                                $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                $valor_produto_promocao = $resP[0]['valor'];
+                                $desconto_produto_promocao = $resP[0]['desconto'];
+
+                                $valor_produto_promocao = number_format($valor_produto_promocao, 2, ',', '.');
+
+
+
+                            ?>
+
+                                <div class="col-lg-4">
+                                    <div class="product__discount__item">
+                                        <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto_promocao ?>">
+                                            <div class="product__discount__percent"><?php echo $desconto_produto_promocao ?>%</div>
+                                            <ul class="product__item__pic__hover">
+                                                <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                                <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-eye"></i></a></li>
+                                                <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__discount__item__text">
+                                            <h5><a href="produto-<?php echo $nome_url_produto_promocao ?>"><?php echo $nome_produto_promocao ?></a></h5>
+                                            <div class="product__item__price">R$ <?php echo $valor_produto_promocao ?> <span>R$ <?php echo $valor_sem_promocao ?></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php
+
+                            }
+
+                            ?>
+
                         </div>
                     </div>
                 </div>
@@ -408,181 +476,77 @@ require_once('cabecalho-busca.php');
                     <a href="lista-produtos.php"> <span class="text-muted ml-3">Ver todos</span> </a>
                 </div>
 
-
-                <!--
-                <div class="filter__item">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-5">
-                            <div class="filter__sort">
-                                <span>Sort By</span>
-                                <select>
-                                    <option value="0">Default</option>
-                                    <option value="0">Default</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="filter__found">
-                                <h6><span>16</span> Products found</h6>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-3">
-                            <div class="filter__option">
-                                <span class="icon_grid-2x2"></span>
-                                <span class="icon_ul"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
--->
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    $query = $pdo->query("SELECT * FROM produtos order by vendas desc limit 6");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
+                    for ($i = 0; $i < count($res); $i++) {
+                        foreach ($res[$i] as $key => $value) {
+                        }
+                        $nome_url_produto_mais_vendido = $res[$i]['nome_url'];
+                        $nome_produto_mais_vendido = $res[$i]['nome'];
+                        $imagem_produto_mais_vendido = $res[$i]['imagem'];
+                        $id_produto_mais_vendido = $res[$i]['id'];
+                        $valor_sem_promocao_produto_mais_vendido = $res[$i]['valor'];
+                        $promocao_produto_mais_vendido = $res[$i]['promocao'];
+
+                        $valor_sem_promocao_produto_mais_vendido = number_format($valor_sem_promocao_produto_mais_vendido, 2, ',', '.');
+
+                        if ($promocao_produto_mais_vendido == 'Sim') {
+                            $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_mais_vendido'");
+                            $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                            $valor_produto_promocao_mais_vendido = $resP[0]['valor'];
+                            $desconto_produto_mais_vendido = $resP[0]['desconto'];
+                            $valor_produto_promocao_mais_vendido = number_format($valor_produto_promocao_mais_vendido, 2, ',', '.');
+
+                    ?>
+
+
+                            <div class="col-lg-4">
+                                <div class="product__discount__item">
+                                    <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto_mais_vendido ?>">
+                                        <div class="product__discount__percent"><?php echo $desconto_produto_mais_vendido ?>%</div>
+                                        <ul class="product__item__pic__hover">
+                                            <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                            <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__discount__item__text">
+                                        <h5><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><?php echo $nome_produto_mais_vendido ?></a></h5>
+                                        <div class="product__item__price">R$ <?php echo $valor_produto_promocao_mais_vendido ?> <span>R$ <?php echo $valor_sem_promocao_produto_mais_vendido ?></span></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
+
+                        <?php
+                        } else {
+                        ?>
+
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto_mais_vendido ?>">
+                                        <ul class="product__item__pic__hover">
+                                            <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <a href="produto-<?php echo $nome_url_produto_mais_vendido ?>">
+                                            <h6><?php echo $nome_produto_mais_vendido ?> </h6>
+                                            <h5>R$ <?php echo $valor_sem_promocao_produto_mais_vendido ?></h5>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+
+                    <?php
+                        } //fechamento do if
+                    } //fechamento do for
+                    ?>
 
 
                 </div>
@@ -599,152 +563,44 @@ require_once('cabecalho-busca.php');
 
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    $query = $pdo->query("SELECT * FROM combos WHERE ativo = 'Sim' order by vendas desc limit 6");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
+                    for ($i = 0; $i < count($res); $i++) {
+                        foreach ($res[$i] as $key => $value) {
+                        }
+                        $nome_url_combo = $res[$i]['nome_url'];
+                        $nome_combo = $res[$i]['nome'];
+                        $valor_combo = $res[$i]['valor'];
+                        $imagem_combo = $res[$i]['imagem'];
+
+                        $valor_combo = number_format($valor_combo, 2, ',', '.');
+
+                    ?>
+
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_combo ?>">
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="combo-<?php echo $nome_url_combo ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="combo-<?php echo $nome_url_combo ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <a href="combo-<?php echo $nome_url_combo ?>">
+                                        <h6><?php echo $nome_combo ?></h6>
+                                        <h5>R$ <?php echo $valor_combo ?></h5>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <a href="produto.php">
-                                    <h6>Tênis masculino</h6>
-                                    <h5>R$130,0</h5>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+
+
+                    <?php
+                    }
+                    ?>
 
 
                 </div>

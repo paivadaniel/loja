@@ -174,34 +174,67 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
                 }
                 $nome_url_produto = $res[$i]['nome_url'];
                 $nome_produto = $res[$i]['nome'];
-                $valor_produto = $res[$i]['valor'];
+                $valor_produto_sem_promocao = $res[$i]['valor'];
                 $imagem_produto = $res[$i]['imagem'];
+                $promocao_produto = $res[$i]['promocao'];
+                $id_produto = $res[$i]['id'];
 
-                $valor_produto = number_format($valor_produto, 2, ',', '.');
+                $valor_produto_sem_promocao = number_format($valor_produto_sem_promocao, 2, ',', '.');
+
+                if ($promocao_produto == 'Sim') {
+                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto'");
+                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                    $valor_produto_promocao = $resP[0]['valor'];
+                    $desconto_produto = $resP[0]['desconto'];
+                    $valor_produto_promocao = number_format($valor_produto_promocao, 2, ',', '.');
 
             ?>
 
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sapatos fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto ?>">
-                            <ul class="featured__item__pic__hover">
-                                <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
-                                <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <a href="produto-<?php echo $nome_url_produto ?>">
-                                <h6><?php echo $nome_produto ?></h6>
-                                <h5>R$ <?php echo $valor_produto ?></h5>
-                            </a>
+                    <div class="col-lg-4">
+                        <div class="product__discount__item">
+                            <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto ?>">
+                                <div class="product__discount__percent"><?php echo $desconto_produto ?>%</div>
+                                <ul class="product__item__pic__hover">
+                                    <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                    <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__discount__item__text">
+                                <h5><a href="produto-<?php echo $nome_url_produto ?>"><?php echo $nome_produto ?></a></h5>
+                                <div class="product__item__price">R$ <?php echo $valor_produto_promocao ?> <span>R$ <?php echo $valor_produto_sem_promocao ?></span></div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                <?php
+                } else {
+
+                ?>
+
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix sapatos fresh-meat">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto ?>">
+                                <ul class="featured__item__pic__hover">
+                                    <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                    <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
+                                    <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="featured__item__text">
+                                <a href="produto-<?php echo $nome_url_produto ?>">
+                                    <h6><?php echo $nome_produto ?></h6>
+                                    <h5>R$ <?php echo $valor_produto_sem_promocao ?></h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
             <?php
-            }
+                } //fechamento if
+            } //fechamento for
             ?>
 
 
@@ -588,7 +621,7 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
+                                <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
                                     </div>
@@ -623,7 +656,7 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
+                                <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
                                     </div>
@@ -658,7 +691,7 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
+                                <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                         <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
                                     </div>

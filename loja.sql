@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Ago-2022 às 01:14
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 24-Ago-2022 às 22:15
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -186,16 +186,17 @@ CREATE TABLE `combos` (
   `largura` double(8,2) NOT NULL,
   `altura` double(8,2) NOT NULL,
   `comprimento` double(8,2) NOT NULL,
-  `valor_frete` decimal(8,2) DEFAULT NULL
+  `valor_frete` decimal(8,2) DEFAULT NULL,
+  `vendas` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `combos`
 --
 
-INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`) VALUES
-(3, '5 camisas', '5-camisas', '', '', '69.22', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00'),
-(6, '12 camisas regata', '12-camisas-regata', '', '', '120.00', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00');
+INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`, `vendas`) VALUES
+(3, '5 camisas', '5-camisas', '', '', '69.22', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL),
+(6, '12 camisas regata', '12-camisas-regata', '', '', '120.00', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -280,14 +281,14 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`, `vendas`) VALUES
-(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32.00, 12.00, 24.00, 'doce', '32.00', 'Não', 6),
-(3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32.00, 12.00, 24.00, 'doce', '32.00', 'Sim', 6),
+(3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', NULL),
 (4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', NULL),
+(13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', 12),
 (14, 1, 3, 'da422rafafa', 'da422rafafa', '', '', '64.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', 9);
 
@@ -334,7 +335,9 @@ CREATE TABLE `promocoes` (
 --
 
 INSERT INTO `promocoes` (`id`, `id_produto`, `valor`, `data_inicio`, `data_final`, `ativo`, `desconto`) VALUES
-(31, 13, '21.00', '2022-08-23', '2022-08-23', 'Sim', '50');
+(31, 13, '21.00', '2022-08-23', '2022-08-23', 'Sim', '50'),
+(32, 2, '37.42', '2022-08-24', '2022-08-24', 'Sim', '30'),
+(33, 3, '21.59', '2022-08-24', '2022-08-24', 'Sim', '10');
 
 -- --------------------------------------------------------
 
@@ -606,7 +609,7 @@ ALTER TABLE `prod_combos`
 -- AUTO_INCREMENT de tabela `promocoes`
 --
 ALTER TABLE `promocoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `promocoes_banner`
