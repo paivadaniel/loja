@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Ago-2022 às 22:15
+-- Tempo de geração: 26-Ago-2022 às 21:08
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -244,7 +244,9 @@ CREATE TABLE `imagens` (
 --
 
 INSERT INTO `imagens` (`id`, `id_produto`, `imagem`) VALUES
-(4, 4, 'cat-1.jpg');
+(4, 4, 'cat-1.jpg'),
+(9, 2, '20220719_171856.jpg'),
+(10, 2, '01.jpg');
 
 -- --------------------------------------------------------
 
@@ -286,11 +288,12 @@ INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_u
 (4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
+(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, 'testando', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
 (13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', 12),
 (14, 1, 3, 'da422rafafa', 'da422rafafa', '', '', '64.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', 9);
+(15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', 9),
+(16, 1, 3, '4242', '4242', '', '', '13.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL);
 
 -- --------------------------------------------------------
 
@@ -337,7 +340,8 @@ CREATE TABLE `promocoes` (
 INSERT INTO `promocoes` (`id`, `id_produto`, `valor`, `data_inicio`, `data_final`, `ativo`, `desconto`) VALUES
 (31, 13, '21.00', '2022-08-23', '2022-08-23', 'Sim', '50'),
 (32, 2, '37.42', '2022-08-24', '2022-08-24', 'Sim', '30'),
-(33, 3, '21.59', '2022-08-24', '2022-08-24', 'Sim', '10');
+(33, 3, '21.59', '2022-08-24', '2022-08-24', 'Sim', '10'),
+(34, 8, '19.20', '2022-08-25', '2022-08-25', 'Sim', '40');
 
 -- --------------------------------------------------------
 
@@ -591,13 +595,13 @@ ALTER TABLE `emails`
 -- AUTO_INCREMENT de tabela `imagens`
 --
 ALTER TABLE `imagens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `prod_combos`
@@ -609,7 +613,7 @@ ALTER TABLE `prod_combos`
 -- AUTO_INCREMENT de tabela `promocoes`
 --
 ALTER TABLE `promocoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `promocoes_banner`
