@@ -45,14 +45,17 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
+                        <form action="lista-produtos.php" method="GET">
+
+                            <!-- diferente do form em lista-produtos.php, 
+aqui tem um action que leva para lista-produtos.php -->
                             <!--
-                                    <div class="hero__search__categories">
-                                Produtos
-                                    <span class="arrow_carrot-right"></span>
-                                </div>
-                                -->
-                            <input type="text" placeholder="O que você precisa?">
+        <div class="hero__search__categories">
+    Produtos
+        <span class="arrow_carrot-right"></span>
+    </div>
+    -->
+                            <input type="text" name="txtBuscar" placeholder="O que você precisa?">
                             <button type="submit" class="site-btn">BUSCAR</button>
                         </form>
                     </div>
@@ -153,7 +156,7 @@ foi adicionado no final do código do Hero Section, onde consta banner homepage 
 
                         ?>
 
-                            <li><a href="subcategoria-<?php echo $nome_url_subcategoria ?>" class="text-dark"><?php echo $nome_subcategoria ?></a></li>
+                            <li><a href="produtos-<?php echo $nome_url_subcategoria ?>" class="text-dark"><?php echo $nome_subcategoria ?></a></li>
 
                         <?php
                         }

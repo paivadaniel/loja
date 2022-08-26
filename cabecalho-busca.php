@@ -23,7 +23,7 @@ require_once('conexao.php');
                         <span>Categorias</span>
                     </div>
                     <ul>
-                    <?php
+                        <?php
                         $query = $pdo->query("SELECT * FROM categorias order by nome asc");
                         $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -46,14 +46,17 @@ require_once('conexao.php');
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
+                        <form action="lista-produtos.php" method="GET">
+
+                            <!-- diferente do form em lista-produtos.php, 
+                            aqui tem um action que leva para lista-produtos.php -->
                             <!--
                                     <div class="hero__search__categories">
                                 Produtos
                                     <span class="arrow_carrot-right"></span>
                                 </div>
                                 -->
-                            <input type="text" placeholder="O que você precisa?">
+                            <input type="text" name="txtBuscar" placeholder="O que você precisa?">
                             <button type="submit" class="site-btn">BUSCAR</button>
                         </form>
                     </div>

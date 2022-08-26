@@ -809,4 +809,11 @@ passei os inputs da seguinte forma
 ---- mod04 aula 59
 não testei, envio de email marketing
 
+---- sem aula específica
+em lista-produtos.php
 
+            if (@$_GET['txtBuscar'] == "" or (@$_GET['txtBuscar'] != "" and $total_prod_buscar >= $itens_por_pagina)) {
+
+                /*eu adicionei (@$_GET['txtBuscar'] != "" and $total_prod_buscar >= $itens_por_pagina)
+                tem que resolver a questão de quando $total_prod_buscar >= $itens_por_pagina, mostra todos os produtos na paginação, não apenas os filtrados
+                */

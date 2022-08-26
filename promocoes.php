@@ -23,11 +23,7 @@ $pdo->query("SELECT * FROM subcategorias order by nome asc LIMIT $limite, $itens
 */
 
 $pagina = $pag;
-$nome_pag = 'categorias.php';
-
-
-
-
+$nome_pag = 'promocoes.php';
 
 ?>
 
@@ -87,54 +83,60 @@ $nome_pag = 'categorias.php';
             </div>
             <div class="col-lg-9 col-md-7">
 
-            <h4>Lista de Categorias</h4>
+            <h4>Lista de Promoções</h4>
 
                 <div class="row mt-4">
 
                     <?php
-                    $query = $pdo->query("SELECT * FROM categorias order by id desc LIMIT $limite, $itens_por_pagina");
+                    $query = $pdo->query("SELECT * FROM produtos WHERE promocao = 'Sim' order by id desc LIMIT $limite, $itens_por_pagina");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     for ($i = 0; $i < count($res); $i++) {
                         foreach ($res[$i] as $key => $value) {
                         }
-                        $nome_url_categoria = $res[$i]['nome_url'];
-                        $nome_categoria = $res[$i]['nome'];
-                        $imagem_categoria = $res[$i]['imagem'];
-                        $id_categoria = $res[$i]['id'];
+                        $nome_url_produto_promocao = $res[$i]['nome_url'];
+                        $nome_produto_promocao = $res[$i]['nome'];
+                        $imagem_produto_promocao = $res[$i]['imagem'];
+                        $id_produto_promocao = $res[$i]['id'];
+                        $valor_sem_promocao = $res[$i]['valor'];
 
-                        //total subcategorias
-                        $query2 = $pdo->query("SELECT * FROM subcategorias WHERE id_categoria = $id_categoria");
-                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                        $total_subcategorias = @count($res2);
+                        $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_promocao'");
+                        $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
 
-                        //total de categorias para paginar
-                        $query3 = $pdo->query("SELECT * FROM categorias");
+                        $valor_produto_promocao = $resP[0]['valor'];
+                        $desconto_produto_promocao = $resP[0]['desconto'];
+
+                        $valor_sem_promocao = number_format($valor_sem_promocao, 2, ',', '.');
+                        $valor_produto_promocao = number_format($valor_produto_promocao, 2, ',', '.');
+
+
+                        //BUSCAR O TOTAL DE REGISTROS PARA PAGINAR
+                        $query3 = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' ");
                         $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
-                        $total_categorias = @count($res3);
-                        $numero_paginas = ceil($total_categorias / $itens_por_pagina);
-                        /*ceil ARREDONDA SEMPRE PARA CIMA, por exemplo, 
-                        
-                        se fossem 12 categorias, dividido por 5 itens por página, daria 2,4 página, e nesse caso ceil arredonda para 3 páginas, na primeira e na segunda mostraria 5 itens, e na terceira o resto, ou seja, 2. 
-
-                        */
+                        $num_total = @count($res3);
+                        $numero_paginas = ceil($num_total / $itens_por_pagina);
 
                     ?>
 
                         <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/categorias/<?php echo $imagem_categoria ?>">
+
+                            <div class="product__discount__item">
+                                <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto_promocao ?>">
+                                    <div class="product__discount__percent"><?php echo $desconto_produto_promocao ?>%</div>
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="subcategoria-<?php echo $nome_url_categoria ?>"><i class="fa fa-eye"></i></a></li>
+                                        <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                        <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
-                                <div class="product__item__text">
-                                    <a href="subcategoria-<?php echo $nome_url_categoria ?>">
-                                        <h6><?php echo $nome_categoria ?></h6>
-                                        <h5><?php echo $total_subcategorias ?> Subcategorias</h5>
-                                    </a>
+                                <div class="product__discount__item__text">
+                                    <h5><a href="produto-<?php echo $nome_url_produto_promocao ?>"><?php echo $nome_produto_promocao ?></a></h5>
+                                    <div class="product__item__price">R$ <?php echo $valor_produto_promocao ?> <span>R$ <?php echo $valor_sem_promocao ?></span></div>
                                 </div>
                             </div>
+
+
+
                         </div>
 
                     <?php
@@ -163,7 +165,8 @@ $nome_pag = 'categorias.php';
                     ?>
 
 
-                    <a href="<?php echo $nome_pag ?>?pagina=<?php echo $numero_paginas - 1 //pois a primeira página é 0, se tivesse 6 páginas, a última tem que ser a 5, daí numero_paginas - 1 = 5. a página mostra da 1 à 6, porém, na contagem é 0 à 5 ?>"><i class="fa fa-long-arrow-right"></i></a>
+                    <a href="<?php echo $nome_pag ?>?pagina=<?php echo $numero_paginas - 1 //pois a primeira página é 0, se tivesse 6 páginas, a última tem que ser a 5, daí numero_paginas - 1 = 5. a página mostra da 1 à 6, porém, na contagem é 0 à 5 
+                                                            ?>"><i class="fa fa-long-arrow-right"></i></a>
                 </div>
             </div>
         </div>

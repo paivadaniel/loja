@@ -167,9 +167,12 @@ require_once('config.php');
                             <li class="active"><a href="./index.php">Início</a></li>
                             <li><a href="#">Produtos</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="produtos.php">Lista de Produtos</a></li>
+                                    <li><a href="lista-produtos.php">Lista de Produtos</a></li>
+                                    <li><a href="produtos.php">Produtos</a></li>
                                     <li><a href="subcategorias.php">Subcategorias</a></li>
                                     <li><a href="categorias.php">Categorias</a></li>
+                                    <li><a href="promocoes.php">Promoções</a></li>
+                                    <li><a href="combos.php">Combos</a></li>
 
                                     <li><a href="./checkout.php">Check Out</a></li>
                                     <li><a href="./blog-postagem.php">Blog Details</a></li>

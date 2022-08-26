@@ -85,7 +85,7 @@ $id_categoria_get = @$res[0]['id']; //se não tiver categoria_get, não tem res[
 
                             ?>
 
-                                <li><a href="produtos-<?php echo $nome_url_categoria ?>"><?php echo $nome_categoria ?></a></li>
+                                <li><a href="subcategoria-<?php echo $nome_url_categoria ?>"><?php echo $nome_categoria ?></a></li>
 
                             <?php
                             }
@@ -101,6 +101,7 @@ $id_categoria_get = @$res[0]['id']; //se não tiver categoria_get, não tem res[
             </div>
             <div class="col-lg-9 col-md-7">
 
+            <h4>Lista de Subcategorias</h4>
 
                 <div class="row mt-4">
 
@@ -108,7 +109,7 @@ $id_categoria_get = @$res[0]['id']; //se não tiver categoria_get, não tem res[
 
                     if ($categoria_get != "") { //query com filtro para mostrar as subcategorias da categoria escolhida
 
-                        $query = $pdo->query("SELECT * FROM subcategorias WHERE id_categoria = $id_categoria_get order by id desc"); //id_categoria_get não precisa ficar envolto em aspas simples, pois é inteiro, não string
+                        $query = $pdo->query("SELECT * FROM subcategorias WHERE id_categoria = '$id_categoria_get' order by id desc"); //id_categoria_get não precisa ficar envolto em aspas simples, pois é inteiro, não string
 
 
                     } else { //query sem filtro, mostra todas as subcategorias
@@ -155,11 +156,11 @@ $id_categoria_get = @$res[0]['id']; //se não tiver categoria_get, não tem res[
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="img/subcategorias/<?php echo $imagem_subcategoria ?>">
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="subcategorias-<?php echo $nome_url_subcategoria ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="produtos-<?php echo $nome_url_subcategoria ?>"><i class="fa fa-eye"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <a href="subcategorias-<?php echo $nome_url_subcategoria ?>">
+                                    <a href="produtos-<?php echo $nome_url_subcategoria ?>">
                                         <h6><?php echo $nome_subcategoria ?></h6>
                                         <h5><?php echo $total_produtos ?></h5>
                                     </a>

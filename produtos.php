@@ -52,23 +52,33 @@ require_once('cabecalho-busca.php');
                         </ul>
                     </div>
                     <div class="sidebar__item">
-                        <h4>Preço</h4>
+                        <h4>Preço (R$)</h4>
                         <!-- price-range está em js/main.js -->
                         <div class="price-range-wrap">
-                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="10" data-max="540">
+                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="0" data-max="1000">
                                 <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                             </div>
                             <div class="range-slider">
                                 <div class="price-input">
-                                    <form action="lista-produtos.php" method="post">
+                                    <form action="lista-produtos.php" method="GET" name="form_valor">
 
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
-                                        <a type="submit" class="text-dark">
+                                        <input type="text" name="valorInicial" id="minamount">
+                                        <input type="text" name="valorFinal" id="maxamount">
+                                        <a href="#" onclick="document.form_valor.submit(); return false;" class="text-dark">
                                             <i class="fa fa-search ml-2"></i>
-                                        </a>
+                        </a>
+                                        <!-- se mudar de button para link, não faz o submit, então teve que fazer o que está acima ao invés de criar uma classe CSS para estilizar o botão 
+                                    
+                                    estava assim:
+
+                                                                            <button type="submit" class="link-botao">
+                                            <i class="fa fa-search ml-2"></i>
+                                        </button>
+
+
+                                    -->
                                     </form>
                                 </div>
                             </div>
@@ -438,9 +448,8 @@ require_once('cabecalho-busca.php');
                                 $valor_produto_promocao = $resP[0]['valor'];
                                 $desconto_produto_promocao = $resP[0]['desconto'];
 
+                                $valor_sem_promocao = number_format($valor_sem_promocao, 2, ',', '.');
                                 $valor_produto_promocao = number_format($valor_produto_promocao, 2, ',', '.');
-
-
 
                             ?>
 
