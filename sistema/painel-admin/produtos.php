@@ -232,8 +232,8 @@ $agora = date('Y-m-d');
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Descrição Curta <small>(1000 caracteres) </small> </label>
-                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" maxlength="1000"><?php echo @$descricao2 ?></textarea>
+                                <label>Descrição Curta <small>(500 caracteres) </small> </label>
+                                <textarea class="form-control form-control-sm" id="descricao" name="descricao" maxlength="500"><?php echo @$descricao2 ?></textarea>
                             </div>
 
 
@@ -667,7 +667,7 @@ $agora = date('Y-m-d');
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir-carac">Cancelar</button>
                 <form method="post">
-                    <input type="hidden" name="id_carac_deletar" id="id_carac_deletar">
+                    <input type="text" name="id_carac_deletar" id="id_carac_deletar">
                     <button type="button" id="btn-deletar-carac" name="btn-deletar-carac" class="btn btn-danger">Excluir</button>
                 </form>
             </div>
@@ -1295,12 +1295,10 @@ $agora = date('Y-m-d');
 
                     if (mensagem.trim() === 'Excluído com Sucesso!') {
 
-                        $('#mensagem_excluir_carac').addClass('text-success')
-                        $('#mensagem_excluir_carac').text(mensagem)
-
                         //$('#btn-cancelar-excluir-carac').click();
                         //window.location = "index.php?pag=" + pag;
                         listarCarac();
+                        $('#btn-cancelar-excluir-carac').click()
                     } else {
                         $('#mensagem_excluir_carac').addClass('text-danger')
                         $('#mensagem_excluir_carac').text(mensagem)
