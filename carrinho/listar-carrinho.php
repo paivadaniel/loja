@@ -82,6 +82,26 @@ for ($i = 0; $i < count($dados); $i++) {
    </h5>
    </td>
 
+<td width="200" align="left" class="shoping__cart__item">
+
+<span class="mt-4" align="center" id="listar-carac-itens2">';
+   
+$query2 = $pdo->query("SELECT * from carac_itens_carrinho WHERE id_carrinho = '$id_carrinho'");
+$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+for ($i2 = 0; $i2 < count($res2); $i2++) {
+    foreach ($res2[$i2] as $key => $value) {
+    }
+
+    echo '<span class="mr-2"><i class="fa fa-check text-info"></i> ' . $res2[$i2]['nome_carac'] . ': ' . $res2[$i2]['nome_item'] .'</span>';
+
+}
+
+
+echo '</span>
+
+</td>
+
    <td class="shoping__cart__price">
    R$ ' . $total_item . '
 </td>
@@ -176,3 +196,4 @@ $total = number_format($total, 2, ',', '.');
   $("#total_itens").text(itens);
   $("#valor_total").text(total);
 </script>
+

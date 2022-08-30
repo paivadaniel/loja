@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Ago-2022 às 21:17
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 31-Ago-2022 às 01:07
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -114,21 +114,9 @@ CREATE TABLE `carac_itens_carrinho` (
 --
 
 INSERT INTO `carac_itens_carrinho` (`id`, `id_carrinho`, `id_carac`, `nome_carac`, `nome_item`) VALUES
-(58, 135, 7, 'Tamanho', 'Tamanho2Mel'),
-(59, 136, 7, 'Tamanho', 'Tamanho2Mel'),
-(60, 136, 4, 'Numeração', 'MMel'),
-(61, 137, 7, 'Tamanho', 'Tamanho2Mel'),
-(62, 137, 3, 'Cor', 'amarelo'),
-(63, 136, 3, 'Cor', 'amarelo'),
-(64, 138, 7, 'Tamanho', 'Tamanho2Mel'),
-(65, 138, 4, 'Numeração', 'MMel'),
-(66, 138, 3, 'Cor', 'amarelo'),
-(67, 139, 7, 'Tamanho', 'Tamanho1Mel'),
-(68, 139, 4, 'Numeração', 'MMel'),
-(69, 139, 3, 'Cor', 'vermelho'),
-(70, 152, 7, 'Tamanho', 'Tamanho1Mel'),
-(71, 152, 4, 'Numeração', 'MMel'),
-(72, 152, 3, 'Cor', 'amarelo');
+(73, 159, 7, 'Tamanho', 'Tamanho2Mel'),
+(74, 159, 4, 'Numeração', 'GMel'),
+(75, 159, 3, 'Cor', 'vermelho');
 
 -- --------------------------------------------------------
 
@@ -174,28 +162,34 @@ CREATE TABLE `carrinho` (
 --
 
 INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidade`, `data`, `combo`) VALUES
-(136, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(137, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(138, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(139, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(140, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(141, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(142, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(143, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(144, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(145, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(146, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(147, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(148, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(149, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(150, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(151, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(152, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(153, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(154, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(155, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(156, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(157, 18, 2, 0, 1, '2022-08-30', 'Não');
+(159, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(166, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(167, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(168, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(169, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(170, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(171, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(172, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(173, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(174, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(175, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(176, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(177, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(178, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(179, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(180, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(181, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(182, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(183, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(184, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(185, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(186, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(187, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(188, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(189, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(190, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(191, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(192, 18, 2, 0, 1, '2022-08-30', 'Não');
 
 -- --------------------------------------------------------
 
@@ -662,7 +656,7 @@ ALTER TABLE `carac_itens`
 -- AUTO_INCREMENT de tabela `carac_itens_carrinho`
 --
 ALTER TABLE `carac_itens_carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT de tabela `carac_prod`
@@ -674,7 +668,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`

@@ -38,6 +38,12 @@ for ($i = 0; $i < count($res2); $i++) {
     $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
     $nome_carac = $res3[0]['nome'];
 
+    if ($nome_carac == 'Cor') {
+        @$tem_cor = 'Sim';
+    }
+
+
+
     echo "<div class='mr-3 mt-3'>
 
 <form id='form' method='post'>
@@ -65,7 +71,6 @@ for ($i = 0; $i < count($res2); $i++) {
 
     </div>
 ";
-
 }
 
 echo "<div class='mt-4' align='center' id='listar-carac-itens'>
@@ -74,6 +79,41 @@ echo "<div class='mt-4' align='center' id='listar-carac-itens'>
 
 
 </div>";
+
+
+if (@$tem_cor == 'Sim') {
+
+    echo "<div class='mt-4'>";
+
+    $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
+    $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+    for ($i = 0; $i < count($res2); $i++) {
+        foreach ($res2[$i] as $key => $value) {
+        }
+
+        $id_carac = $res2[$i]['id_carac'];
+        $id_carac_prod = $res2[$i]['id'];
+
+        $query3 = $pdo->query("SELECT * from carac WHERE id = '$id_carac'");
+        $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+        $nome_carac = $res3[0]['nome'];
+
+        if ($nome_carac == 'Cor') {
+            $query4 = $pdo->query("SELECT * from carac_itens WHERE id_carac_prod = '$id_carac_prod'");
+            $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
+            for ($i2 = 0; $i2 < count($res4); $i2++) {
+                foreach ($res4[$i2] as $key => $value) {
+                }
+
+                $valor_item = $res4[$i2]['valor_item'];
+
+                echo "<span> <i class='fa fa-circle ml-1 mr-1' style='color:" . $valor_item . "'></i>" . $res4[$i2]['nome_item'] . "</span>";
+            }
+        }
+    }
+
+    echo "</div>";
+}
 
 ?>
 
@@ -92,7 +132,7 @@ echo "<div class='mt-4' align='center' id='listar-carac-itens'>
             success: function(msg) {
                 atualizarCaracCarrinho()
                 if (msg.trim() === 'Característica Inserida com Sucesso!') {
-                   
+
 
                 } else {
                     $('#mensagem_caracteristicas').removeClass();
@@ -120,7 +160,7 @@ echo "<div class='mt-4' align='center' id='listar-carac-itens'>
             success: function(msg) {
                 atualizarCaracCarrinho()
                 if (msg.trim() === 'Característica Inserida com Sucesso!') {
-                    
+
 
                 } else {
                     $('#mensagem_caracteristicas').removeClass();
@@ -148,7 +188,7 @@ echo "<div class='mt-4' align='center' id='listar-carac-itens'>
             success: function(msg) {
                 atualizarCaracCarrinho()
                 if (msg.trim() === 'Característica Inserida com Sucesso!') {
-                    
+
                 } else {
                     $('#mensagem_caracteristicas').removeClass();
                     $('#mensagem_caracteristicas').addClass('text-danger');
@@ -171,14 +211,16 @@ echo "<div class='mt-4' align='center' id='listar-carac-itens'>
 </script>
 
 <script>
-function atualizarCaracCarrinho() {
+    function atualizarCaracCarrinho() {
 
-    var id_carrinho = <?=$id_carrinho?>
+        var id_carrinho = <?= $id_carrinho ?>
 
         $.ajax({
             url: "carrinho/listar-carac-carrinho.php",
             method: "post",
-            data: {id_carrinho},
+            data: {
+                id_carrinho
+            },
             dataType: "html",
             success: function(result) {
                 $('#listar-carac-itens').html(result)
