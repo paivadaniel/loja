@@ -113,11 +113,13 @@ $nome_pag = 'combos.php';
                         <div class="col-lg-4 col-md-6 col-sm-6">
 
                             <div class="product__discount__item">
-                                <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_combo ?>">
+                                <div class="product__discount__item__pic set-bg" data-setbg="img/combos/<?php echo $imagem_combo ?>">
                                     <ul class="product__item__pic__hover">
                                         <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                         <li><a href="produto-<?php echo $nome_url_combo ?>"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="produto-<?php echo $nome_url_combo ?>"><i class="fa fa-shopping-cart"></i></a></li>
+
+                                        <li><a href="#" onclick="carrinhoModal('<?php echo $id_combo ?>', 'Sim')"><i class="fa fa-shopping-cart"></i></a></li>
+
                                     </ul>
                                 </div>
                                 <div class="product__discount__item__text">
@@ -166,5 +168,7 @@ $nome_pag = 'combos.php';
 <!-- Product Section End -->
 
 <?php
+
+require_once('modal-carrinho.php');
 require_once('rodape.php')
 ?>

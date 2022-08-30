@@ -787,7 +787,7 @@ utilizamos id ao invés de nome para relacionar tabelas pois o id de uma linha d
 
 qual a diferença entre tipo DOUBLE e DECIMAL no banco de dados?
 
------ PROBLEMAS
+----- ERRO_ALGORITMO (assim está registrado no código quando há erro)
 
 ----- mod03 aula59
 
@@ -817,3 +817,14 @@ em lista-produtos.php
                 /*eu adicionei (@$_GET['txtBuscar'] != "" and $total_prod_buscar >= $itens_por_pagina)
                 tem que resolver a questão de quando $total_prod_buscar >= $itens_por_pagina, mostra todos os produtos na paginação, não apenas os filtrados
                 */
+
+---- mod05 aula 17
+
+aula extremamente confusa, listar-carrinho.php peguei e copiei parte do código dele do listar-carrinho (a parte do quantity e do script PARA ALTERAR O INPUT NUMBER.
+se copiar tudo dava problema
+
+---- mod05 aula 47
+
+1. quando muda de cor amarelo, azul ou vermelho (ou outra que for) para Selecionar Cor, não atualiza o banco
+2. quando escolho um tamanho, depois altero um tamanho, e antes de escolher a numeração, escolho uma cor, estraga o algoritmo
+depois de escolher a cor, pois não escolhe uma numeração e nem pode alterar o tamanho

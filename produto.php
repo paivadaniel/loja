@@ -6,6 +6,8 @@ require_once('conexao.php');
 //recuperar o nome do produto para filtrar as informações (como características) dele
 $produto_get = @$_GET['nome']; //esse GET vem do htaccess?
 
+$tem_cor;
+
 ?>
 
 <?php
@@ -36,13 +38,16 @@ $modelo = $res[0]['modelo'];
 $valor_frete = $res[0]['valor_frete'];
 $promocao = $res[0]['promocao'];
 
-if($promocao == 'Sim') {
+if ($modelo == '') {
+    $modelo = 'Nenhum';
+}
+
+if ($promocao == 'Sim') {
 
     $query = $pdo->query("SELECT * FROM promocoes where id_produto = '$id_produto'");
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
     $valor = $res[0]['valor'];
     $desconto = $res[0]['desconto'];
-
 }
 
 $valor = number_format($valor, 2, ',', '.');
@@ -61,21 +66,20 @@ $valor = number_format($valor, 2, ',', '.');
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
 
-                    <?php 
-                         $query = $pdo->query("SELECT * FROM imagens where id_produto = '$id_produto' ");
-                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                        <?php
+                        $query = $pdo->query("SELECT * FROM imagens where id_produto = '$id_produto' ");
+                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-                            for ($i=0; $i < count($res); $i++) { 
-                              foreach ($res[$i] as $key => $value) {
-                              }
+                        for ($i = 0; $i < count($res); $i++) {
+                            foreach ($res[$i] as $key => $value) {
+                            }
 
-                              $imagem_prod = $res[$i]['imagem'];
-                         ?>
+                            $imagem_prod = $res[$i]['imagem'];
+                        ?>
 
-                        <img data-imgbigurl="img/produtos/detalhes/<?php echo $imagem_prod ?>"
-                        src="img/produtos/detalhes/<?php echo $imagem_prod ?>" alt="">
+                            <img data-imgbigurl="img/produtos/detalhes/<?php echo $imagem_prod ?>" src="img/produtos/detalhes/<?php echo $imagem_prod ?>" alt="">
 
-                    <?php } ?>
+                        <?php } ?>
 
 
                     </div>
@@ -103,14 +107,113 @@ $valor = number_format($valor, 2, ',', '.');
                     </div>
                     <a href="#" class="primary-btn">ADICIONAR</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
-                    <ul>
 
-                    
-                    
+                    <div class="row mt-4">
 
-                        <li><b>Tamanho</b> <span>Tamanhos</span></li>
+                        <?php
 
-                    </ul>
+                        $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
+                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                        for ($i = 0; $i < count($res2); $i++) {
+                            foreach ($res2[$i] as $key => $value) {
+                            }
+
+                            $id_carac = $res2[$i]['id_carac'];
+                            $id_carac_prod = $res2[$i]['id'];
+
+                            $query3 = $pdo->query("SELECT * from carac WHERE id = '$id_carac'");
+                            $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+                            $nome_carac = $res3[0]['nome'];
+
+                            if ($nome_carac == 'Cor') {
+                                @$tem_cor = 'Sim';
+                            }
+
+
+                        ?>
+
+                            <div class="mr-3 mt-3">
+
+
+                                <select class="form-control form-control-sm" name="categoria" id="categoria">
+                                    <?php
+
+                                    echo "<option value='" . $nome_carac . "' > Selecionar " . $nome_carac . "</option>";
+
+
+                                    $query4 = $pdo->query("SELECT * from carac_itens WHERE id_carac_prod = '$id_carac_prod'");
+                                    $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
+                                    for ($i2 = 0; $i2 < count($res4); $i2++) {
+                                        foreach ($res4[$i2] as $key => $value) {
+                                        }
+
+
+
+                                        echo "<option value='" . $res4[$i2]['id'] . "' >" . $res4[$i2]['nome_item'] . "</option>";
+                                    }
+
+                                    ?>
+                                </select>
+
+
+
+
+                            </div>
+
+                        <?php
+                        }
+
+                        ?>
+
+
+
+                    </div>
+
+                    <?php
+                    if (@$tem_cor == 'Sim') {
+                    ?>
+                        <div class="mt-4">
+
+                            <?php
+
+                            $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
+                            $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                            for ($i = 0; $i < count($res2); $i++) {
+                                foreach ($res2[$i] as $key => $value) {
+                                }
+
+                                $id_carac = $res2[$i]['id_carac'];
+                                $id_carac_prod = $res2[$i]['id'];
+
+                                $query3 = $pdo->query("SELECT * from carac WHERE id = '$id_carac'");
+                                $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+                                $nome_carac = $res3[0]['nome'];
+
+                                if ($nome_carac == 'Cor') {
+                                    $query4 = $pdo->query("SELECT * from carac_itens WHERE id_carac_prod = '$id_carac_prod'");
+                                    $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
+                                    for ($i2 = 0; $i2 < count($res4); $i2++) {
+                                        foreach ($res4[$i2] as $key => $value) {
+                                        }
+
+                                        $valor_item = $res4[$i2]['valor_item'];
+
+                                        echo "<span> <i class='fa fa-circle mr-1' style='color:" . $valor_item . "'></i>" . $res4[$i2]['nome_item'] . "</span><br>";
+                                    }
+                                }
+                            }
+
+                            ?>
+
+
+                        </div>
+
+                    <?php
+                    }
+
+                    ?>
+
+
                 </div>
             </div>
             <div class="col-lg-12">
@@ -129,33 +232,22 @@ $valor = number_format($valor, 2, ',', '.');
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Products Infomation</h6>
-                                <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
-                                    suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                                    vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
-                                    Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-                                    accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
-                                    pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
-                                    elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
-                                    et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-                                    vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                                <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                                    ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                                    elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                                    porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                                    nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                                    Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed
-                                    porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum
-                                    sed sit amet dui. Proin eget tortor risus.</p>
+                                <h6>Descrição Longa</h6>
+                                <p>
+                                    <?php echo $descricao_longa ?>
+                                </p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Products Infomation</h6>
-                                <li><b>Peso</b> <span>0.5 kg</span></li>
-                                <li><b>Altura</b> <span>22 cm</span></li>
-                                <li><b>Largura</b> <span>20 cm</span></li>
+                                <h6>Informações Técnicas</h6>
+                                <li><b>Peso: </b> <span><?php echo $peso ?>g</span></li>
+                                <li><b>Altura: </b> <span><?php echo $altura ?>cm</span></li>
+                                <li><b>Largura: </b> <span><?php echo $largura ?>cm</span></li>
+                                <li><b>Comprimento: </b> <span><?php echo $comprimento ?>cm</span></li>
+                                <li><b>Modelo: </b> <span><?php echo $modelo ?></span></li>
+                                <li><b>Estoque: </b> <span><?php echo $estoque ?> unidades</span></li>
+
 
                             </div>
                         </div>
@@ -194,156 +286,90 @@ $valor = number_format($valor, 2, ',', '.');
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Tênis Masculino</a></h6>
-                        <h5>R$130,00</h5>
-                    </div>
-                </div>
+            <div class="categories__slider owl-carousel">
+
+                <?php
+                $query = $pdo->query("SELECT * FROM produtos WHERE id_subcategoria = '$id_subcategoria' order by id desc");
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                for ($i = 0; $i < count($res); $i++) {
+                    foreach ($res[$i] as $key => $value) {
+                    }
+                    $nome_url_produto = $res[$i]['nome_url'];
+                    $nome_produto = $res[$i]['nome'];
+                    $valor_produto_sem_promocao = $res[$i]['valor'];
+                    $imagem_produto = $res[$i]['imagem'];
+                    $promocao_produto = $res[$i]['promocao'];
+                    $id_produto = $res[$i]['id'];
+
+                    $valor_produto_sem_promocao = number_format($valor_produto_sem_promocao, 2, ',', '.');
+
+                    if ($promocao_produto == 'Sim') {
+                        $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto'");
+                        $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                        $valor_produto_promocao = $resP[0]['valor'];
+                        $desconto_produto = $resP[0]['desconto'];
+                        $valor_produto_promocao = number_format($valor_produto_promocao, 2, ',', '.');
+
+                ?>
+
+                        <div class="col-lg-4">
+                            <div class="product__discount__item">
+                                <div class="product__discount__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto ?>">
+                                    <div class="product__discount__percent"><?php echo $desconto_produto ?>%</div>
+                                    <ul class="product__item__pic__hover">
+                                        <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                        <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__discount__item__text">
+                                    <h5><a href="produto-<?php echo $nome_url_produto ?>"><?php echo $nome_produto ?></a></h5>
+                                    <div class="product__item__price">R$ <?php echo $valor_produto_promocao ?> <span>R$ <?php echo $valor_produto_sem_promocao ?></span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php
+                    } else {
+
+                    ?>
+
+                        <div class="col-lg-3 col-md-4 col-sm-6 mix sapatos fresh-meat">
+                            <div class="featured__item">
+                                <div class="featured__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto ?>">
+                                    <ul class="featured__item__pic__hover">
+                                        <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
+                                        <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
+                                        <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="featured__item__text">
+                                    <a href="produto-<?php echo $nome_url_produto ?>">
+                                        <h6><?php echo $nome_produto ?></h6>
+                                        <h5>R$ <?php echo $valor_produto_sem_promocao ?></h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                <?php
+                    } //fechamento if
+                } //fechamento for
+                ?>
+
+
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
+
+
         </div>
     </div>
 </section>
 <!-- Related Product Section End -->
 
-<!-- Footer Section Begin -->
-<footer class="footer spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer__about">
-                    <div class="footer__about__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                    </div>
-                    <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello@colorlib.com</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                <div class="footer__widget">
-                    <h6>Useful Links</h6>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">About Our Shop</a></li>
-                        <li><a href="#">Secure Shopping</a></li>
-                        <li><a href="#">Delivery infomation</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Our Sitemap</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">Who We Are</a></li>
-                        <li><a href="#">Our Services</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Innovation</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="footer__widget">
-                    <h6>Join Our Newsletter Now</h6>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#">
-                        <input type="text" placeholder="Enter your mail">
-                        <button type="submit" class="site-btn">Subscribe</button>
-                    </form>
-                    <div class="footer__widget__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="footer__copyright">
-                    <div class="footer__copyright__text">
-                        <p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>
-                                document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                    </div>
-                    <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Footer Section End -->
+<?php
 
-<!-- Js Plugins -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/mixitup.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/main.js"></script>
-
-
-</body>
-
-</html>
+require_once('rodape.php');
+?>

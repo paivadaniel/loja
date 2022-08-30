@@ -460,7 +460,7 @@ require_once('cabecalho-busca.php');
                                             <ul class="product__item__pic__hover">
                                                 <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                                 <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-eye"></i></a></li>
-                                                <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto_promocao ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
@@ -503,7 +503,7 @@ require_once('cabecalho-busca.php');
 
                         $valor_sem_promocao_produto_mais_vendido = number_format($valor_sem_promocao_produto_mais_vendido, 2, ',', '.');
 
-                        if ($promocao_produto_mais_vendido == 'Sim') {
+                        if ($promocao_produto_mais_vendido == 'Sim') { //com promoção
                             $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_mais_vendido'");
                             $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
 
@@ -521,7 +521,7 @@ require_once('cabecalho-busca.php');
                                         <ul class="product__item__pic__hover">
                                             <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                             <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto_mais_vendido ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__discount__item__text">
@@ -532,7 +532,7 @@ require_once('cabecalho-busca.php');
                             </div>
 
                         <?php
-                        } else {
+                        } else { //sem promoção
                         ?>
 
                             <div class="col-lg-4 col-md-6 col-sm-6">
@@ -540,7 +540,7 @@ require_once('cabecalho-busca.php');
                                     <div class="product__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_produto_mais_vendido ?>">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-eye"></i></a></li>
-                                            <li><a href="produto-<?php echo $nome_url_produto_mais_vendido ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto_mais_vendido ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
@@ -584,6 +584,7 @@ require_once('cabecalho-busca.php');
                         $nome_combo = $res[$i]['nome'];
                         $valor_combo = $res[$i]['valor'];
                         $imagem_combo = $res[$i]['imagem'];
+                        $id_combo = $res[$i]['id'];
 
                         $valor_combo = number_format($valor_combo, 2, ',', '.');
 
@@ -591,10 +592,10 @@ require_once('cabecalho-busca.php');
 
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/produtos/<?php echo $imagem_combo ?>">
+                                <div class="product__item__pic set-bg" data-setbg="img/combos/<?php echo $imagem_combo ?>">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="combo-<?php echo $nome_url_combo ?>"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="combo-<?php echo $nome_url_combo ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="#" onclick="carrinhoModal('<?php echo $id_combo ?>', 'Sim')"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -632,5 +633,7 @@ require_once('cabecalho-busca.php');
 <!-- Product Section End -->
 
 <?php
+
+require_once('modal-carrinho.php');
 require_once('rodape.php')
 ?>

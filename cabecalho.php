@@ -1,6 +1,59 @@
 <?php
 
-require_once('config.php');
+require_once('conexao.php');
+@session_start();
+$id_usuario = @$_SESSION['id_usuario'];
+
+//VERIFICAR TOTAIS DO CARRINHO DE COMPRAS
+$res = $pdo->query("SELECT * from carrinho where id_usuario = '$id_usuario' and id_venda = 0 order by id asc"); //id_venda = 0 pois a venda ainda não ocorreu
+$dados = $res->fetchAll(PDO::FETCH_ASSOC);
+$linhas = count($dados);
+
+if ($linhas == 0) {
+  $linhas = 0;
+  $total_carrinho = 0;
+}
+
+$total;
+
+for ($i = 0; $i < count($dados); $i++) {
+  foreach ($dados[$i] as $key => $value) {
+  }
+
+  $id_produto = $dados[$i]['id_produto'];
+  $quantidade = $dados[$i]['quantidade'];
+  $combo = $dados[$i]['combo'];
+
+  if ($combo == 'Sim') { //para combos
+    $res_p = $pdo->query("SELECT * from combos where id = '$id_produto' ");
+    $dados_p = $res_p->fetchAll(PDO::FETCH_ASSOC);
+
+    $valor_produto = $dados_p[0]['valor'];
+
+  } else { //para produtos
+    $res_p = $pdo->query("SELECT * from produtos where id = '$id_produto' ");
+    $dados_p = $res_p->fetchAll(PDO::FETCH_ASSOC);
+
+    $valor_produto = $dados_p[0]['valor'];
+    $promocao_produto = @$dados_p[0]['promocao'];
+
+    if ($promocao_produto == 'Sim') { //para produtos em promoção
+      $res_p2 = $pdo->query("SELECT * from promocoes where id_produto = '$id_produto' ");
+      $dados_p2 = $res_p2->fetchAll(PDO::FETCH_ASSOC);
+      $valor_produto = $dados_p2[0]['valor'];
+    }
+
+  }
+
+  $total_item = $valor_produto * $quantidade;
+  @$total_carrinho = @$total_carrinho + $total_item;
+
+  $valor_produto = number_format($valor_produto, 2, ',', '.');
+  $total_item = number_format($total_item, 2, ',', '.');
+
+}
+
+$total_carrinho = number_format($total_carrinho , 2, ',', '.');
 
 ?>
 
@@ -50,11 +103,38 @@ require_once('config.php');
         <div class="humberger__menu__cart">
             <ul>
                 <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
-                <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span><?php echo $linhas ?></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>R$160,00</span></div>
+            <div class="header__cart__price"><span>Total: R$<?php echo $total_carrinho ?></span></div>
             <div class="header__top__right__auth ml-4">
-                <a href="sistema"><i class="fa fa-user"></i> Login</a>
+
+
+                <?php
+                if (@$_SESSION['nivel_usuario'] == null) {
+
+
+                ?>
+
+                    <a href="sistema"><i class="fa fa-user"> Login</i>
+
+                    <?php
+                } else if ($_SESSION['nivel_usuario'] == 'Administrador') {
+                    ?>
+                        <a href="sistema/painel-admin/"><i class="fa fa-user"> Painel</i>
+
+                        <?php
+
+                    } else if ($_SESSION['nivel_usuario'] == 'Cliente') {
+                        ?>
+
+                            <a href="sistema/painel-cliente/"><i class="fa fa-user"> Painel</i>
+
+                            <?php
+                        }
+
+                            ?>
+
+                            </a>
             </div>
 
 
@@ -146,7 +226,41 @@ require_once('config.php');
 
 -->
                             <div class="header__top__right__auth">
-                                <a href="sistema"><i class="fa fa-user"></i> Login</a>
+
+                                <?php
+                                if (@$_SESSION['nivel_usuario'] == null) {
+
+
+                                ?>
+
+                                    <a href="sistema"><i class="fa fa-user"> Login</i>
+
+                                    <?php
+                                } else if ($_SESSION['nivel_usuario'] == 'Administrador') {
+                                    ?>
+                                        <a href="sistema/painel-admin/"><i class="fa fa-user"> Painel</i>
+
+                                        <?php
+
+                                    } else if ($_SESSION['nivel_usuario'] == 'Cliente') {
+                                        ?>
+
+                                            <a href="sistema/painel-cliente/"><i class="fa fa-user"> Painel</i>
+
+                                            <a href="sistema/logout.php"><i class="fa fa-user"> Sair</i>
+
+
+                                            <?php
+                                        }
+
+                                            ?>
+
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -187,9 +301,9 @@ require_once('config.php');
                     <div class="header__cart">
                         <ul>
                             <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
-                            <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span><?php echo $linhas ?></span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>R$150,00</span></div>
+                        <div class="header__cart__price"><span>Total: R$<?php echo $total_carrinho ?></span></div>
                     </div>
                 </div>
             </div>

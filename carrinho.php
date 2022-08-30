@@ -5,7 +5,7 @@ require_once('cabecalho-busca.php');
 
 ?>
 <!-- Shoping Cart Section Begin -->
-<section class="shoping-cart spad">
+<section class="shoping-cart spad bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -23,7 +23,7 @@ require_once('cabecalho-busca.php');
                         <tbody>
                             <tr>
                                 <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-1.jpg" alt="">
+                                    <img src="img/cart/cart-1.jpg" alt="" width="100">
                                     <h5>Vegetable’s Package</h5>
                                 </td>
                                 <td class="shoping__cart__price">
@@ -43,50 +43,7 @@ require_once('cabecalho-busca.php');
                                     <span class="icon_close"></span>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-2.jpg" alt="">
-                                    <h5>Fresh Garden Vegetable</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                    $39.00
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                    $39.99
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-3.jpg" alt="">
-                                    <h5>Organic Bananas</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                    $69.00
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                    $69.99
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>

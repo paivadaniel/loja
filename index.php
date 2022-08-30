@@ -3,6 +3,8 @@
 require_once('cabecalho.php');
 require_once('conexao.php');
 
+@session_start();
+
 ?>
 
 <!-- não chamou cabecalho_busca.php, pois a home tem um banner a mais no cabecalho_busca.php, portanto, ele
@@ -201,7 +203,7 @@ aqui tem um action que leva para lista-produtos.php -->
                                 <ul class="product__item__pic__hover">
                                     <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                     <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__discount__item__text">
@@ -223,7 +225,7 @@ aqui tem um action que leva para lista-produtos.php -->
                                     <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                     <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
                                     <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="featured__item__text">
@@ -783,6 +785,7 @@ Blog Section End -->
 
 <?php
 
+require_once('modal-carrinho.php');
 require_once('rodape.php');
 
 ?>

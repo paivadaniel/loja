@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Ago-2022 às 16:35
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 30-Ago-2022 às 21:17
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -84,12 +84,51 @@ CREATE TABLE `carac_itens` (
 --
 
 INSERT INTO `carac_itens` (`id`, `id_carac_prod`, `nome_item`, `valor_item`) VALUES
-(1, 27, 'azul', '#wr2342'),
 (2, 28, 'branco', '#FFFFFF'),
-(7, 30, 'P', ''),
 (30, 28, 'azul', ''),
-(31, 31, 'Branca', '#FFFFFF'),
-(32, 31, 'Azul', '#F3DDF4');
+(31, 29, 'PMel', ''),
+(32, 29, 'MMel', ''),
+(33, 29, 'GMel', ''),
+(34, 30, 'Tamanho1Mel', ''),
+(35, 30, 'Tamanho2Mel', ''),
+(37, 27, 'azul', '#0625bf'),
+(38, 27, 'vermelho', '#ff0800'),
+(39, 27, 'amarelo', '#ffe600');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `carac_itens_carrinho`
+--
+
+CREATE TABLE `carac_itens_carrinho` (
+  `id` int(11) NOT NULL,
+  `id_carrinho` int(11) NOT NULL,
+  `id_carac` int(11) NOT NULL,
+  `nome_carac` varchar(35) NOT NULL,
+  `nome_item` varchar(35) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `carac_itens_carrinho`
+--
+
+INSERT INTO `carac_itens_carrinho` (`id`, `id_carrinho`, `id_carac`, `nome_carac`, `nome_item`) VALUES
+(58, 135, 7, 'Tamanho', 'Tamanho2Mel'),
+(59, 136, 7, 'Tamanho', 'Tamanho2Mel'),
+(60, 136, 4, 'Numeração', 'MMel'),
+(61, 137, 7, 'Tamanho', 'Tamanho2Mel'),
+(62, 137, 3, 'Cor', 'amarelo'),
+(63, 136, 3, 'Cor', 'amarelo'),
+(64, 138, 7, 'Tamanho', 'Tamanho2Mel'),
+(65, 138, 4, 'Numeração', 'MMel'),
+(66, 138, 3, 'Cor', 'amarelo'),
+(67, 139, 7, 'Tamanho', 'Tamanho1Mel'),
+(68, 139, 4, 'Numeração', 'MMel'),
+(69, 139, 3, 'Cor', 'vermelho'),
+(70, 152, 7, 'Tamanho', 'Tamanho1Mel'),
+(71, 152, 4, 'Numeração', 'MMel'),
+(72, 152, 3, 'Cor', 'amarelo');
 
 -- --------------------------------------------------------
 
@@ -112,8 +151,51 @@ INSERT INTO `carac_prod` (`id`, `id_carac`, `id_prod`) VALUES
 (28, 3, 3),
 (29, 4, 2),
 (30, 7, 2),
-(31, 3, 6),
-(33, 7, 6);
+(31, 3, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `id_venda` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `combo` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `carrinho`
+--
+
+INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidade`, `data`, `combo`) VALUES
+(136, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(137, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(138, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(139, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(140, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(141, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(142, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(143, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(144, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(145, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(146, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(147, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(148, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(149, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(150, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(151, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(152, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(153, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(154, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(155, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(156, 18, 2, 0, 1, '2022-08-30', 'Não'),
+(157, 18, 2, 0, 1, '2022-08-30', 'Não');
 
 -- --------------------------------------------------------
 
@@ -199,8 +281,8 @@ CREATE TABLE `combos` (
 --
 
 INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`, `vendas`) VALUES
-(3, '5 camisas', '5-camisas', '', '', '69.22', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL),
-(6, '12 camisas regata', '12-camisas-regata', '', '', '120.00', 'sem-foto.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL);
+(7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL),
+(8, 'combo 5 calças', 'combo-5-calcas', '', '', '50.00', 'banner-teste.jpg', 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -264,7 +346,7 @@ CREATE TABLE `produtos` (
   `id_subcategoria` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `nome_url` varchar(100) NOT NULL,
-  `descricao` varchar(500) DEFAULT NULL,
+  `descricao` varchar(1000) DEFAULT NULL,
   `descricao_longa` text DEFAULT NULL,
   `valor` decimal(10,2) NOT NULL,
   `imagem` varchar(100) NOT NULL,
@@ -273,9 +355,9 @@ CREATE TABLE `produtos` (
   `palavras` varchar(250) DEFAULT NULL,
   `ativo` varchar(5) NOT NULL,
   `peso` double(8,2) DEFAULT NULL,
-  `largura` double(8,2) DEFAULT NULL,
-  `altura` double(8,2) DEFAULT NULL,
-  `comprimento` double(8,2) DEFAULT NULL,
+  `largura` int(11) DEFAULT NULL,
+  `altura` int(11) DEFAULT NULL,
+  `comprimento` int(11) DEFAULT NULL,
   `modelo` varchar(100) DEFAULT NULL,
   `valor_frete` decimal(8,2) DEFAULT NULL,
   `promocao` varchar(5) DEFAULT NULL,
@@ -287,17 +369,16 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`, `vendas`) VALUES
-(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32.00, 12.00, 24.00, 'doce', '32.00', 'Sim', 6),
-(3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', NULL),
-(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(6, 9, 4, 'teste produto novo', 'teste-produto-novo', 'aqui vai a descrição', 'descrição longa entra aqui nesse campo', '50.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', NULL),
-(7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, 'testando', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Sim', 12),
-(14, 1, 3, 'da422rafafa', 'da422rafafa', '', '', '64.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL),
-(15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', 9),
-(16, 1, 3, '4242', '4242', '', '', '13.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0.00, 0.00, 0.00, '', '0.00', 'Não', NULL);
+(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32, 12, 24, 'doce', '32.00', 'Sim', 6),
+(3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Sim', NULL),
+(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
+(6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
+(7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
+(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, 'testando', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
+(9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
+(13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Sim', 12),
+(15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', 9),
+(16, 1, 3, '4242', '4242', '', '', '13.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL);
 
 -- --------------------------------------------------------
 
@@ -345,8 +426,7 @@ INSERT INTO `promocoes` (`id`, `id_produto`, `valor`, `data_inicio`, `data_final
 (31, 13, '21.00', '2022-08-23', '2022-08-23', 'Sim', '50'),
 (32, 2, '37.42', '2022-08-24', '2022-08-24', 'Sim', '30'),
 (33, 3, '21.59', '2022-08-24', '2022-08-24', 'Sim', '10'),
-(34, 8, '19.20', '2022-08-25', '2022-08-25', 'Sim', '40'),
-(35, 6, '25.00', '2022-08-27', '2022-08-27', 'Sim', '50');
+(34, 8, '19.20', '2022-08-25', '2022-08-25', 'Sim', '40');
 
 -- --------------------------------------------------------
 
@@ -467,9 +547,21 @@ ALTER TABLE `carac_itens`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `carac_itens_carrinho`
+--
+ALTER TABLE `carac_itens_carrinho`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `carac_prod`
 --
 ALTER TABLE `carac_prod`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `carrinho`
+--
+ALTER TABLE `carrinho`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -564,13 +656,25 @@ ALTER TABLE `carac`
 -- AUTO_INCREMENT de tabela `carac_itens`
 --
 ALTER TABLE `carac_itens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT de tabela `carac_itens_carrinho`
+--
+ALTER TABLE `carac_itens_carrinho`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT de tabela `carac_prod`
 --
 ALTER TABLE `carac_prod`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -588,7 +692,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de tabela `combos`
 --
 ALTER TABLE `combos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `emails`
@@ -618,7 +722,7 @@ ALTER TABLE `prod_combos`
 -- AUTO_INCREMENT de tabela `promocoes`
 --
 ALTER TABLE `promocoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `promocoes_banner`
