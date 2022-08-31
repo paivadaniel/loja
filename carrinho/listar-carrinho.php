@@ -82,9 +82,9 @@ for ($i = 0; $i < count($dados); $i++) {
    </h5>
    </td>
 
-<td width="200" align="left" class="shoping__cart__item">
+<td width="150" align="left" class="shoping__cart__item">
 
-<span class="mt-4" align="center" id="listar-carac-itens2">';
+<span class="mt-4 d-none d-sm-none d-md-block" align="center" id="listar-carac-itens2">';
    
 $query2 = $pdo->query("SELECT * from carac_itens_carrinho WHERE id_carrinho = '$id_carrinho'");
 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);

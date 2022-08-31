@@ -23,7 +23,6 @@ $id_carrinho = $_POST['id_carrinho'];
 
 $id_cliente = @$_SESSION['id_usuario'];
 
-echo "<div class='row p-3'>";
 
 $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -44,11 +43,12 @@ for ($i = 0; $i < count($res2); $i++) {
 
 
 
-    echo "<div class='mr-3 mt-3'>
+    echo "
 
 <form id='form' method='post'>
 
 <input name='id_carrinho_carrinho' type='hidden' value='" . $id_carrinho . "'> 
+<div class='p-2'>
         <select class='form-control form-control-sm' name='" . $i . "' id='" . $i . "'>"; //name e id vai ficar cor, numeração, tamanho, ou seja, as características cadastradas na tabela carac do banco de dados
 
 
@@ -67,23 +67,17 @@ for ($i = 0; $i < count($res2); $i++) {
     }
 
     echo "</select>
+    </div>
     </form>
 
-    </div>
 ";
 }
 
-echo "<div class='mt-4' align='center' id='listar-carac-itens'>
-
-</div>
-
-
-</div>";
 
 
 if (@$tem_cor == 'Sim') {
 
-    echo "<div class='mt-4'>";
+    
 
     $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -107,12 +101,12 @@ if (@$tem_cor == 'Sim') {
 
                 $valor_item = $res4[$i2]['valor_item'];
 
-                echo "<span> <i class='fa fa-circle ml-1 mr-1' style='color:" . $valor_item . "'></i>" . $res4[$i2]['nome_item'] . "</span>";
+                echo "<span class='p-2'> <i class='fa fa-circle ml-1 mr-1' style='color:" . $valor_item . "'></i>" . $res4[$i2]['nome_item'] . "</span> <br>";
             }
         }
     }
 
-    echo "</div>";
+   
 }
 
 ?>
@@ -131,6 +125,7 @@ if (@$tem_cor == 'Sim') {
             dataType: "text",
             success: function(msg) {
                 atualizarCaracCarrinho()
+                atualizarCarrinho()
                 if (msg.trim() === 'Característica Inserida com Sucesso!') {
 
 
@@ -159,6 +154,7 @@ if (@$tem_cor == 'Sim') {
             dataType: "text",
             success: function(msg) {
                 atualizarCaracCarrinho()
+                atualizarCarrinho()
                 if (msg.trim() === 'Característica Inserida com Sucesso!') {
 
 
@@ -187,6 +183,7 @@ if (@$tem_cor == 'Sim') {
             dataType: "text",
             success: function(msg) {
                 atualizarCaracCarrinho()
+                atualizarCarrinho()
                 if (msg.trim() === 'Característica Inserida com Sucesso!') {
 
                 } else {
@@ -213,6 +210,8 @@ if (@$tem_cor == 'Sim') {
 <script>
     function atualizarCaracCarrinho() {
 
+        //id_carrinho vem de listar-carrinho.php, da função addCarac, que por sua vez está em modal-carrinho.php
+        //caso migrasse atualizarCaracCarrinho para modal-carrinho.php, não teria como recuperar id_carrinho como foi feito na linha a seguir, já que $id_carrinho está definida nessa página, e não em modal-carrinho.php
         var id_carrinho = <?= $id_carrinho ?>
 
         $.ajax({
@@ -224,6 +223,21 @@ if (@$tem_cor == 'Sim') {
             dataType: "html",
             success: function(result) {
                 $('#listar-carac-itens').html(result)
+
+            },
+        })
+    }
+</script>
+
+<script>
+    function atualizarCarrinho() {
+        $.ajax({
+            url: "carrinho/listar-carrinho.php",
+            method: "post",
+            data: $('#frm').serialize(),
+            dataType: "html",
+            success: function(result) {
+                $('#listar-carrinho').html(result)
 
             },
         })

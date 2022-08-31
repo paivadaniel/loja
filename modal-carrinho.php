@@ -1,7 +1,7 @@
 <!-- Modal Carrinho -->
 
 <div class="modal fade" id="modal-carrinho" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" role="document" style="overflow-y:initial !important">
         <div class="modal-content">
             <div class="modal-header">
 
@@ -13,7 +13,7 @@
                 </button>
             </div>
             <form id="form-carrinho" method="POST">
-                <div class="modal-body">
+                <div class="modal-body" style="height:500px; overflow-y:auto;"> <!-- height e overflow-y:auto se colocar na modal-content, vai mudar a forma como a barra de rolagem é disposta -->
                     <?php
                     if (@$_SESSION['nivel_usuario'] != 'Cliente') {
                         echo "Faça login para adicionar produtos ao carrinho! Clique <a href='sistema' class='text-info'>aqui</a> para logar.";
@@ -42,8 +42,8 @@
                     </div>
 
                     <div align="right" class="col-md-6 mb-4">
-                        <button type="button" id="btn-comprar" class="btn btn-info btn-sm" data-dismiss="modal">Comprar Mais</button>
-                        <button type="submit" name="btn-finalizar" id="btn-finalizar" class="btn btn-success btn-sm">Finalizar Compra</button>
+                        <button type="button" id="btn-comprar" class="primary-btn bg-secondary btn-sm" data-dismiss="modal">Comprar Mais</button>
+                        <button type="submit" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</button> <!-- btn-sm deixa o botão small, não funcionou btn-small -->
                     </div>
 
                 </div>
@@ -63,7 +63,7 @@
 <!-- Modal Característica Carrinho -->
 
 <div class="modal fade" id="modal-carac-carrinho" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
 
@@ -75,9 +75,19 @@
             </div>
             <form id="form-carrinho" method="POST">
                 <div class="modal-body">
-                    
-                   <div id='listar-caracteristicas'></div>
-                   <div id='listar-itens-caracteristicas'></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div id='listar-caracteristicas'></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id='listar-carac-itens'></div>
+                        </div>
+                    </div>
+
+
+
 
 
 
@@ -86,7 +96,7 @@
                 </div>
 
 
-         
+
                 <div class="modal-footer">
 
 
@@ -108,7 +118,10 @@
 
             url: "carrinho/inserir-carrinho.php",
             method: "post",
-            data: {id_produto, combo},
+            data: {
+                id_produto,
+                combo
+            },
             dataType: "text",
             success: function(mensagem) {
 
@@ -142,9 +155,9 @@
 </script>
 
 <script>
-//atualizarCarrinho faz o mesmo que listar-carrinho.php, porém, listar-carrinho é exclusiva quando a página é carregada pela primeira vez
-//atualizar carrinho devolve a quantidade total de itens e o preço total deles
-function atualizarCarrinho() {
+    //atualizarCarrinho faz o mesmo que listar-carrinho.php, porém, listar-carrinho é exclusiva quando a página é carregada pela primeira vez
+    //atualizar carrinho devolve a quantidade total de itens e o preço total deles
+    function atualizarCarrinho() {
         $.ajax({
             url: "carrinho/listar-carrinho.php",
             method: "post",
@@ -194,7 +207,7 @@ function atualizarCarrinho() {
 </script>
 
 <script type="text/javascript">
-    function editarCarrinho(id) {
+    function editarCarrinho(id_carrinho) {
 
         var quantidade = document.getElementById('txtquantidade').value;
         event.preventDefault();
@@ -204,7 +217,7 @@ function atualizarCarrinho() {
             url: "carrinho/editar-carrinho.php",
             method: "post",
             data: {
-                id,
+                id_carrinho,
                 quantidade
             },
             dataType: "text",
@@ -240,7 +253,10 @@ function atualizarCarrinho() {
 
             url: "carrinho/carac-produtos.php",
             method: "post",
-            data: {id_produto, id_carrinho},
+            data: {
+                id_produto,
+                id_carrinho
+            },
             dataType: "text",
             success: function(result) {
 
@@ -249,7 +265,7 @@ function atualizarCarrinho() {
                 $('#listar-caracteristicas').html(result)
                 if (result == 'Listado com Sucesso!') {
                     //atualizarCarrinho();
-                    
+
                     $("#modal-carac-carrinho").modal("show");
 
                 } else {

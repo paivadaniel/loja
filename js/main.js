@@ -203,6 +203,13 @@
     /*-------------------
 		Quantity change
 	--------------------- */
+
+
+/*
+
+//foi usado em carrinho.php um código próprio para isso onde consta SCRIPT PARA ALTERAR O INPUT NUMBER
+
+
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="dec qtybtn">-</span>');
     proQty.append('<span class="inc qtybtn">+</span>');
@@ -221,5 +228,6 @@
         }
         $button.parent().find('input').val(newVal);
     });
-
+*/
 })(jQuery);
+

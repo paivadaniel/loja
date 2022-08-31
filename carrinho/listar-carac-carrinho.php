@@ -11,6 +11,6 @@ for ($i = 0; $i < count($res); $i++) {
     foreach ($res[$i] as $key => $value) {
     }
 
-    echo '<span class="mr-2"><i class="fa fa-check text-info"></i> ' . $res[$i]['nome_carac'] . ' <br>' . $res[$i]['nome_item'] .'</span> <hr>';
+    echo '<span class="mr-2"><i class="fa fa-check text-info"></i> ' . $res[$i]['nome_carac'] . ': ' . $res[$i]['nome_item'] .'</span> <br>';
 
 }
