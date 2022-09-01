@@ -98,17 +98,27 @@ $valor = number_format($valor, 2, ',', '.');
                     </div>
                     <div class="product__details__price">R$ <?php echo $valor ?></div>
                     <p><?php echo $descricao ?></p>
-                    <div class="product__details__quantity">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1">
+                    <form method="post" id="form-add">
+                        
+                        <!-- não tem como passar id_carrinho pois somente depois de adicionar é que será criada a id_carrinho, inserir-carrinho.php não recebe id_carrinho -->
+                        <div class="product__details__quantity">
+                        <input type="hidden" id="id_produto" name="id_produto" value="<?php echo $id_produto ?>">
+                        <input type="text" id="combo" name="combo" value="Não">
+                        <!-- precisa de combo, pois esse é um dos campos da tabela carrinho, e recebido por POST em inserir-carrinho.php -->
+
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" name="quantidade" value="1">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="#" class="primary-btn">ADICIONAR</a>
+                        <button href="#" class="primary-btn bg-info">ADICIONAR</button>
+                        <!--
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        -->
 
-                    <div class="row mt-4">
+                    </form>
+                    <div class="row mt-4 ml-1">
 
                         <?php
 
@@ -175,6 +185,7 @@ $valor = number_format($valor, 2, ',', '.');
                         <div class="mt-4">
 
                             <?php
+                            echo "<span class='mr-2'>Cores disponíveis: </span>";
 
                             $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
                             $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -198,7 +209,7 @@ $valor = number_format($valor, 2, ',', '.');
 
                                         $valor_item = $res4[$i2]['valor_item'];
 
-                                        echo "<span> <i class='fa fa-circle mr-1' style='color:" . $valor_item . "'></i>" . $res4[$i2]['nome_item'] . "</span><br>";
+                                        echo "<span> <i class='fa fa-circle ml-1 mr-1' style='color:" . $valor_item . "'></i>" . $res4[$i2]['nome_item'] . "</span>";
                                     }
                                 }
                             }
@@ -373,3 +384,25 @@ $valor = number_format($valor, 2, ',', '.');
 
 require_once('rodape.php');
 ?>
+
+<script>
+    //esse script tem que ser chamado após rodape.php, pois a chamada do jQuery é feito em rodape.php
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function() {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 0) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 0;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+    });
+</script>

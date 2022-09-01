@@ -828,3 +828,7 @@ se copiar tudo dava problema
 1. quando muda de cor amarelo, azul ou vermelho (ou outra que for) para Selecionar Cor, não atualiza o banco
 2. quando escolho um tamanho, depois altero um tamanho, e antes de escolher a numeração, escolho uma cor, estraga o algoritmo
 depois de escolher a cor, pois não escolhe uma numeração e nem pode alterar o tamanho
+
+----- mod07 aula07
+
+não está funcionando atualização automática do preço

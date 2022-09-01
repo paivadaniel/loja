@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 31-Ago-2022 às 22:21
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 01-Set-2022 às 03:09
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -116,7 +116,7 @@ CREATE TABLE `carac_itens_carrinho` (
 INSERT INTO `carac_itens_carrinho` (`id`, `id_carrinho`, `id_carac`, `nome_carac`, `nome_item`) VALUES
 (73, 159, 7, 'Tamanho', 'Tamanho2Mel'),
 (74, 159, 4, 'Numeração', 'GMel'),
-(75, 159, 3, 'Cor', 'amarelo');
+(75, 159, 3, 'Cor', 'vermelho');
 
 -- --------------------------------------------------------
 
@@ -164,18 +164,9 @@ CREATE TABLE `carrinho` (
 INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidade`, `data`, `combo`) VALUES
 (159, 18, 2, 0, 1, '2022-08-30', 'Não'),
 (227, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(228, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(229, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(230, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(231, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(232, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(233, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(234, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(235, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(236, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(237, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(238, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(239, 18, 2, 0, 1, '2022-08-31', 'Não');
+(240, 18, 2, 0, 1, '2022-08-31', 'Não'),
+(243, 18, 2, 0, 1, '2022-08-31', 'Não'),
+(244, 18, 2, 0, 1, '2022-08-31', 'Não');
 
 -- --------------------------------------------------------
 
@@ -654,7 +645,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
