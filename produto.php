@@ -6,7 +6,7 @@ require_once('conexao.php');
 //recuperar o nome do produto para filtrar as informações (como características) dele
 $produto_get = @$_GET['nome']; //esse GET vem do htaccess?
 
-$tem_cor;
+$tem_cor; //essa variável é trabalhada no final dessa página para mostrar a paleta de cores do produto
 
 ?>
 
@@ -99,12 +99,14 @@ $valor = number_format($valor, 2, ',', '.');
                     <div class="product__details__price">R$ <?php echo $valor ?></div>
                     <p><?php echo $descricao ?></p>
                     <form method="post" id="form-add">
-                        
+
                         <!-- não tem como passar id_carrinho pois somente depois de adicionar é que será criada a id_carrinho, inserir-carrinho.php não recebe id_carrinho -->
                         <div class="product__details__quantity">
-                        <input type="hidden" id="id_produto" name="id_produto" value="<?php echo $id_produto ?>">
-                        <input type="text" id="combo" name="combo" value="Não">
-                        <!-- precisa de combo, pois esse é um dos campos da tabela carrinho, e recebido por POST em inserir-carrinho.php -->
+                            <input type="hidden" id="id_produto" name="id_produto" value="<?php echo $id_produto ?>">
+                            <input type="hidden" id="combo" name="combo" value="Não">
+                            <input type="hidden" id="tem_carac" name="tem_carac" value="Sim">
+
+                            <!-- precisa de combo, pois esse é um dos campos da tabela carrinho, e recebido por POST em inserir-carrinho.php -->
 
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -112,72 +114,80 @@ $valor = number_format($valor, 2, ',', '.');
                                 </div>
                             </div>
                         </div>
-                        <button href="#" class="primary-btn bg-info">ADICIONAR</button>
+                        <button href="#" class="primary-btn bg-info" id="btn-add-carrinho">ADICIONAR</button>
+
+                        <small>
+                            <div id="mensagem-carrinho-produto" align="center" style="margin-top:15px"></div>
+                        </small>
+
+
+
                         <!--
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         -->
 
-                    </form>
-                    <div class="row mt-4 ml-1">
+                        <div class="row mt-4 ml-1">
 
-                        <?php
+                            <?php
 
-                        $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
-                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-                        for ($i = 0; $i < count($res2); $i++) {
-                            foreach ($res2[$i] as $key => $value) {
-                            }
+                            $query2 = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto' order by id desc");
+                            $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                            for ($i = 0; $i < count($res2); $i++) {
+                                foreach ($res2[$i] as $key => $value) {
+                                }
 
-                            $id_carac = $res2[$i]['id_carac'];
-                            $id_carac_prod = $res2[$i]['id'];
+                                $id_carac = $res2[$i]['id_carac'];
+                                $id_carac_prod = $res2[$i]['id'];
 
-                            $query3 = $pdo->query("SELECT * from carac WHERE id = '$id_carac'");
-                            $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
-                            $nome_carac = $res3[0]['nome'];
+                                $query3 = $pdo->query("SELECT * from carac WHERE id = '$id_carac'");
+                                $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+                                $nome_carac = $res3[0]['nome'];
 
-                            if ($nome_carac == 'Cor') {
-                                @$tem_cor = 'Sim';
-                            }
-
-
-                        ?>
-
-                            <div class="mr-3 mt-3">
+                                if ($nome_carac == 'Cor') {
+                                    @$tem_cor = 'Sim';
+                                }
 
 
-                                <select class="form-control form-control-sm" name="categoria" id="categoria">
-                                    <?php
+                            ?>
 
-                                    echo "<option value='" . $nome_carac . "' > Selecionar " . $nome_carac . "</option>";
+                                <div class="mr-3 mt-3">
+
+                                    <select class='form-control form-control-sm' name='<?php echo $i ?>' id='<?php echo $i ?>'>
+                                        <?php
+
+                                        echo "<option value='0' > Selecionar " . $nome_carac . "</option>";
 
 
-                                    $query4 = $pdo->query("SELECT * from carac_itens WHERE id_carac_prod = '$id_carac_prod'");
-                                    $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
-                                    for ($i2 = 0; $i2 < count($res4); $i2++) {
-                                        foreach ($res4[$i2] as $key => $value) {
+                                        $query4 = $pdo->query("SELECT * from carac_itens WHERE id_carac_prod = '$id_carac_prod'");
+                                        $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
+                                        for ($i2 = 0; $i2 < count($res4); $i2++) {
+                                            foreach ($res4[$i2] as $key => $value) {
+                                            }
+
+
+
+                                            echo "<option value='" . $res4[$i2]['id'] . "' >" . $res4[$i2]['nome_item'] . "</option>";
                                         }
 
-
-
-                                        echo "<option value='" . $res4[$i2]['id'] . "' >" . $res4[$i2]['nome_item'] . "</option>";
-                                    }
-
-                                    ?>
-                                </select>
+                                        ?>
+                                    </select>
 
 
 
 
-                            </div>
+                                </div>
 
-                        <?php
-                        }
+                            <?php
+                            }
 
-                        ?>
+                            ?>
 
 
 
-                    </div>
+                        </div>
+
+                    </form> <!-- form fica aqui para enviar os itens das características do produto, por exemplo, cor amarelo e tamanho P -->
+
 
                     <?php
                     if (@$tem_cor == 'Sim') {
@@ -383,6 +393,11 @@ $valor = number_format($valor, 2, ',', '.');
 <?php
 
 require_once('rodape.php');
+
+//tem que ser chamada depois do rodape.php, pois no rodape.php chama o jQuery, e em modal-carrinho.php, as funções com AJAX necessitam de jQuery
+//require_once('modal-carrinho.php');
+//comentei pois preferi redirecionar para carrinho.php com window.location após clique em btn-add-carrinho
+
 ?>
 
 <script>
@@ -405,4 +420,35 @@ require_once('rodape.php');
         }
         $button.parent().find('input').val(newVal);
     });
+</script>
+
+
+
+
+<script type="text/javascript">
+    $('#btn-add-carrinho').click(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: 'carrinho/inserir-carrinho.php',
+            method: 'post',
+            data: $('form').serialize(),
+            dataType: "text",
+            success: function(msg) {
+                if (msg.trim() === 'Produto Inserido no Carrinho!') {
+
+                    window.location = 'carrinho.php'
+                    //$('#modal-carrinho').modal('show'); //abre a modal carrinho
+
+
+                } else {
+                    $('#mensagem-carrinho-produto').removeClass();
+                    $('#mensagem-carrinho-produto').addClass('text-danger');
+                    $('#mensagem-carrinho-produto').text(msg);
+
+                }
+            }
+        })
+
+    })
 </script>

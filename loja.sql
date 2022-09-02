@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01-Set-2022 às 03:09
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 02-Set-2022 às 21:29
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -93,7 +93,10 @@ INSERT INTO `carac_itens` (`id`, `id_carac_prod`, `nome_item`, `valor_item`) VAL
 (35, 30, 'Tamanho2Mel', ''),
 (37, 27, 'azul', '#0625bf'),
 (38, 27, 'vermelho', '#ff0800'),
-(39, 27, 'amarelo', '#ffe600');
+(39, 27, 'amarelo', '#ffe600'),
+(40, 31, 'vermelho', '#de0202'),
+(41, 31, 'roxo', '#7a018a'),
+(42, 31, 'marrom', '#614505');
 
 -- --------------------------------------------------------
 
@@ -114,9 +117,9 @@ CREATE TABLE `carac_itens_carrinho` (
 --
 
 INSERT INTO `carac_itens_carrinho` (`id`, `id_carrinho`, `id_carac`, `nome_carac`, `nome_item`) VALUES
-(73, 159, 7, 'Tamanho', 'Tamanho2Mel'),
-(74, 159, 4, 'Numeração', 'GMel'),
-(75, 159, 3, 'Cor', 'vermelho');
+(115, 317, 7, 'Tamanho', 'Tamanho1Mel'),
+(116, 317, 4, 'Numeração', 'PMel'),
+(117, 317, 3, 'Cor', 'azul');
 
 -- --------------------------------------------------------
 
@@ -162,11 +165,7 @@ CREATE TABLE `carrinho` (
 --
 
 INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidade`, `data`, `combo`) VALUES
-(159, 18, 2, 0, 1, '2022-08-30', 'Não'),
-(227, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(240, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(243, 18, 2, 0, 1, '2022-08-31', 'Não'),
-(244, 18, 2, 0, 1, '2022-08-31', 'Não');
+(317, 18, 2, 0, 1, '2022-09-02', 'Não');
 
 -- --------------------------------------------------------
 
@@ -340,7 +339,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`, `vendas`) VALUES
-(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Teste', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32, 12, 24, 'doce', '32.00', 'Sim', 6),
+(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Descrição do Pão de Mel Com Chocolate', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 23.00, 32, 12, 24, 'doce', '32.00', 'Sim', 6),
 (3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Sim', NULL),
 (4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
 (6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
@@ -368,10 +367,9 @@ CREATE TABLE `prod_combos` (
 --
 
 INSERT INTO `prod_combos` (`id`, `id_produto`, `id_combo`) VALUES
-(21, 3, 6),
-(22, 2, 3),
-(30, 6, 6),
-(31, 2, 6);
+(32, 2, 8),
+(33, 3, 8),
+(34, 7, 7);
 
 -- --------------------------------------------------------
 
@@ -627,13 +625,13 @@ ALTER TABLE `carac`
 -- AUTO_INCREMENT de tabela `carac_itens`
 --
 ALTER TABLE `carac_itens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de tabela `carac_itens_carrinho`
 --
 ALTER TABLE `carac_itens_carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT de tabela `carac_prod`
@@ -645,7 +643,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -687,7 +685,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `prod_combos`
 --
 ALTER TABLE `prod_combos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `promocoes`

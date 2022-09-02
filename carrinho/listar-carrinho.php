@@ -88,14 +88,33 @@ for ($i = 0; $i < count($dados); $i++) {
    
 $query2 = $pdo->query("SELECT * from carac_itens_carrinho WHERE id_carrinho = '$id_carrinho'");
 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+$total_carac = @count($res2);
+
+if($total_carac == 0 and $combo != 'Sim') { //se não tiver característica adicionada ao produto (o autor exibiu a frase "Selecionar Característica", porém, e se o produto não exigir que uma categoria seja selecinada? Por exemplo, um boné com cor padrão preta, por isso escolhi exibir "Nenhuma Característica Selecionada", e optei por não colocar nessa frase link com onclick levando para a modal de seleção de característica)
+  echo '<span class="mr-2">Nenhuma Característica Selecionada</span>';
+} else { //se tiver característica selecionada do produto, lista cada uma delas
 
 for ($i2 = 0; $i2 < count($res2); $i2++) {
     foreach ($res2[$i2] as $key => $value) {
     }
 
+/*
+não foi necessário fazer:
+
+$res2 = $res2[$i2]['id_carac']
+$query3 = $pdo->query(SELECT * from carac WHERE id = '$id_carac')
+$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+
+$res3 = $res3[0]['nome']
+
+pois coloquei nome_carac na tabela carac_itens_carrinho
+
+*/
+
     echo '<span class="mr-2"><i class="fa fa-check text-info"></i> ' . $res2[$i2]['nome_carac'] . ': ' . $res2[$i2]['nome_item'] .'</span>';
 
-}
+  } //fechamento if
+} //fechamento for
 
 
 echo '</span>

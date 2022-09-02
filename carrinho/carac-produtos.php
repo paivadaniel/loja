@@ -52,7 +52,7 @@ for ($i = 0; $i < count($res2); $i++) {
         <select class='form-control form-control-sm' name='" . $i . "' id='" . $i . "'>"; //name e id vai ficar cor, numeração, tamanho, ou seja, as características cadastradas na tabela carac do banco de dados
 
 
-    echo "<option value='' > Selecionar " . $nome_carac . "</option>"; //value é zero pois não seleciona nenhum valor, apenas Selecionar Tamanho, Selecionar Numeração, Selecionar Cor, ou seja, Selecionar + Nome da Características
+    echo "<option value='0' > Selecionar " . $nome_carac . "</option>"; //value é zero pois não seleciona nenhum valor, apenas Selecionar Tamanho, Selecionar Numeração, Selecionar Cor, ou seja, Selecionar + Nome da Características
     //mudou de 0 para vazio, pois 0 pode assumir valor no option abaixo, se $res4[$i2]['nome_item'] for 0
 
     $query4 = $pdo->query("SELECT * from carac_itens WHERE id_carac_prod = '$id_carac_prod'");
