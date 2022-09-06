@@ -168,7 +168,7 @@ $nome_pag = 'combos.php';
 <!-- Product Section End -->
 
 <?php
-
+require_once('rodape.php');
 require_once('modal-carrinho.php');
-require_once('rodape.php')
+
 ?>

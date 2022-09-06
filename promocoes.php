@@ -126,7 +126,9 @@ $nome_pag = 'promocoes.php';
                                     <ul class="product__item__pic__hover">
                                         <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                         <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="produto-<?php echo $nome_url_produto_promocao ?>"><i class="fa fa-shopping-cart"></i></a></li>
+
+
+                                                <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto_promocao ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__discount__item__text">
@@ -175,5 +177,7 @@ $nome_pag = 'promocoes.php';
 <!-- Product Section End -->
 
 <?php
-require_once('rodape.php')
+require_once('rodape.php');
+require_once('modal-carrinho.php');
+
 ?>

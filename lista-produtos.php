@@ -348,6 +348,7 @@ então forçamos ele a abrir ainda em lista-produtos.php
 
 <?php
 
+require_once('rodape.php');
 require_once('modal-carrinho.php');
-require_once('rodape.php')
+
 ?>

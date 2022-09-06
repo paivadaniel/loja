@@ -356,28 +356,28 @@ $agora = date('Y-m-d');
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Peso </label>
+                                <label>Peso (kg) <small> - Ex.: para 20g, preencha 0.02 </small> </label>
                                 <input type="text" value="<?php echo @$peso2 ?>" class="form-control form-control-sm" id="peso" name="peso">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Largura </label>
+                                <label>Largura (cm) <small> - Ex.: para 1,5m, preencha 150 </small> </label>
                                 <input type="text" value="<?php echo @$largura2 ?>" class="form-control form-control-sm" id="largura" name="largura">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Altura </label>
+                                <label>Altura (cm) </label>
                                 <input type="text" value="<?php echo @$altura2 ?>" class="form-control form-control-sm" id="altura" name="altura">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Comprimento </label>
+                                <label>Comprimento (cm) </label>
                                 <input type="text" value="<?php echo @$comprimento2 ?>" class="form-control form-control-sm" id="comprimento" name="comprimento">
                             </div>
 

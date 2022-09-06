@@ -36,4 +36,37 @@ $endereco_loja = 'Rua 1, do lado da rua 2, Centro, Sorocaba/SP';
 //VARIÁVEIS DO SITE
 $itens_por_pagina = 3;
 
+//CONFIGURAÇÕES DO FRETE DOS CORREIOS
+$cep_origem = '18015-000';
+
+/*
+1 - Formato caixa/pacote
+2 - Formato rolo/prisma
+3 - Envelope
+*/
+$formato_frete = 1;
+
+$comprimento_caixa = '30'; //em cm
+$largura_caixa = '20'; //em cm
+$altura_caixa = '20'; //em cm
+$diametro_caixa = '25'; //em cm
+
+/*
+Indica se a encomenda será entregue com o serviço adicional mão própria.
+Valores possíveis: S ou N (S – Sim, N – Não)
+*/
+$mao_propria = 'N';
+
+//valor_declarado, 1 para sim e 0 para não
+$valor_declarado = 0;
+
+//aviso_recebimento, S para sim e N para não
+$aviso_recebimento = 'N';
+
+/*
+40010 SEDEX Varejo
+40215 SEDEX 10 Varejo
+41106 PAC Varejo
+*/
+
 ?>

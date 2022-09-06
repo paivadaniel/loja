@@ -7,18 +7,13 @@ $id_usuario = @$_SESSION['id_usuario'];
 
 //cabeçalho do carrinho
 echo '
-
                     
                         <div class="cart-inline-header">
-                          
-                      
-
+                    
                          <!-- corpo do carrinho -->
                      
-
                          <div class="shoping__cart__table">
                          <table>';
-
 
 $res = $pdo->query("SELECT * from carrinho where id_usuario = '$id_usuario' and id_venda = 0 order by id asc"); //id_venda = 0 pois a venda ainda não ocorreu
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
@@ -91,6 +86,7 @@ $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 $total_carac = @count($res2);
 
 if($total_carac == 0 and $combo != 'Sim') { //se não tiver característica adicionada ao produto (o autor exibiu a frase "Selecionar Característica", porém, e se o produto não exigir que uma categoria seja selecinada? Por exemplo, um boné com cor padrão preta, por isso escolhi exibir "Nenhuma Característica Selecionada", e optei por não colocar nessa frase link com onclick levando para a modal de seleção de característica)
+//não será permitido selecionar características para combos, portanto, não exibe a mensagem "Nenhuma Característica Selecionada" 
   echo '<span class="mr-2">Nenhuma Característica Selecionada</span>';
 } else { //se tiver característica selecionada do produto, lista cada uma delas
 

@@ -5,7 +5,7 @@ require_once('../conexao.php');
 
 $id_produto = $_POST['id_produto'];
 $id_cliente = @$_SESSION['id_usuario'];
-$combo = $_POST['combo']; //recebe Sim (se for combo) ou Não (se for produto)
+$combo = @$_POST['combo']; //recebe Sim (se for combo) ou Não (se for produto)
 
 if (@$_POST['quantidade'] != null and @$_POST['quantidade'] != "") {
     $quantidade = @$_POST['quantidade'];
@@ -13,21 +13,37 @@ if (@$_POST['quantidade'] != null and @$_POST['quantidade'] != "") {
     $quantidade = 1;
 }
 
-//se $_POST['tem_carac'] == "Sim" vem de produto.php e não clicou direto no botão do carrinho na imagem do produto na index.php ou em outras páginas do site que não a do produto
-//$_POST['tem_carac'] vem de um input do tipo hidden em produto.php
+//minha versão
+
+for ($i = 0; $i < 3; $i++) {
+
+    if (@$_POST[$i] == '0') {
+        echo "Selecione todas as características";
+        exit();
+    } else if (@$_POST[$i] != null and @$_POST[$i] != "" and @$_POST[$i] != '0') {
+        $tem_carac = 'Sim';
+    }
+}
+
+/* versão do autor
+
+//se $_POST['tem_carac'] == "Sim" vem vem de um input tipo hidden em produto.php, a outra opção é adicionar o item ao carrinho pela modal, aberta ao clicar no item de carrinho, na imagem do produto em páginas como index.php e produtos.php
+
 
 if (@$_POST['tem_carac'] != null and @$_POST['tem_carac'] != "") {
 
-    $tem_carac = 'Sim';
+  $tem_carac = 'Sim';
 
     for ($i = 0; $i < 3; $i++) {
 
-        if ($_POST[$i] == '0') {
+        if (@$_POST[$i] == '0') {
             echo "Selecione todas as características";
             exit();
-        }
+        } 
     }
-}
+//}
+   
+*/
 
 
 $pdo->query("INSERT INTO carrinho SET id_produto = '$id_produto', id_usuario = '$id_cliente', id_venda = 0, quantidade = '$quantidade', data = curDate(), combo = '$combo'");

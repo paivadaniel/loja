@@ -43,7 +43,7 @@
 
                     <div align="right" class="col-md-6 mb-4">
                         <button type="button" id="btn-comprar" class="primary-btn bg-secondary btn-sm" data-dismiss="modal">Comprar Mais</button>
-                        <button type="submit" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</button> <!-- btn-sm deixa o botão small, não funcionou btn-small -->
+                        <a href="checkout.php" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a> <!-- btn-sm deixa o botão small, não funcionou btn-small -->
                     </div>
 
                 </div>

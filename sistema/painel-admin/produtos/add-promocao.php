@@ -6,6 +6,11 @@ $id_prod = $_POST['id_produto_promocao']; //id do produto, passado em produtos.p
 
 $desconto = $_POST['desconto_promocao'];
 
+if($desconto == '') {
+    echo 'Insira um valor de desconto';
+    exit();
+}
+
 $query = $pdo->query("SELECT * FROM produtos WHERE id = '$id_prod'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $valor_prod_sem_desconto = $res[0]['valor'];
@@ -17,11 +22,6 @@ $data_inicio_promocao = $_POST['data_inicio_promocao'];
 $data_final_promocao = $_POST['data_final_promocao'];
 
 $agora = date('Y-m-d');
-
-if($desconto == '') {
-    echo 'Insira um valor de desconto';
-    exit();
-}
 
 if($data_inicio_promocao < $agora || $data_final_promocao <$agora) {
     echo 'As datas de início e fim da promoção devem ser maiores ou iguais ao dia de hoje.';

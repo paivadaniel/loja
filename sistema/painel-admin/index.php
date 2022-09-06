@@ -12,7 +12,7 @@ $menu4 = "combos";
 $menu5 = "promocoes_banner";
 $menu6 = "clientes";
 $menu7 = "vendas";
-$menu8 = "";
+$menu8 = "cupons";
 $menu9 = "tipo-envios";
 $menu10 = "carac";
 $menu11 = "alertas";
@@ -146,6 +146,13 @@ for ($i = 0; $i < count($res); $i++) {
             </div>
 
             <!-- Nav Item - Charts -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu8 ?>">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Cupons</span></a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
                     <i class="fas fa-fw fa-chart-area"></i>

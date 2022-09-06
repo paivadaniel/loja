@@ -832,3 +832,28 @@ depois de escolher a cor, pois não escolhe uma numeração e nem pode alterar o
 ----- mod07 aula07
 
 não está funcionando atualização automática do preço
+
+---- mod07 aula24
+
+em combo.php não criei função onclick=abrirProduto pois não era necessária,
+na aula passada o autor chamou errado o nome de uma variável no href="combo-<?php echo $nome_produto_combo ?>"
+por isso o link dos produtos na página do combo (logo abaixo de produtos do combo) não funcionaram
+
+----- mod07 aula57
+
+em checkout.php, 
+totaL_final = $('#total_final').text() está mostrando mensagem com span, para confirmar basta fazer
+
+console.log(total_final)
+
+por isso a soma abaixo de total_final com total_frete não está dando certo
+
+----- mod07 aula64
+
+usar-cupom.php não está funcionando, pode testar em checkout.php e aplicar cupom
+
+----- mod07 aula71
+
+//está dando problema para fazer essa subtração por causa de ser string, em checkout.php eu converti para float com parseFloat, autor não teve o mesmo problema, o problema é no total_compra, pois o frete está sendo passado com ponto para o banco de dados
+//$subtotal = $total_compra - $valor_frete;
+

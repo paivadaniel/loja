@@ -634,6 +634,7 @@ require_once('cabecalho-busca.php');
 
 <?php
 
+require_once('rodape.php');
 require_once('modal-carrinho.php');
-require_once('rodape.php')
+
 ?>

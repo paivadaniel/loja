@@ -784,8 +784,7 @@ aqui tem um action que leva para lista-produtos.php -->
 Blog Section End -->
 
 <?php
-
-require_once('modal-carrinho.php');
 require_once('rodape.php');
+require_once('modal-carrinho.php');
 
 ?>
