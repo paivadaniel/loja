@@ -4,6 +4,12 @@ require_once('cabecalho.php');
 require_once('cabecalho-busca.php');
 require_once('conexao.php');
 
+//includes para o mercado pago
+include_once("pagamentos/mercadopago/lib/mercadopago.php");
+include_once("pagamentos/mercadopago/PagamentoMP.php");
+$pagar = new PagamentoMP; //instância (inicialização) da classe do Mercado Pago, já que essas APIs trabalham com orientação à objetos
+
+
 @session_start();
 
 $id_usuario = @$_SESSION['id_usuario'];
@@ -16,6 +22,7 @@ if ($id_usuario == null) { //se não tiver logado, envia para a página de login
 $total = 0;
 $total_peso = 0;
 
+$id_venda = @$_GET['id_venda'];
 $nome_usuario = @$_SESSION['nome_usuario'];
 $email_usuario = @$_SESSION['email_usuario'];
 
@@ -379,9 +386,19 @@ require_once('rodape.php');
 <script type="text/javascript">
     $(document).ready(function() { //executa assim que a página carregar
         var total = "<?= $total ?>";
+        var id_venda = "<?= $id_venda ?>";
+
+        if (total == "0,00" && id_venda == "") {
+            window.location = "produtos.php"
+        }
+
         total = "R$ " + total;
+
+
         $('#total_final').text(total);
         $('#total_pgto').text(total) //total_pgto está na modal-pagamento, se não usar cupom nem fizer cálculo de frete, o total_pgto ainda assim tem que ser preenchido
+
+
 
     })
 </script>
@@ -518,15 +535,19 @@ require_once('rodape.php');
             method: "post",
             data: $('#form-principal').serialize(),
             dataType: "html",
+            /*
             success: function(msg) {
 
-                $('#modal-pgto').modal('show');
+                //$('#modal-pgto').modal('show');
+
                 if (msg.trim() === 'Editado com Sucesso!') {
                     $('#listar-frete').html('');
                     $('#mensagem-finalizar-compra').removeClass();
                     $('#mensagem-finalizar-compra').addClass('text-success');
                     $('#mensagem-finalizar-compra').text(msg);
-                    $('#modal-pgto').modal('show');
+
+                    window.location = "checkout.php?id_venda=" + msg;
+                    //$('#modal-pgto').modal('show');
 
 
                 } else { //Selecione um CEP válido, Preencha o Campo Nome, Preencha o Campo Logradouro etc.
@@ -536,12 +557,28 @@ require_once('rodape.php');
 
                 }
             }
+            */
+
+            success: function(msg) {
+                console.log(msg);
+                if (msg.trim() === 'Selecione um CEP válido!') {
+                    $('#listar-frete').html('');
+                    $('#mensagem-finalizar-compra').addClass('text-danger')
+                    $('#mensagem-finalizar-compra').text(msg);
+                } else if (msg.trim() === 'Preencha o Campo Logradouro!') {
+                    $('#mensagem-finalizar-compra').addClass('text-danger')
+                    $('#mensagem-finalizar-compra').text(msg);
+                } else {
+                    window.location = "checkout.php?id_venda=" + msg;
+
+                }
+
+            }
+
         })
 
     })
 </script>
-
-
 
 <!-- Modal Pagamento -->
 
@@ -559,8 +596,15 @@ require_once('rodape.php');
                 $vlr_total = $res[0]['total']; //pega o total da venda
 
               */
+
+              $query = $pdo->query("SELECT * FROM vendas where id = '$id_venda' order by nome asc ");
+              $res = $query->fetchAll(PDO::FETCH_ASSOC);
+              $vlr_venda = $res[0]['total'];
+              $vlr_venda = number_format($vlr_venda, 2, ',', '.');
+
+
                 ?>
-                <h5 class="modal-title"><small>Compra de Produtos - Total: <span id="total_pgto"></span></small></h5>
+                <h5 class="modal-title"><small>Compra de Produtos - Total: R$ <?php echo $vlr_venda ?></small></h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -571,7 +615,7 @@ require_once('rodape.php');
                 <div class="row">
                     <div class="col-md-4 col-sm-12 mb-1">
 
-                        <a title="PagSeguro - Acesso Imediato ao Curso" target="_blank" href="pagseguro/checkout.php?codigo=<?php echo $id_mat; ?>&curso=<?php echo $id_curso; ?>"><img src="img/pagamentos/pagseguro.png" width="200"></a>
+                        <a title="Pagar com PagSeguro" target="_blank" href="pagamentos/pagseguro/checkout.php?codigo=<?php echo $id_venda ?>"><img src="img/pagamentos/pagseguro.png" width="200"></a>
                         <span class="text-muted"><i><small><br>Cartão de Crédito/Débito <br>
                                     Boleto pode demorar até 24 Horas.</small></i></span>
 
@@ -603,14 +647,14 @@ require_once('rodape.php');
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <p align="center">Depósitos ou Transferências </p>
-                        <span class="text-muted"><small> Precisamos que nos envie o comprovante para a liberação do curso, se for transferência será liberado de Imediato, caso seja depósito ou Doc precisa aguardar o pagamento ser compensado, geralmente de 12 a 24 horas, pode nos mandar o comprovante no WhatsApp <a class="text-muted" href="http://api.whatsapp.com/send?1=pt_BR&phone=5531975275084" alt="31 97527-5084" target="_blank"><i class="fab fa-whatsapp mr-1 text-success"></i>31 97527-5084</a> ou no email contato@hugocursos.com.br !!</span></small>
+                        <span class="text-muted"><small> Precisamos que nos envie o comprovante para a liberação do curso, se for transferência será liberado de Imediato, caso seja depósito ou Doc precisa aguardar o pagamento ser compensado, geralmente de 12 a 24 horas, pode nos mandar o comprovante no WhatsApp <a class="text-muted" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_loja_link ?>" alt="<?php echo $whatsapp_loja ?>" target="_blank"><i class="fa fa-whatsapp mr-1 text-success"></i><?php echo $whatsapp_loja ?></a> ou no email <?php echo $email_loja ?></span></small>
 
                         <a href="img/pagamentos/contas-grande.png" title="Clique para Ampliar" target="_blank">
                             <img src="img/pagamentos/contas.png" width="100%" class="mt-3">
                             <p align="center" class="text-danger"><i><small>Clique para Ampliar</small></i></p>
                         </a>
 
-                        <small> Se já efetuou o pagamento <a title="Ir para o Painél" href="painel-aluno/painel_aluno.php?acao=cursos" class="text-success" target="_blank">Clique aqui</a> </small>
+                        <small> Se já efetuou o pagamento <a title="Ir para o Painél" href="painel-cliente/index.php?acao=pedidos" class="text-success" target="_blank">Clique aqui</a> </small>
 
                     </div>
                 </div>
@@ -621,3 +665,11 @@ require_once('rodape.php');
         </div>
     </div>
 </div>
+
+<?php
+
+if (@$_GET["id_venda"] != null) {
+    echo "<script>$('#modal-pgto').modal('show');</script>";
+}
+
+?>

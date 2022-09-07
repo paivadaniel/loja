@@ -25,10 +25,6 @@ $pdo->query("SELECT * FROM subcategorias order by nome asc LIMIT $limite, $itens
 $pagina = $pag;
 $nome_pag = 'categorias.php';
 
-
-
-
-
 ?>
 
 <!-- Breadcrumb Section Begin

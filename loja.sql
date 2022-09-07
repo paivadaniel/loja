@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06-Set-2022 às 22:23
--- Versão do servidor: 10.4.21-MariaDB
--- versão do PHP: 8.0.10
+-- Tempo de geração: 07-Set-2022 às 02:28
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -180,7 +180,12 @@ INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidad
 (347, 18, 2, 13, 1, '2022-09-06', 'Não'),
 (348, 18, 2, 14, 1, '2022-09-06', 'Não'),
 (349, 18, 2, 15, 1, '2022-09-06', 'Não'),
-(350, 18, 7, 16, 1, '2022-09-06', 'Sim');
+(350, 18, 7, 16, 1, '2022-09-06', 'Sim'),
+(351, 18, 2, 18, 1, '2022-09-06', 'Não'),
+(352, 18, 13, 21, 1, '2022-09-06', 'Não'),
+(355, 18, 2, 22, 1, '2022-09-06', 'Não'),
+(356, 18, 2, 24, 1, '2022-09-06', 'Não'),
+(357, 18, 2, 26, 1, '2022-09-06', 'Não');
 
 -- --------------------------------------------------------
 
@@ -568,7 +573,16 @@ INSERT INTO `vendas` (`id`, `total`, `frete`, `subtotal`, `id_usuario`, `data`, 
 (14, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
 (15, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
 (16, '0.00', '22.50', '0.00', 18, '2022-09-06', 'Não'),
-(17, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não');
+(17, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(18, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(19, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(20, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(21, '0.00', '22.50', '0.00', 18, '2022-09-06', 'Não'),
+(22, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(23, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(24, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(25, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
+(26, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não');
 
 --
 -- Índices para tabelas despejadas
@@ -738,7 +752,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=358;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -828,7 +842,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

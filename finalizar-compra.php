@@ -105,4 +105,4 @@ if ($comentario != "") {
     $res->execute();
 }
 
-echo "Editado com Sucesso!";
+echo $id_venda;
