@@ -30,9 +30,6 @@ $cpf_usuario = $res3[0]['cpf'];
 
 
 
-$query_mat2 = "SELECT * from usuarios where id = '$id_usuario' ";
-$result_mat2 = mysqli_query($conexao, $query_mat2);
-
 
 $query_aluno = "SELECT * from alunos where cpf = '$cpf_aluno' ";
 $result_aluno = mysqli_query($conexao, $query_aluno);
