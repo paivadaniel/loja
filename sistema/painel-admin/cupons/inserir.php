@@ -4,7 +4,7 @@ require_once('../../../conexao.php');
 
 $titulo_cupom = $_POST['titulo_cupom'];
 $valor_cupom = $_POST['valor_cupom'];
-$data_cupom = $_POST['data_cupom'];
+$data_cupom = $_POST['data_cupom']; //data limite para uso do cupom, e não a data de hoje
 
 $novoCodigo = $_POST['codigo_cupom'];
 

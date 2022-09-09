@@ -1,5 +1,5 @@
 <?php
-include_once("../config.php");
+include_once("../../config.php");
 
 ?>
 
@@ -34,7 +34,7 @@ include_once("../config.php");
             <form method="POST" action="">
               <div class="modal-header">
               
-                <h5 class="modal-title"><small>Ir para o Painél do Aluno</small></h5>
+                <h5 class="modal-title"><small>Ir para o Painel do Cliente</small></h5>
                
 
                 <button type="submit" class="close" name="fecharModal">&times;</button>
@@ -43,16 +43,16 @@ include_once("../config.php");
             
             <div class="modal-body">
 
-              <p class="text-muted">Seu pagamento foi processado com sucesso, em breve estará aprovado e será liberado no painél do aluno, vá até seu painél de cursos para poder iniciar os estudos.</p>
+              <p class="text-muted">Seu pagamento foi processado com sucesso, acesse o painel do cliente para maiores informações sobre prazos e envios.</p>
 
             </div>
 
 
-            <a class="text-danger ml-2" href="<?php echo $url_site; ?>painel-aluno/painel_aluno.php?acao=cursos" target="_blank">Ir para o Painél do Aluno</a>
+            <a class="text-danger ml-2" href="../../sistema/painel-cliente/index.php?pag=pedidos" target="_blank">Ir para o Painel do Cliente</a>
 
 
             <div class="modal-footer">
-                <small><span class="text-muted">WhatsApp <a class="text-muted" href="http://api.whatsapp.com/send?1=pt_BR&phone=5531975275084" alt="31 97527-5084" target="_blank"><i class="fab fa-whatsapp mr-1 text-success"></i>31 97527-5084</a> </small></span>
+                <small><span class="text-muted">WhatsApp <a class="text-muted" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_loja_link ?>" alt="<?php echo $whatsapp_loja ?>" target="_blank"><i class="fa fa-whatsapp mr-1 text-success"></i><?php echo $whatsapp_loja ?></a> </small></span>
             </div>
                    
             

@@ -82,7 +82,7 @@ $res->bindValue(":cep", $cep);
 
 $res->execute();
 
-$res = $pdo->prepare("INSERT vendas SET total = :total, frete = :frete, subtotal = :subtotal, id_usuario = '$id_usuario', pago = 'Não', data = curDate()");
+$res = $pdo->prepare("INSERT vendas SET total = :total, frete = :frete, subtotal = :subtotal, id_usuario = '$id_usuario', pago = 'Não', data = curDate(), status = 'Não Enviado'");
 $res->bindValue(":total", $total_compra);
 $res->bindValue(":frete", $valor_frete);
 $res->bindValue(":subtotal", $subtotal);
@@ -98,10 +98,9 @@ $pdo->query("UPDATE carrinho SET id_venda = '$id_venda' where id_usuario = '$id_
 
 
 if ($comentario != "") {
-    $res = $pdo->prepare("INSERT mensagens SET id_venda = :id_venda, mensagem = :mensagem, lida = :lida");
+    $res = $pdo->prepare("INSERT mensagens SET id_venda = :id_venda, mensagem = :mensagem, usuario = 'Cliente', data = curDate(), hora = curTime()");
     $res->bindValue(":id_venda", $id_venda);
     $res->bindValue(":mensagem", $comentario);
-    $res->bindValue(":lida", 'Não');
     $res->execute();
 }
 

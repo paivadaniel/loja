@@ -1,11 +1,10 @@
 <?php
-include_once('../config.php');
 
 $redirectStr = '';
 if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID']) && !empty($_GET['pid']) ){
 
     // Include and initialize database class
-   include_once('../conexao.php');
+   include_once('../../conexao.php');
 
     // Include and initialize paypal class
     include 'PaypalExpress.class.php';
@@ -22,7 +21,7 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
     $paymentCheck = $paypal->validate($paymentID, $token, $payerID, $productID);
     
     // If the payment is valid and approved
-    if($paymentCheck && $paymentCheck->state == 'approved'){
+    if($paymentCheck && @$paymentCheck->state == 'approved'){
 
         // Get the transaction data
         $id = $paymentCheck->id;
@@ -46,16 +45,15 @@ if(!empty($_GET['paymentID']) && !empty($_GET['token']) && !empty($_GET['payerID
        
     }
 
-     $id_matricula = $productID;
+     $id_venda = $productID;
 
          //neste arquivo temos a aprovação da matricula, o envio por email e o lançamento na tabela de vendas
-        include_once('../aprovar_matricula.php');     
+        include_once('../../aprovar_compra.php');     
     
     // Redirect to payment status page
 
-    header("Location:payment-status.php".$redirectStr);
+    header("Location:payment-status.php".$redirectStr); //payment-status.php é uma página que está nesta mesma pasta
 }else{
     // Redirect to the home page
    header("Location:payment-status.php".$redirectStr);
 }
-?>

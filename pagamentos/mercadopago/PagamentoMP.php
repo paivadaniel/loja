@@ -108,12 +108,12 @@
         
         
      $ref = $payment_info["response"]["collection"]["external_reference"];
-     $id_venda = $ref;
+     $id_venda = $ref; //ref é o próprio id da venda já existente
 
 
       if ($status == "Aprovado"){
         //neste arquivo iremos alterar o status do pagamento para pago e status conluído!
-         include_once('../carrinho/aprovar.php');          
+         include_once('../../aprovar_compra.php'); //coloca Pago = Sim          
          
       }
         

@@ -38,7 +38,7 @@ class PaypalExpress{
             curl_setopt($curl, CURLOPT_HEADER, false);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                'Authorization: Bearer ' . $jsonData->access_token,
+                'Authorization: Bearer ' . @$jsonData->access_token,
                 'Accept: application/json',
                 'Content-Type: application/xml'
             ));

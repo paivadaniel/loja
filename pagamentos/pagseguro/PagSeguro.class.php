@@ -1,10 +1,24 @@
 <?php
+
+include_once('../../config.php');
+
 class PagSeguro{
+
 	private $email         = "contato@hugocursos.com.br";
 	private $token_sandbox = "1FB4D7860EA9491BA7AB4A9D9336C275";
 	private $token_oficial = "3301d2e3-f6e6-43bc-9e92-1d18d48c4b1d066a495846d48c42291ec69bc46ca0b4514a-a856-4f96-8da6-1767c89d7850";
 	private $url_retorno   = "https://portal.hugocursos.com.br/portal/pagseguro/notificacao.php";
+
+	/*
+
+	foram declaradas variáveis do pagseguro no config.php e relacionados aqui, porém, por uma questão de segurança, não é permitido fazer isso, tem que ser digitado manualmente a conta da loja no pagseguro
+
+	private $email = $email_pagseguro;
+	private $token_sandbox = $token_sandbox_pagseguro; //sandbox é modo de teste
+	private $token_oficial = $token_oficial_pagseguro; //modo de produção, modo real
+	private $url_retorno = $url_loja. "pagamentos/pagseguro/notificacao.php";
 	
+	*/
 	//URL OFICIAL
 	//COMENTE AS 4 LINHAS ABAIXO E DESCOMENTE AS URLS DA SANDBOX PARA REALIZAR TESTES
 
@@ -36,7 +50,7 @@ class PagSeguro{
 								7=>"Cancelada");
 		
 	public function __construct(){
-		$this->email_token = "?email=".$this->email."&token=".$this->token_oficial;
+		$this->email_token = "?email=".$this->email."&token=".$this->token_oficial; //aqui configura qual token usar, se o sandbox ou o oficial
 		$this->url .= $this->email_token;
 	}
 		

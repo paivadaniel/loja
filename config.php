@@ -69,4 +69,15 @@ $aviso_recebimento = 'N';
 41106 PAC Varejo
 */
 
+//VARIÁVEIS DO PAGSEGURO
+
+$email_pagseguro = "contato@hugocursos.com.br";
+$token_sandbox_pagseguro = "1FB4D7860EA9491BA7AB4A9D9336C275"; //sandbox é modo de teste
+$token_oficial_pagseguro = "3301d2e3-f6e6-43bc-9e92-1d18d48c4b1d066a495846d48c42291ec69bc46ca0b4514a-a856-4f96-8da6-1767c89d7850"; //modo de produção, modo real
+
+//VARIAVEIS PARA O CUPOM
+$total_cartoes_troca_cupom = 15; //total de cartões para o cliente trocar pelo cumpom de desconto
+$valor_cupom_cartao = 20; //valor do desconto para quando o cliente completar x cupons (colocar o valor aqui inteiro)
+$dias_uso_cupom = 7;
+
 ?>

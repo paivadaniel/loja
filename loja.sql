@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Set-2022 às 02:28
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 09-Set-2022 às 17:25
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -112,20 +112,6 @@ CREATE TABLE `carac_itens_carrinho` (
   `nome_item` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `carac_itens_carrinho`
---
-
-INSERT INTO `carac_itens_carrinho` (`id`, `id_carrinho`, `id_carac`, `nome_carac`, `nome_item`) VALUES
-(115, 317, 7, 'Tamanho', 'Tamanho1Mel'),
-(116, 317, 4, 'Numeração', 'PMel'),
-(117, 317, 3, 'Cor', 'azul'),
-(118, 321, 7, 'Tamanho', 'Tamanho1Mel'),
-(119, 321, 4, 'Numeração', 'PMel'),
-(120, 321, 3, 'Cor', 'vermelho'),
-(121, 340, 0, '', ''),
-(122, 340, 3, 'Cor', 'amarelo');
-
 -- --------------------------------------------------------
 
 --
@@ -170,22 +156,11 @@ CREATE TABLE `carrinho` (
 --
 
 INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidade`, `data`, `combo`) VALUES
-(337, 18, 7, 5, 1, '2022-09-06', 'Sim'),
-(338, 18, 13, 5, 1, '2022-09-06', 'Não'),
-(339, 18, 2, 5, 1, '2022-09-06', 'Não'),
-(340, 18, 2, 6, 1, '2022-09-06', 'Não'),
-(341, 18, 13, 6, 1, '2022-09-06', 'Não'),
-(345, 18, 2, 7, 1, '2022-09-06', 'Não'),
-(346, 18, 13, 9, 1, '2022-09-06', 'Não'),
-(347, 18, 2, 13, 1, '2022-09-06', 'Não'),
-(348, 18, 2, 14, 1, '2022-09-06', 'Não'),
-(349, 18, 2, 15, 1, '2022-09-06', 'Não'),
-(350, 18, 7, 16, 1, '2022-09-06', 'Sim'),
-(351, 18, 2, 18, 1, '2022-09-06', 'Não'),
-(352, 18, 13, 21, 1, '2022-09-06', 'Não'),
-(355, 18, 2, 22, 1, '2022-09-06', 'Não'),
-(356, 18, 2, 24, 1, '2022-09-06', 'Não'),
-(357, 18, 2, 26, 1, '2022-09-06', 'Não');
+(391, 18, 2, 67, 1, '2022-09-08', 'Não'),
+(395, 18, 2, 71, 1, '2022-09-08', 'Não'),
+(396, 18, 2, 72, 1, '2022-09-09', 'Não'),
+(397, 18, 2, 73, 1, '2022-09-09', 'Não'),
+(398, 18, 2, 74, 1, '2022-09-09', 'Não');
 
 -- --------------------------------------------------------
 
@@ -239,7 +214,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `cpf`, `email`, `telefone`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `cep`, `pais`, `cartoes`) VALUES
-(1, 'Adamastor Pereira Cacete da Porra', '919.191.991-14', 'pereira@gmail.com', '(41) 4141-4141', 'qualquer', '32', 'nonsense', 'seido', 'uma cidade', 'CE', '18015-000', NULL, NULL);
+(1, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '(41) 4141-4141', 'qualquer', '32', 'nonsense', 'seido', 'uma cidade', 'CE', '18015-000', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -285,8 +260,19 @@ CREATE TABLE `cupons` (
   `titulo` varchar(35) NOT NULL,
   `valor` decimal(8,2) NOT NULL,
   `codigo` varchar(35) NOT NULL,
-  `data` date NOT NULL
+  `data` date NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `cupons`
+--
+
+INSERT INTO `cupons` (`id`, `titulo`, `valor`, `codigo`, `data`, `id_usuario`) VALUES
+(7, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
+(8, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
+(9, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
+(10, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18);
 
 -- --------------------------------------------------------
 
@@ -348,8 +334,28 @@ CREATE TABLE `mensagens` (
   `id` int(11) NOT NULL,
   `id_venda` int(11) NOT NULL,
   `mensagem` varchar(1000) NOT NULL,
-  `lida` varchar(5) NOT NULL
+  `usuario` varchar(25) NOT NULL,
+  `data` date NOT NULL,
+  `hora` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `mensagens`
+--
+
+INSERT INTO `mensagens` (`id`, `id_venda`, `mensagem`, `usuario`, `data`, `hora`) VALUES
+(5, 67, 'Mensagem Admin', 'Admin', '2022-09-09', '00:00:00'),
+(6, 67, 'Mensagem Cliente', 'Cliente', '2022-09-09', '00:00:00'),
+(28, 67, 'Outra mensagem do cliente', 'Admin', '2022-09-09', '00:00:00'),
+(29, 71, 'Mensagem do Admin', 'Admin', '2022-09-09', '00:00:00'),
+(30, 71, 'Mensagem do cliente na id_venda = 71', 'Cliente', '2022-09-09', '00:00:00'),
+(31, 71, 'Administrador respondendo', 'Admin', '2022-09-09', '07:20:45'),
+(32, 71, 'Administrador respondendo denovo', 'Admin', '2022-09-09', '07:21:17'),
+(33, 71, 'Cliente faz outra pergunta no id_venda = 71', 'Cliente', '2022-09-09', '00:00:00'),
+(34, 67, 'Seu pedido foi enviado, o código de postagem é JB24252252BAZ', 'Admin', '2022-09-09', '08:25:36'),
+(35, 67, 'Mudança de status no pedido, pedido Disponivel', 'Admin', '2022-09-09', '08:25:58'),
+(36, 67, 'Mudança de status no pedido, pedido Entregue', 'Admin', '2022-09-09', '08:27:31'),
+(37, 74, 'Parabéns, você ganhou um novo cupom de desconto no valor de 20 reais, poderá usar até o dia 16/09/2022 o seu código para uso do cupom é 919.191.991-15', 'Admin', '2022-09-09', '12:22:06');
 
 -- --------------------------------------------------------
 
@@ -386,7 +392,7 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`, `vendas`) VALUES
-(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Descrição do Pão de Mel Com Chocolate', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 0.20, 32, 12, 24, 'doce', '32.00', 'Sim', 6),
+(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Descrição do Pão de Mel Com Chocolate', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 0.20, 32, 12, 24, 'doce', '32.00', 'Sim', 4),
 (3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 1.00, 0, 0, 0, '', '0.00', 'Sim', NULL),
 (4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
 (6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
@@ -538,7 +544,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `senha_crip`, `ni
 (6, 'Admin Novo', '000.000.000-00', 'danielantunespaiva@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Administrador', '2022-08-08'),
 (15, 'Marcelo Madureira', '103.931.093-10', 'madureira@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08'),
 (16, 'Mardoque', '111.111.111-11', 'mardoqueu@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08'),
-(18, 'Adamastor Pereira Cacete da Porra', '919.191.991-14', 'pereira@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08');
+(18, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08');
 
 -- --------------------------------------------------------
 
@@ -553,36 +559,21 @@ CREATE TABLE `vendas` (
   `subtotal` decimal(8,2) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `data` date NOT NULL,
-  `pago` varchar(5) NOT NULL
+  `pago` varchar(5) NOT NULL,
+  `status` varchar(35) NOT NULL,
+  `rastreio` varchar(35) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `vendas`
 --
 
-INSERT INTO `vendas` (`id`, `total`, `frete`, `subtotal`, `id_usuario`, `data`, `pago`) VALUES
-(5, '0.00', '22.50', '0.00', 18, '2022-09-06', 'Não'),
-(6, '0.00', '21.00', '0.00', 18, '2022-09-06', 'Não'),
-(7, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(8, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(9, '0.00', '22.50', '0.00', 18, '2022-09-06', 'Não'),
-(10, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(11, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(12, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(13, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(14, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(15, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(16, '0.00', '22.50', '0.00', 18, '2022-09-06', 'Não'),
-(17, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(18, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(19, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(20, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(21, '0.00', '22.50', '0.00', 18, '2022-09-06', 'Não'),
-(22, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(23, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(24, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(25, '0.00', '0.00', '0.00', 18, '2022-09-06', 'Não'),
-(26, '69.00', '0.00', '0.00', 18, '2022-09-06', 'Não');
+INSERT INTO `vendas` (`id`, `total`, `frete`, `subtotal`, `id_usuario`, `data`, `pago`, `status`, `rastreio`) VALUES
+(67, '69.00', '0.00', '0.00', 18, '2022-09-08', 'Sim', 'Entregue', 'JB24252252DOIDO'),
+(71, '69.00', '0.00', '0.00', 18, '2022-09-08', 'Não', 'Não Enviado', 'dadarqrqrq12'),
+(72, '69.00', '0.00', '0.00', 18, '2022-09-09', 'Sim', 'Não Enviado', NULL),
+(73, '69.00', '0.00', '0.00', 18, '2022-09-09', 'Sim', 'Não Enviado', NULL),
+(74, '69.00', '0.00', '0.00', 18, '2022-09-09', 'Sim', 'Não Enviado', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -752,7 +743,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=358;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=399;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -776,7 +767,7 @@ ALTER TABLE `combos`
 -- AUTO_INCREMENT de tabela `cupons`
 --
 ALTER TABLE `cupons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `emails`
@@ -794,7 +785,7 @@ ALTER TABLE `imagens`
 -- AUTO_INCREMENT de tabela `mensagens`
 --
 ALTER TABLE `mensagens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
@@ -842,7 +833,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

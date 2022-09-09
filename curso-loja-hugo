@@ -1,3 +1,20 @@
+- para confirmar se está entrando dentro de um trecho de php, use:
+
+    echo "<script>window.alert('Dados incorretos')</script>";
+
+- para testar venda, em aprovar_compra.php (na raíz)
+descomente $id_venda = 'AQUI VAI O ID DA VENDA GERADO APÓS CLICAR EM FINALIZAR COMPRA em checkout.php'
+e coloque o ida da venda de teste
+
+---mod08 aula19
+
+adicionado código a seguir no htaccess para não dar problema de versão do php na api do mercado pago
+
+AddHandler application/x-httpd-php70 .php
+<IfModule mod_suphp.c>
+suPHP_ConfigPath /opt/php70/lib
+</IfModule>
+
 ----------- módulo 01
 
 melhores aulas: 48
@@ -857,3 +874,15 @@ usar-cupom.php não está funcionando, pode testar em checkout.php e aplicar cup
 //está dando problema para fazer essa subtração por causa de ser string, em checkout.php eu converti para float com parseFloat, autor não teve o mesmo problema, o problema é no total_compra, pois o frete está sendo passado com ponto para o banco de dados
 //$subtotal = $total_compra - $valor_frete;
 
+----- mod08 aula15
+
+ao clicar na modal de finalizar compra e para pagar com o pagseguro, ao abrir o site do pagseguro está mostrando: Código de checkout inválido.
+
+nessa mesma aula ensina como gerar um token para ambiente de produção, indo na central do pagseguro.
+
+e a página de redirecionamento após o pagamento pode ser definida na própria central do pagseguro ao invés do código.
+
+---- mod08 aula16
+
+só está abrindo a modal pagamento se não comentar o código do mercadopago quando a compra não tem que digitar o CEP para cálculo do frete,
+ou seja, quando o frete é fixo abre, isso deve ser por conta do problema para mostrar o valor do frete

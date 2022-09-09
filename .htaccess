@@ -7,3 +7,9 @@ RewriteRule ^subcategoria-(.*)$ subcategorias.php?nome=$1 [L]
 RewriteRule ^produto-(.*)$ produto.php?nome=$1 [L]
 RewriteRule ^combo-(.*)$ combo.php?nome=$1 [L]
 RewriteRule ^produtos-(.*)$ lista-produtos.php?nome=$1 [L]
+
+
+AddHandler application/x-httpd-php70 .php
+<IfModule mod_suphp.c>
+suPHP_ConfigPath /opt/php70/lib
+</IfModule>

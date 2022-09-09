@@ -1,52 +1,23 @@
 <?php
 
-
 // Include and initialize database class
-include_once('../conexao.php');
-
+include_once('../../conexao.php');
 
 // Include and initialize paypal class
 include 'PaypalExpress.class.php';
 $paypal = new PaypalExpress;
 
 // buscar do banco informações do cursp
-$matricula = $_GET['id'];
-$id_curso = $_GET['curso'];
-$pacote = @$_GET['pacote'];
+$id_venda = $_GET['id_venda'];
 
-if($pacote != ''){
-    $query_curso = "SELECT * from pacotes where id = '$id_curso' ";
-                $result_curso = mysqli_query($conexao, $query_curso);
-                $res_curso = mysqli_fetch_array($result_curso);
-                $valor = $res_curso['valor'];
-                $curso = $res_curso['nome'];
-                $imagem = $res_curso['imagem'];
-                $desc_rapida = $res_curso['desc_rapida'];
-
-    }else{
-        $query_curso = "SELECT * from cursos where id = '$id_curso' ";
-                $result_curso = mysqli_query($conexao, $query_curso);
-                $res_curso = mysqli_fetch_array($result_curso);
-                $valor = $res_curso['valor'];
-                $curso = $res_curso['nome'];
-                $imagem = $res_curso['imagem'];
-                $desc_rapida = $res_curso['desc_rapida'];
-    }
-
-
-
-
-                         $nome_novo = strtolower( preg_replace("[^a-zA-Z0-9-]", "-", 
-        strtr(utf8_decode(trim($curso)), utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
-        "aaaaeeiooouuncAAAAEEIOOOUUNC-")) );
-
-          $nome_sem_espaco = preg_replace('/[ -]+/' , '-' , $nome_novo);
-
-
+//valor da venda
+$query = $pdo->query("SELECT * FROM vendas where id = '$id_venda'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$valor_venda = $res[0]['total'];
 
 // Get product details
 $conditions = array(
-    'where' => array('id' => $matricula),
+    'where' => array('id' => $id_venda),
     'return_type' => 'single'
 );
 
@@ -81,7 +52,7 @@ $conditions = array(
 
 
 
-<!-- Modal Aula -->
+<!-- Modal Pgto Paypal -->
       <div id="modalPaypal" class="modal fade" role="dialog">
         <div class="modal-dialog">
          <!-- Modal content-->
@@ -89,7 +60,7 @@ $conditions = array(
             <form method="POST" action="">
               <div class="modal-header">
               
-                <h5 class="modal-title"><small>Pagamento Pelo Paypal - Aprovação Imediata</small></h5>
+                <h5 class="modal-title"><small>Pagamento Pelo Paypal - Cartão de Crédito</small></h5>
                 <button type="submit" class="close" name="fecharModal">&times;</button>
               </form>
             </div>
@@ -102,19 +73,11 @@ $conditions = array(
                     
                     </div>
 
-                    <?php 
-                        if($pacote == "sim"){ ?>
-                           <img class="img-fluid" src="../img/pacotes/<?php echo $imagem; ?>" width="200" alt="">';
-                       <?php }else{ ?>
-                            <img class="img-fluid" src="../img/cursos/<?php echo $imagem; ?>" width="200" alt="">';
-                        <?php }
-                     ?>
-                   
+                  
                   
                   <div class="cursos-caption">
-                     <span class="nome_curso"><?php echo $curso; ?></span><br>
-                    <span class="text-muted"><?php echo $desc_rapida; ?></span>
-                    <p class="valor_curso">R$ <?php echo $valor; ?></p>
+                     <span class="nome_curso">Pagar com o Paypal</span><br>
+                    <p class="valor_curso">R$ <?php echo $valor_venda; ?></p>
                      <div id="paypal-button"></div>
                   </div>
                 </div>
@@ -160,12 +123,12 @@ paypal.Button.render({
         return actions.payment.create({
             transactions: [{
                 amount: {
-                    total: '<?php echo $valor; ?>',
+                    total: '<?php echo $valor_venda; ?>',
                     currency: 'BRL',
                    
                 },
-                 description: '<?php echo $curso; ?>',
-                 custom: '<?php echo $matricula; ?>'
+                 description: 'Compra de Produtos',
+                 custom: '<?php echo $id_venda ?>'
             }]
       });
     },
@@ -179,7 +142,7 @@ paypal.Button.render({
             console.log(data);
             
             // Redirect to the payment process page
-            window.location = "process.php?paymentID="+data.paymentID+"&token="+data.paymentToken+"&payerID="+data.payerID+"&pid=<?php echo $matricula; ?>";
+            window.location = "process.php?paymentID="+data.paymentID+"&token="+data.paymentToken+"&payerID="+data.payerID+"&pid=<?php echo $id_venda; ?>";
         });
     }
 }, '#paypal-button');
