@@ -164,7 +164,6 @@ $total_carrinho = number_format($total_carrinho , 2, ',', '.');
                     <ul class="header__menu__dropdown">
                         <li><a href="produtos.php">Lista de Produtos</a></li>
                         <li><a href="subcategorias.php">Subcategorias</a></li>
-                        <li><a href="./checkout.php">Check Out</a></li>
                         <li><a href="./blog-postagem.php">Blog Details</a></li>
                     </ul>
                 </li>
@@ -240,6 +239,8 @@ $total_carrinho = number_format($total_carrinho , 2, ',', '.');
                                     ?>
                                         <a href="sistema/painel-admin/"><i class="fa fa-user"> Painel</i>
 
+                                        <a href="sistema/logout.php"><i class="fa fa-user"> Sair</i>
+
                                         <?php
 
                                     } else if ($_SESSION['nivel_usuario'] == 'Cliente') {
@@ -288,7 +289,6 @@ $total_carrinho = number_format($total_carrinho , 2, ',', '.');
                                     <li><a href="promocoes.php">Promoções</a></li>
                                     <li><a href="combos.php">Combos</a></li>
 
-                                    <li><a href="./checkout.php">Check Out</a></li>
                                     <li><a href="./blog-postagem.php">Blog Details</a></li>
                                 </ul>
                             </li>

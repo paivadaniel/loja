@@ -88,7 +88,7 @@ $nome_pag = 'combos.php';
                 <div class="row mt-4">
 
                     <?php
-                    $query = $pdo->query("SELECT * FROM combos order by id desc LIMIT $limite, $itens_por_pagina");
+                    $query = $pdo->query("SELECT * FROM combos where ativo = 'Sim' order by id desc LIMIT $limite, $itens_por_pagina");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     for ($i = 0; $i < count($res); $i++) {
@@ -116,14 +116,14 @@ $nome_pag = 'combos.php';
                                 <div class="product__discount__item__pic set-bg" data-setbg="img/combos/<?php echo $imagem_combo ?>">
                                     <ul class="product__item__pic__hover">
                                         <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
-                                        <li><a href="produto-<?php echo $nome_url_combo ?>"><i class="fa fa-eye"></i></a></li>
+                                        <li><a href="combo-<?php echo $nome_url_combo ?>"><i class="fa fa-eye"></i></a></li>
 
                                         <li><a href="#" onclick="carrinhoModal('<?php echo $id_combo ?>', 'Sim')"><i class="fa fa-shopping-cart"></i></a></li>
 
                                     </ul>
                                 </div>
                                 <div class="product__discount__item__text">
-                                    <h5><a href="produto-<?php echo $nome_url_combo ?>"><?php echo $nome_combo ?></a></h5>
+                                    <h5><a href="combo-<?php echo $nome_url_combo ?>"><?php echo $nome_combo ?></a></h5>
                                     <div class="product__item__price">R$ <?php echo $valor_combo ?></div>
                                 </div>
                             </div>

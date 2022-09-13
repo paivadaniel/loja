@@ -314,7 +314,7 @@ $estado = $res[0]['estado'];
                             if (@$frete_correios == 'Sim') {
                             ?>
 
-                                <div class="checkout__order__total">Frete <br>
+                                <div class="checkout__order__total">Calcular Frete<br>
 
                                     <form method="post" id="form-correios">
                                         <input type="hidden" id="total_peso" name="total_peso" value="<?php echo $total_peso ?>">

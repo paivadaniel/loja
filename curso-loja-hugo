@@ -1,10 +1,21 @@
+erros
+- frete não está sendo calculado certo
+- não está selecionando as características dos produtos no carrinho, apenas a cor
+- não está atualizando o preço ao incrementar unidades dos produtos
+- tem que testar se ao excluir itens com características selecionadas no carrinho, se além de apagar na tabela carrinho,
+está apagando tambbém na tabela carac_itens_carrinho
+
+-----
+
 - para confirmar se está entrando dentro de um trecho de php, use:
 
     echo "<script>window.alert('Dados incorretos')</script>";
 
-- para testar venda, em aprovar_compra.php (na raíz)
+- para TESTAR VENDA, em aprovar_compra.php (na raíz)
 descomente $id_venda = 'AQUI VAI O ID DA VENDA GERADO APÓS CLICAR EM FINALIZAR COMPRA em checkout.php'
 e coloque o ida da venda de teste
+
+- se quiser apagar as vendas, apague também as linhas correspondentes na tabela carac_itens e na tabela carrinho
 
 ---mod08 aula19
 

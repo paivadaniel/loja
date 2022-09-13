@@ -20,35 +20,29 @@ if ($total_reg == 0) {
 <!DOCTYPE html>
 <html lang="en">
 
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - <?php echo $nome_loja ?></title>
-
-    <!------ Include the above in your HEAD tag ---------->
-
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+   <title>Login - <?php echo $nome_loja ?></title>
+   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-    <link href="../css/login.css" rel="stylesheet" type="text/css">
-    <script src="../js/login.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
+      <link href="../css/login.css" rel="stylesheet">
+      <script src="../js/login.js"></script>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="../img/logoicone2.ico" type="image/x-icon">
+      <link rel="shortcut icon" href="../img/logoicone1.ico" type="image/x-icon">
     <link rel="icon" href="../img/logoicone2.ico" type="image/x-icon">
+
 
 </head>
 
@@ -104,8 +98,6 @@ if ($total_reg == 0) {
 
 </html>
 
-
-
 <!-- Modal Cadastro -->
 <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -127,7 +119,7 @@ if ($total_reg == 0) {
 
                     <div class="form-group">
                         <label for="email_cad">Email</label>
-                        <input type="email" class="form-control" name="email_cad" id="email_cad" placeholder="Digite seu email">
+                        <input type="email" class="form-control" name="email_cad" id="email_cad" placeholder="Digite seu email" value="<?php echo @$_GET['email'] ?>">
                     </div>
 
                     <div class="form-group">
@@ -296,3 +288,11 @@ if ($total_reg == 0) {
 <!-- script mascara.js necessita do jquery para funcionar, e portanto, o jquery deve vir primeiro que o mascara.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 <script src="../js/mascara.js"></script>
+
+<?php 
+
+if (@$_GET["email"] != null) {
+    echo "<script>$('#modalCadastro').modal('show');</script>";
+}
+
+?>

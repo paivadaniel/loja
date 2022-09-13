@@ -16,6 +16,7 @@ $menu8 = "cupons";
 $menu9 = "tipo-envios";
 $menu10 = "carac";
 $menu11 = "alertas";
+$menu12 = "estoque";
 
 $query = $pdo->query("SELECT * FROM usuarios WHERE id = '$_SESSION[id_usuario]' and nivel = 'Administrador'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -36,6 +37,14 @@ for ($i = 0; $i < count($res); $i++) {
     $id_produto = $res[$i]['id_produto'];
 
     $pdo->query("UPDATE produtos SET promocao = 'Sim' WHERE id = '$id_produto'");
+}
+
+$query = $pdo->query("SELECT * FROM produtos where estoque <= '$estoque_baixo' order by estoque asc");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+if (@count($res) > 0) { //se houver produtos com estoque baixo
+    $classe_estoque = 'text-warning';
+} else {
+    $classe_estoque = '';
 }
 
 
@@ -159,12 +168,18 @@ for ($i = 0; $i < count($res); $i++) {
                     <span>Clientes</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Vendas</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu12 ?>">
+                    <i class="fas fa-fw fa-table <?php echo $classe_estoque ?>"></i>
+                    <span class="<?php echo $classe_estoque ?>">Estoque Baixo</span></a>
+            </li>
+
 
 
             <li class="nav-item">
@@ -262,6 +277,8 @@ for ($i = 0; $i < count($res); $i++) {
                         include_once($menu10 . ".php");
                     } else if ($pag == $menu11) {
                         include_once($menu11 . ".php");
+                    } else if ($pag == $menu12) {
+                        include_once($menu12 . ".php");
                     } else {
                         include_once("home.php");
                     }

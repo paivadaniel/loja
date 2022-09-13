@@ -13,6 +13,47 @@ http://localhost/dashboard/www/loja/sistema/painel-admin/categorias.php
 
 $pag = 'tipo-envios';
 
+//verifica se os tipos de envio obrigatórios já estão cadastrados, caso não estejam, cadastra-os
+//correios
+$query = $pdo->query("SELECT * FROM tipo_envios where tipo = 'correios'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if(@count($res) == 0) {
+    //$pdo->query("INSERT INTO tipo_envios SET tipo = 'correios'");
+    $pdo->query("INSERT INTO tipo_envios (tipo) VALUES ('correios')");
+
+}
+
+//fixo
+$query = $pdo->query("SELECT * FROM tipo_envios where tipo = 'fixo'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if(@count($res) == 0) {
+    //$pdo->query("INSERT INTO tipo_envios SET tipo = 'fixo'");
+    $pdo->query("INSERT INTO tipo_envios (tipo) VALUES ('fixo')");
+
+}
+
+//sem frete
+$query = $pdo->query("SELECT * FROM tipo_envios where tipo = 'sem frete'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if(@count($res) == 0) {
+    //$pdo->query("INSERT INTO tipo_envios SET tipo = 'sem frete'");
+    $pdo->query("INSERT INTO tipo_envios (tipo) VALUES ('sem frete')");
+
+}
+
+//digital
+$query = $pdo->query("SELECT * FROM tipo_envios where tipo = 'digital'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if(@count($res) == 0) {
+    //$pdo->query("INSERT INTO tipo_envios SET tipo = 'digital'");
+    $pdo->query("INSERT INTO tipo_envios (tipo) VALUES ('digital')");
+
+}
+
 ?>
 
 <!-- botão nova categoria -->

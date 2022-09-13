@@ -50,8 +50,12 @@ if ($promocao == 'Sim') {
     $desconto = $res[0]['desconto'];
 }
 
+$valor_frete = number_format($valor_frete, 2, ',', '.');
 $valor = number_format($valor, 2, ',', '.');
 
+$query_e = $pdo->query("SELECT * FROM tipo_envios where id = '$tipo_envio'");
+$res_e = $query_e->fetchAll(PDO::FETCH_ASSOC);
+$tipo_frete = @$res_e[0]['tipo'];
 
 ?>
 
@@ -126,7 +130,7 @@ $valor = number_format($valor, 2, ',', '.');
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         -->
 
-                        <div class="row mt-4 ml-1">
+                        <div class="row mt-4 ml-1 mb-4">
 
                             <?php
 
@@ -182,8 +186,6 @@ $valor = number_format($valor, 2, ',', '.');
 
                             ?>
 
-
-
                         </div>
 
                     </form> <!-- form fica aqui para enviar os itens das características do produto, por exemplo, cor amarelo e tamanho P -->
@@ -232,7 +234,52 @@ $valor = number_format($valor, 2, ',', '.');
                     <?php
                     }
 
+                    if ($tipo_frete == 'sem frete') {
+                        echo '<div class="product__details__text mt-2"> <p>Esse produto está com frete gratuito!</p></div>';
+                    } else if ($tipo_frete == 'fixo') {
+                        echo '<div class="product__details__text mt-2"> <p>Esse produto possui frete fixo de R$ ' . $valor_frete . '!<p></div>';
+                    } else if ($tipo_frete == 'digital') {
+                        echo '<div class="product__details__text mt-2"> <p>Esse é um produto digital, e por isso não possui frete!</p></div>';
+                    } else if ($tipo_frete == 'correios') {
+
                     ?>
+
+                        <div class="checkout__order__total mt-3">Calcular Frete<br>
+
+                            <form method="post" id="form-correios">
+                                <input type="hidden" id="total_peso" name="total_peso" value="<?php echo $peso ?>">
+                                <input type="hidden" id="nome_produto" name="nome_produto" value="<?php echo $nome_produto ?>">
+
+
+                                <div class="row mt-2">
+
+                                    <div class="col-md-7">
+                                        <div class="checkout__input">
+
+                                            <input type="text" name="cep2" id="cep2" placeholder="Digite o CEP">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="checkout__input">
+                                            <select name="codigo_servico_correios" id="codigo_servico_correios">
+                                                <option value="0">Envio</option>
+                                                <option value="40010">Sedex</option>
+                                                <option value="41106">PAC</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <big><div id="listar-frete"></div></big>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
+
 
 
                 </div>
@@ -310,7 +357,7 @@ $valor = number_format($valor, 2, ',', '.');
             <div class="categories__slider owl-carousel">
 
                 <?php
-                $query = $pdo->query("SELECT * FROM produtos WHERE id_subcategoria = '$id_subcategoria' order by id desc");
+                $query = $pdo->query("SELECT * FROM produtos WHERE id_subcategoria = '$id_subcategoria' and ativo = 'Sim' and estoque > 0 order by id desc");
                 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                 for ($i = 0; $i < count($res); $i++) {
@@ -342,7 +389,8 @@ $valor = number_format($valor, 2, ',', '.');
                                     <ul class="product__item__pic__hover">
                                         <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                         <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <!-- autor optou por mandar para carrinho.php, e para isso criou a função irCarrinho, optei por mandar para carrinhoModal que está em modal-carrinho.php -->
                                     </ul>
                                 </div>
                                 <div class="product__discount__item__text">
@@ -364,7 +412,7 @@ $valor = number_format($valor, 2, ',', '.');
                                         <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                         <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
                                         <li><a href="produto-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto ?>', 'Não')"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="featured__item__text">
@@ -394,13 +442,19 @@ $valor = number_format($valor, 2, ',', '.');
 
 require_once('rodape.php');
 
-//tem que ser chamada depois do rodape.php, pois no rodape.php chama o jQuery, e em modal-carrinho.php, as funções com AJAX necessitam de jQuery
-//require_once('modal-carrinho.php');
-//comentei pois preferi redirecionar para carrinho.php com window.location após clique em btn-add-carrinho
+//modal-carrinho.php tem que ser chamada depois do rodape.php, pois no rodape.php chama o jQuery, e em modal-carrinho.php, as funções com AJAX necessitam de jQuery
+require_once('modal-carrinho.php');
+//mantive o require da modal-carrinho.php por conta dos produtos relacionados ao final da página, eles tem o ícone do carrinho
+//ao clicar no botão adicionar, preferi redirecionar para carrinho.php com window.location após clique em btn-add-carrinho
 
 ?>
 
+
 <script>
+   
+   /*
+    //desnecessário, pois modal-carrinho.php já tem um script que faz isso, se descomentar, vai mostrar duas sinal de menos e dois de mais (para remover e adicionar produtos)
+
     //esse script tem que ser chamado após rodape.php, pois a chamada do jQuery é feito em rodape.php
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="dec qtybtn">-</span>');
@@ -420,6 +474,7 @@ require_once('rodape.php');
         }
         $button.parent().find('input').val(newVal);
     });
+    */
 </script>
 
 
@@ -449,6 +504,26 @@ require_once('rodape.php');
                 }
             }
         })
+
+    })
+</script>
+
+<script type="text/javascript">
+    $('#codigo_servico_correios').change(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "correios/pegarDadosFrete.php",
+            method: "post",
+            data: $('#form-correios').serialize(),
+            dataType: "html",
+            success: function(result) {
+
+                $('#listar-frete').html(result)
+
+            },
+        })
+
 
     })
 </script>

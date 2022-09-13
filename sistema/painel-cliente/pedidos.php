@@ -3,6 +3,9 @@
 require_once('../../conexao.php');
 require_once('verificar.php'); //já tem session_start() aqui
 
+require_once("../../pagamentos/pagseguro/PagSeguro.class.php");
+$PagSeguro = new PagSeguro();
+
 $id_usuario = $_SESSION['id_usuario'];
 
 $pag = 'pedidos';
@@ -31,29 +34,38 @@ $pag = 'pedidos';
 
                     <?php
 
-                    $query = $pdo->query("SELECT * FROM vendas where id_usuario = '$id_usuario' order by id desc");
-                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+//acrescentou _ped de pedido nas variáveis do SELECT e do for a seguir, pois ao incluir aprovar_compra.php, estava encontrando variáveis com o mesmo nome
+                    $query_ped = $pdo->query("SELECT * FROM vendas where id_usuario = '$id_usuario' order by id desc");
+                    $res_ped = $query_ped->fetchAll(PDO::FETCH_ASSOC);
 
-                    for ($i = 0; $i < @count($res); $i++) {
-                        foreach ($res[$i] as $key => $value) {
+                    for ($i = 0; $i < @count($res_ped); $i++) {
+                        foreach ($res_ped[$i] as $key => $value) {
                         }
 
-                        $total = $res[$i]['total'];
-                        $data = $res[$i]['data'];
-                        $pago = $res[$i]['pago'];
-                        $status = $res[$i]['status'];
-                        $rastreio = @$res[$i]['rastreio'];
+                        $total_ped = $res_ped[$i]['total'];
+                        $data_ped = $res_ped[$i]['data'];
+                        $pago_ped = $res_ped[$i]['pago'];
+                        $status_ped = $res_ped[$i]['status'];
+                        $rastreio_ped = @$res_ped[$i]['rastreio'];
 
-                        $id_venda = $res[$i]['id'];
+                        $id_venda_ped = $res_ped[$i]['id'];
 
-                        $total = number_format($total, 2, ',', '.');
-                        $data = implode('/', array_reverse(explode('-', $data)));
+                        //VERIFICAR SE O PAGAMENTO NO PAGSEGURO ESTÁ APROVADO
+                        //COMENTE ESSE TRECHO DE CÓDIGO CASO QUEIRA UM GANHO GRANDE EM VELOCIDADE DE CARREGAMENTO
+                        //variável P recebe a referência do pagamento
+                        $P = $PagSeguro->getStatusByReference($id_venda_ped);
+                        if ($P == 3 || $P == 4) { //p=3 aprovado e p=4 disponível
+                            include_once('../../aprovar_compra.php'); //aprova a compra
+                        }
 
-                        $query2 = $pdo->query("SELECT * FROM carrinho where id_venda = '$id_venda'");
+                        $total_ped = number_format($total_ped, 2, ',', '.');
+                        $data_ped = implode('/', array_reverse(explode('-', $data_ped)));
+
+                        $query2 = $pdo->query("SELECT * FROM carrinho where id_venda = '$id_venda_ped'");
                         $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
                         $total_produtos = @count($res2);
 
-                        if ($pago == 'Sim') {
+                        if ($pago_ped == 'Sim') {
                             $classe_pago = 'text-success';
                         } else {
                             $classe_pago = 'text-danger';
@@ -62,33 +74,33 @@ $pag = 'pedidos';
                     ?>
 
                         <tr>
-                            <td><i class="fa fa-square mr-2 <?php echo $classe_pago ?>"></i> R$ <?php echo $total ?></td>
-                            <td><?php echo $data ?></td>
+                            <td><i class="fa fa-square mr-2 <?php echo $classe_pago ?>"></i> R$ <?php echo $total_ped ?></td>
+                            <td><?php echo $data_ped ?></td>
                             <td>
 
                                 <?php
-                                if ($pago != "Sim") {
+                                if ($pago_ped != "Sim") {
                                     echo "
-                                    <a href='../../checkout.php?id_venda=" . $id_venda . "' class='text-danger' title='Pagar Compra' target='_blank'>
+                                    <a href='../../checkout.php?id_venda=" . $id_venda_ped . "' class='text-danger' title='Pagar Compra' target='_blank'>
                                     Pagar
                                     </a>
                                     ";
                                 } else {
-                                    echo $pago;
+                                    echo $pago_ped;
                                 }
 
                                 ?></td>
                             <td>
                                 <?php
-                                if ($status == "Enviado") {
-                                    echo "<img src='../../img/correios.png' width='25'><a href='http://www.correios.com.br' class='text-primary' title='Código de Postagem' target='_blank'><small>" . $rastreio . "</small></a>";
+                                if ($status_ped == "Enviado") {
+                                    echo "<img src='../../img/correios.png' width='25'><a href='http://www.correios.com.br' class='text-primary' title='Código de Postagem' target='_blank'><small>" . $rastreio_ped . "</small></a>";
                                 } else {
-                                    echo $status;
+                                    echo $status_ped;
                                 }
                                 ?>
                             </td>
                             <td>
-                                <a href="" onclick="verProdutos('<?php echo $id_venda ?>')" title="Ver Produtos">
+                                <a href="" onclick="verProdutos('<?php echo $id_venda_ped ?>')" title="Ver Produtos">
                                     <i class="fa fa-eye text-primary"></i>
                                     <?php echo $total_produtos ?> Produto(s)
                             </td>
@@ -97,22 +109,22 @@ $pag = 'pedidos';
 
                                 <?php
 
-                                $query3 = $pdo->query("SELECT * FROM mensagens where id_venda = '$id_venda' order by id desc limit 1");
+                                $query3 = $pdo->query("SELECT * FROM mensagens where id_venda = '$id_venda_ped' order by id desc limit 1");
                                 $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
                                 $usuario_ultimo = @$res3[0]['usuario'];
 
                                 if ($usuario_ultimo == 'Admin') {
 
                                 ?>
-                                <!-- caso última resposta seja do admin -->
-                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=mensagem&id_venda=<?php echo $id_venda ?>" class='text-primary mr-1' title='Enviar Mensagem'><span class="badge badge-warning"><?php echo @count($res3) ?></span></a>
+                                    <!-- caso última resposta seja do admin -->
+                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=mensagem&id_venda=<?php echo $id_venda_ped ?>" class='text-primary mr-1' title='Enviar Mensagem'><span class="badge badge-warning"><?php echo @count($res3) ?></span></a>
 
                                 <?php
 
                                 } else {
                                 ?>
-                                <!-- caso última resposta seja do cliente, não há contador de resposta, o contador é 1 quando a última mensagem for do admin, nunca passa de 1 pois colocamos um limit de 1 no SELECT -->
-                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=mensagem&id_venda=<?php echo $id_venda ?>" class='text-primary mr-1' title='Enviar Mensagem'><span class="badge badge-success">0</span></a>
+                                    <!-- caso última resposta seja do cliente, não há contador de resposta, o contador é 1 quando a última mensagem for do admin, nunca passa de 1 pois colocamos um limit de 1 no SELECT -->
+                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=mensagem&id_venda=<?php echo $id_venda_ped ?>" class='text-primary mr-1' title='Enviar Mensagem'><span class="badge badge-success">0</span></a>
 
                                 <?php
 
@@ -121,9 +133,9 @@ $pag = 'pedidos';
                                 ?>
 
                                 <?php
-                                if ($pago != "Sim") {
+                                if ($pago_ped != "Sim") {
                                 ?>
-                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id_venda=<?php echo $id_venda ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id_venda=<?php echo $id_venda_ped ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
 
                                 <?php
 
@@ -270,72 +282,6 @@ $pag = 'pedidos';
         </div>
     </div>
 </div>
-
-
-<!-- modal Resposta -->
-
-<div class="modal" id="modal-resposta" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Respostas acerca do pedido</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-
-                        <form method="post">
-
-                            <div class="form-group">
-                                <label for="pedidos_mensagem">Elabore uma nova reposta</label>
-                                <textarea class="form-control form-control-sm" id="mensagem_resposta" name="mensagem_resposta" maxlength="1000"></textarea>
-                            </div>
-
-                            <input type="hidden" id="id_venda" name="id_venda" value="<?php echo @$_GET['id_venda'] ?>">
-
-                            <button type="button" id="btn-mensagem-resposta" name="btn-mensagem-resposta" class="btn btn-info">Enviar</button>
-                        </form>
-
-                    </div>
-
-                    <div class="col-md-6 mb-2">
-                        <label class="mb-2">Respostas</label><br>
-
-                        <?php
-
-                        $id_ven = $_GET['id_venda'];
-
-                        $query = $pdo->query("SELECT * FROM mensagens where id_venda = '$id_ven' order by id desc"); //não dá para usar apenas id_venda = $id_venda, pois ele vai pegar o último registro armazenado na variável id_venda, que será o mesmo para todos os produtos, e será o id da última venda
-                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
-                        for ($i = 0; $i < @count($res); $i++) {
-                            foreach ($res[$i] as $key => $value) {
-                            }
-
-                            $usuario = $res[$i]['usuario'];
-                            $mensagem = $res[$i]['mensagem'];
-
-                            if ($usuario == 'Admin') { //deixa em negrito as mensagens do admin
-                                echo '<b>' . $i + 1 . ') ' . $mensagem . '</b><br>';
-                            } else {
-                                echo $i + 1 . ') ' . $mensagem . '<br>';
-                            }
-                        }
-                        ?>
-
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!--AJAX PARA INSERÇÃO DOS DADOS VINDO DE UMA FUNÇÃO -->
 <script>

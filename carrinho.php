@@ -16,24 +16,39 @@ não está funcionando atualização automática do preço e nem a atualização
             <input type="hidden" id="txtquantidade"> <!-- esse input estava inserido em modal-carrinho.php, e como parte do código desta página foi copiado de modal-carrinho.php, se não copiar esse input dá problema falando que ele não está definido, porém, não lembro para que ele serve, já que em modal_carrinho.php para contar os produtos do carrinho foi dado um id="total_itens" em um span -->
 
             <div class="col-lg-12">
+                <?php
+                if (@$_SESSION['nivel_usuario'] != 'Cliente') { //se estiver logado como administrador não permite adição de produtos no carrinho
+                    echo "Faça login como cliente para adicionar produtos ao carrinho! Clique <a href='sistema' class='text-info'>aqui</a> para logar.";
+                    exit();
+                }
+
+                ?>
+
                 <div id='listar-carrinho'>
 
                 </div>
             </div>
         </div>
 
+        <small>
+            <div id="mensagem-carrinho" class="mt-1" align="center"></div>
+        </small>
+
         <div class="row p-3">
-                    <div class="col-md-6">
-                        <b>Total: </b>R$<span id="valor_total" class="ml-1"></span>
-                    </div>
+            <div class="col-md-6">
+                <b>Total: </b>R$<span id="valor_total" class="ml-1"></span>
+            </div>
 
-                    <div align="right" class="col-md-6 mb-4">
-                        <a href="produtos.php" id="btn-comprar" class="primary-btn bg-secondary btn-sm">Comprar Mais</a>
-                        <a href="checkout.php" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a> <!-- btn-sm deixa o botão small, não funcionou btn-small -->
-                    </div>
 
-                </div>
-      
+
+            <div align="right" class="col-md-6 mb-4">
+                <a href="produtos.php" id="btn-comprar" class="primary-btn bg-secondary btn-sm">Comprar Mais</a>
+                <a href="" onclick="finalizarPedido()" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a> <!-- btn-sm deixa o botão small, não funcionou btn-small -->
+            </div>
+
+        </div>
+
+
     </div>
 </section>
 <!-- Shoping Cart Section End -->
@@ -280,3 +295,36 @@ require_once('rodape.php');
     }
 </script>
 
+<script type="text/javascript">
+    function finalizarPedido() {
+
+        event.preventDefault();
+
+        $.ajax({
+
+            url: "carrinho/verificar-carac.php",
+            method: "post",
+            data: {},
+            dataType: "text",
+            success: function(result) {
+
+                if (result == 'Selecione as Características dos Produtos!') {
+
+                    $('#mensagem-carrinho').addClass('text-danger')
+                    $('#mensagem-carrinho').text(result);
+
+                } else {
+                    //$('#mensagem_carrinho').text(result);
+
+                    window.location = 'checkout.php';
+                }
+
+                //$('#mensagem_caracteristicas').text(mensagem)
+
+            },
+
+        })
+
+
+    }
+</script>

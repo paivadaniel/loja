@@ -34,7 +34,12 @@ $altura = $res[0]['altura'];
 $comprimento = $res[0]['comprimento'];
 $valor_frete = $res[0]['valor_frete'];
 
+$valor_frete = number_format($valor_frete, 2, ',', '.');
 $valor = number_format($valor, 2, ',', '.');
+
+$query_e = $pdo->query("SELECT * FROM tipo_envios where id = '$tipo_envio'");
+$res_e = $query_e->fetchAll(PDO::FETCH_ASSOC);
+$tipo_frete = @$res_e[0]['tipo'];
 
 ?>
 
@@ -90,35 +95,82 @@ $valor = number_format($valor, 2, ',', '.');
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         -->
 
-                    </form> 
+                    </form>
 
                     <h4 class="mt-2 mb-2">Produtos do Combo</h4>
 
-<?php
+                    <?php
 
-$query = $pdo->query("SELECT * FROM prod_combos where id_combo = '$id_combo' order by id");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $query = $pdo->query("SELECT * FROM prod_combos where id_combo = '$id_combo' order by id");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
-for ($i = 0; $i < count($res); $i++) {
-    foreach ($res[$i] as $key => $value) {
-    }
+                    for ($i = 0; $i < count($res); $i++) {
+                        foreach ($res[$i] as $key => $value) {
+                        }
 
-$id_produto_combo = $res[$i]['id_produto'];
+                        $id_produto_combo = $res[$i]['id_produto'];
 
-$query2 = $pdo->query("SELECT * FROM produtos where id = '$id_produto_combo' order by id");
-$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                        $query2 = $pdo->query("SELECT * FROM produtos where id = '$id_produto_combo' order by id");
+                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 
-$nome_produto_combo = $res2[0]['nome'];
-$nome_url_produto_combo = $res2[0]['nome_url'];
+                        $nome_produto_combo = $res2[0]['nome'];
+                        $nome_url_produto_combo = $res2[0]['nome_url'];
 
-echo '<a href="produto-'. $nome_url_produto_combo .'" title="Ver Produto" class="text-dark"><i class="fa fa-check text-info mr-1"></i><span>'.$nome_produto_combo . '</span></a><br>';
+                        echo '<a href="produto-' . $nome_url_produto_combo . '" title="Ver Produto" class="text-dark"><i class="fa fa-check text-info mr-1"></i><span>' . $nome_produto_combo . '</span></a><br>';
+                    }
 
-}
+                    //calcular frete
+                    if ($tipo_frete == 'sem frete') {
+                        echo '<div class="product__details__text mt-2"> <p>Esse produto está com frete gratuito!</p></div>';
+                    } else if ($tipo_frete == 'fixo') {
+                        echo '<div class="product__details__text mt-2"> <p>Esse produto possui frete fixo de R$ ' . $valor_frete . '!<p></div>';
+                    } else if ($tipo_frete == 'digital') {
+                        echo '<div class="product__details__text mt-2"> <p>Esse é um produto digital, e por isso não possui frete!</p></div>';
+                    } else if ($tipo_frete == 'correios') {
 
-?>
+                    ?>
+
+                        <div class="checkout__order__total mt-3">Calcular Frete<br>
+
+                            <form method="post" id="form-correios">
+                                <input type="hidden" id="total_peso" name="total_peso" value="<?php echo $peso ?>">
+                                <input type="hidden" id="nome_produto" name="nome_produto" value="<?php echo $nome_produto ?>">
+
+
+                                <div class="row mt-2">
+
+                                    <div class="col-md-7">
+                                        <div class="checkout__input">
+
+                                            <input type="text" name="cep2" id="cep2" placeholder="Digite o CEP">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="checkout__input">
+                                            <select name="codigo_servico_correios" id="codigo_servico_correios">
+                                                <option value="0">Envio</option>
+                                                <option value="40010">Sedex</option>
+                                                <option value="41106">PAC</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <big>
+                                        <div id="listar-frete"></div>
+                                    </big>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    <?php
+                    }
+                    ?>
 
                 </div>
             </div>
+            
             <div class="col-lg-12">
                 <div class="product__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
@@ -202,7 +254,7 @@ echo '<a href="produto-'. $nome_url_produto_combo .'" title="Ver Produto" class=
                     $imagem_produto = $res[$i]['imagem'];
                     $id_produto = $res[$i]['id'];
 
-                    $valor_produto_sem_promocao = number_format($valor_produto_sem_promocao, 2, ',', '.');                    
+                    $valor_produto_sem_promocao = number_format($valor_produto_sem_promocao, 2, ',', '.');
 
                 ?>
                     <div class="col-lg-3 col-md-4 col-sm-6 mix sapatos fresh-meat">
@@ -212,7 +264,7 @@ echo '<a href="produto-'. $nome_url_produto_combo .'" title="Ver Produto" class=
                                     <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li> -->
                                     <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
                                     <li><a href="combo-<?php echo $nome_url_produto ?>"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#" onclick="carrinhoModal('<?php echo $id_produto ?>', 'Sim')"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="featured__item__text">
@@ -242,12 +294,15 @@ echo '<a href="produto-'. $nome_url_produto_combo .'" title="Ver Produto" class=
 require_once('rodape.php');
 
 //tem que ser chamada depois do rodape.php, pois no rodape.php chama o jQuery, e em modal-carrinho.php, as funções com AJAX necessitam de jQuery
-//require_once('modal-carrinho.php');
-//comentei pois preferi redirecionar para carrinho.php com window.location após clique em btn-add-carrinho
+require_once('modal-carrinho.php');
+//mantive o require da modal-carrinho.php por conta dos produtos relacionados ao final da página, eles tem o ícone do carrinho
+//ao clicar no botão adicionar, preferi redirecionar para carrinho.php com window.location após clique em btn-add-carrinho
 
 ?>
 
 <script>
+    /*
+    //desnecessário, pois modal-carrinho.php já tem um script que faz isso, se descomentar, vai mostrar duas sinal de menos e dois de mais (para remover e adicionar produtos)
     //esse script tem que ser chamado após rodape.php, pois a chamada do jQuery é feito em rodape.php
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="dec qtybtn">-</span>');
@@ -267,6 +322,7 @@ require_once('rodape.php');
         }
         $button.parent().find('input').val(newVal);
     });
+*/
 </script>
 
 
@@ -296,6 +352,26 @@ require_once('rodape.php');
                 }
             }
         })
+
+    })
+</script>
+
+<script type="text/javascript">
+    $('#codigo_servico_correios').change(function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "correios/pegarDadosFrete.php",
+            method: "post",
+            data: $('#form-correios').serialize(),
+            dataType: "html",
+            success: function(result) {
+
+                $('#listar-frete').html(result)
+
+            },
+        })
+
 
     })
 </script>

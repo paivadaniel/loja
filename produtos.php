@@ -68,7 +68,7 @@ require_once('cabecalho-busca.php');
                                         <input type="text" name="valorFinal" id="maxamount">
                                         <a href="#" onclick="document.form_valor.submit(); return false;" class="text-dark">
                                             <i class="fa fa-search ml-2"></i>
-                        </a>
+                                        </a>
                                         <!-- se mudar de button para link, não faz o submit, então teve que fazer o que está acima ao invés de criar uma classe CSS para estilizar o botão 
                                     
                                     estava assim:
@@ -162,7 +162,7 @@ require_once('cabecalho-busca.php');
                                 <div class="latest-prdouct__slider__item">
 
                                     <?php
-                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3");
+                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by id desc limit 3");
                                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                                     for ($i = 0; $i < count($res); $i++) {
@@ -189,14 +189,22 @@ require_once('cabecalho-busca.php');
                                     ?>
 
                                         <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6><?php echo $nome_produto_ultimos ?></h6>
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="latest-product__item__pic">
+                                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
 
-                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                                    <div class="latest-product__item__text">
+                                                        <h6><?php echo $nome_produto_ultimos ?></h6>
+
+                                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                         </a>
 
                                     <?php
@@ -209,7 +217,7 @@ require_once('cabecalho-busca.php');
                                 <div class="latest-prdouct__slider__item">
 
                                     <?php
-                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3, 3"); //limite de 3, a partir do 3
+                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by id desc limit 3, 3"); //limite de 3, a partir do 3
                                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                                     for ($i = 0; $i < count($res); $i++) {
@@ -236,13 +244,21 @@ require_once('cabecalho-busca.php');
                                     ?>
 
                                         <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="latest-product__item__pic">
+                                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+
+                                                    <div class="latest-product__item__text">
+                                                        <h6><?php echo $nome_produto_ultimos ?></h6>
+                                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="latest-product__item__text">
-                                                <h6><?php echo $nome_produto_ultimos ?></h6>
-                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
-                                            </div>
+
                                         </a>
 
                                     <?php
@@ -255,7 +271,7 @@ require_once('cabecalho-busca.php');
                                 <div class="latest-prdouct__slider__item">
 
                                     <?php
-                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 6, 3"); //limite de 3, a partir do 6
+                                    $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by id desc limit 6, 3"); //limite de 3, a partir do 6
                                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                                     for ($i = 0; $i < count($res); $i++) {
@@ -281,13 +297,20 @@ require_once('cabecalho-busca.php');
                                     ?>
 
                                         <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="latest-product__item__pic">
+                                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="latest-product__item__text">
+                                                        <h6><?php echo $nome_produto_ultimos ?></h6>
+                                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="latest-product__item__text">
-                                                <h6><?php echo $nome_produto_ultimos ?></h6>
-                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
-                                            </div>
+
                                         </a>
 
                                     <?php
@@ -329,13 +352,19 @@ require_once('cabecalho-busca.php');
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_combo ?></h6>
-                                        <span>R$ <?php echo $valor_combo ?></span>
+                                <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_combo ?></h6>
+                                                <span>R$ <?php echo $valor_combo ?></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </a>
 
@@ -364,14 +393,21 @@ require_once('cabecalho-busca.php');
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_url_combo ?></h6>
+                                                <span>R$ <?php echo $valor_combo ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_url_combo ?></h6>
-                                        <span>R$ <?php echo $valor_combo ?></span>
-                                    </div>
+
                                 </a>
 
                             <?php
@@ -399,14 +435,22 @@ require_once('cabecalho-busca.php');
 
                             ?>
 
-                                <a href="produto-<?php echo $nome_url_combo ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_combo ?></h6>
+                                                <span>R$ <?php echo $valor_combo ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_combo ?></h6>
-                                        <span>R$ <?php echo $valor_combo ?></span>
-                                    </div>
+
                                 </a>
 
                             <?php
@@ -430,7 +474,7 @@ require_once('cabecalho-busca.php');
                         <div class="product__discount__slider owl-carousel">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE promocao = 'Sim'");
+                            $query = $pdo->query("SELECT * FROM produtos WHERE promocao = 'Sim' and ativo = 'Sim' and estoque > 0");
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
@@ -488,7 +532,7 @@ require_once('cabecalho-busca.php');
                 <div class="row">
 
                     <?php
-                    $query = $pdo->query("SELECT * FROM produtos order by vendas desc limit 6");
+                    $query = $pdo->query("SELECT * FROM produtos where ativo = 'Sim' and estoque > 0 order by vendas desc limit 6");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     for ($i = 0; $i < count($res); $i++) {

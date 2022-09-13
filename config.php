@@ -36,6 +36,9 @@ $endereco_loja = 'Rua 1, do lado da rua 2, Centro, Sorocaba/SP';
 //VARIÁVEIS DO SITE
 $itens_por_pagina = 3;
 
+//QUANTIDADE MÍNIMA DE PRODUTOS PARA ALERTA DE ESTOQUE BAIXO
+$estoque_baixo = 5;
+
 //CONFIGURAÇÕES DO FRETE DOS CORREIOS
 $cep_origem = '18015-000';
 
@@ -79,5 +82,8 @@ $token_oficial_pagseguro = "3301d2e3-f6e6-43bc-9e92-1d18d48c4b1d066a495846d48c42
 $total_cartoes_troca_cupom = 15; //total de cartões para o cliente trocar pelo cumpom de desconto
 $valor_cupom_cartao = 20; //valor do desconto para quando o cliente completar x cupons (colocar o valor aqui inteiro)
 $dias_uso_cupom = 7;
+
+//VARIÁVEL QUE DEFINE A LIMPEZA DO CARRINHO APÓS O USUÁRIO FICAR X DIAS SEM CONCLUIR A COMPRA
+$dias_limpar_carrinho = 3;
 
 ?>

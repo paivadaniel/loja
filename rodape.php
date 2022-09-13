@@ -1,3 +1,36 @@
+    <?php
+
+    require_once('conexao.php');
+
+    $query = $pdo->query("SELECT * FROM alertas WHERE data_final >= curDate() and ativo = 'Sim' order by id desc limit 1");
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+    $total_reg = @count($res);
+
+    if ($total_reg > 0) {
+        $titulo_alerta = $res[0]['titulo_alerta'];
+        $titulo_mensagem = $res[0]['titulo_mensagem'];
+
+        $mensagem = $res[0]['mensagem'];
+        $link = $res[0]['link'];
+        $imagem = $res[0]['imagem'];
+
+
+    ?>
+
+        <div class="row">
+            <a data-toggle="modal" href="#modalPromocoes">
+                <div class="alert alert-danger fixed-bottom col-md-2" role="alert">
+                    <!-- fixed-bottom deixa fixado na parte inferior da tela -->
+                    <small><?php echo $titulo_alerta ?></small>
+                </div>
+            </a>
+
+        </div>
+
+    <?php
+    }
+    ?>
+
     <!-- Footer Section Begin -->
     <footer class="footer spad">
         <div class="container">
@@ -31,8 +64,8 @@
                     <div class="footer__widget">
                         <h6>Cadastre-se em Nossa Lista de Emails</h6>
                         <p>Fique informado sobre nossos últimos lançamentos e promoções!</p>
-                        <form action="#">
-                            <input type="email" placeholder="Digite seu email" required>
+                        <form action="sistema/index.php" method="get">
+                            <input type="email" name="email" placeholder="Digite seu email" required>
                             <button type="submit" class="site-btn">Cadastrar</button>
                         </form>
                         <div class="footer__widget__social">
@@ -84,3 +117,38 @@
     </body>
 
     </html>
+
+    <!-- modal Alertas -->
+
+    <div class="modal" id="modalPromocoes" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><?php echo $titulo_alerta ?> - <?php echo $titulo_mensagem ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <span class="text-muted"><i><?php echo $mensagem ?></i></span>
+
+                    <?php if ($link != "") {
+
+                    ?>
+
+                        Clique <a href="http://<?php echo $link ?>" target="_blank">aqui </a> para acessar a página!
+
+                    <?php
+                    }
+                    ?>
+
+                    <div class="mt-3">
+                        <img src="img/alertas/<?php echo $imagem ?>" alt="" width="100%"> <!-- width de 100% para ficar na largura da modal -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

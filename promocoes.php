@@ -88,7 +88,7 @@ $nome_pag = 'promocoes.php';
                 <div class="row mt-4">
 
                     <?php
-                    $query = $pdo->query("SELECT * FROM produtos WHERE promocao = 'Sim' order by id desc LIMIT $limite, $itens_por_pagina");
+                    $query = $pdo->query("SELECT * FROM produtos WHERE promocao = 'Sim' and ativo = 'Sim' and estoque > 0 order by id desc LIMIT $limite, $itens_por_pagina");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     for ($i = 0; $i < count($res); $i++) {
@@ -109,9 +109,8 @@ $nome_pag = 'promocoes.php';
                         $valor_sem_promocao = number_format($valor_sem_promocao, 2, ',', '.');
                         $valor_produto_promocao = number_format($valor_produto_promocao, 2, ',', '.');
 
-
                         //BUSCAR O TOTAL DE REGISTROS PARA PAGINAR
-                        $query3 = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' ");
+                        $query3 = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' and ativo = 'Sim' and estoque > 0");
                         $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
                         $num_total = @count($res3);
                         $numero_paginas = ceil($num_total / $itens_por_pagina);

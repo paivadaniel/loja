@@ -197,13 +197,13 @@ então forçamos ele a abrir ainda em lista-produtos.php
                 if ($subcategoria_get == "" and $valorInicial_get == "") { //query com filtro para mostrar os produtos da subcategoria escolhida
                     //não precisa testar valorFinal pois ele irá enviar os dois
 
-                    $query = $pdo->query("SELECT * FROM produtos WHERE nome LIKE '$buscar' or palavras LIKE '$buscar' order by id desc limit $limite, $itens_por_pagina");
+                    $query = $pdo->query("SELECT * FROM produtos WHERE (nome LIKE '$buscar' or palavras LIKE '$buscar') and ativo = 'Sim' and estoque > 0 order by id desc limit $limite, $itens_por_pagina");
 
                 } else if ($valorInicial_get != "") {
-                    $query = $pdo->query("SELECT * FROM produtos WHERE valor >= '$valorInicial_get' and valor <= '$valorFinal_get' order by id desc");
+                    $query = $pdo->query("SELECT * FROM produtos WHERE valor >= '$valorInicial_get' and valor <= '$valorFinal_get' and ativo = 'Sim' and estoque > 0 order by id desc");
 
                 } else { 
-                    $query = $pdo->query("SELECT * FROM produtos WHERE id_subcategoria = '$id_subcategoria_get' order by id desc limit $limite, $itens_por_pagina");
+                    $query = $pdo->query("SELECT * FROM produtos WHERE id_subcategoria = '$id_subcategoria_get' and ativo = 'Sim' and estoque > 0 order by id desc limit $limite, $itens_por_pagina");
 
                 }
 
@@ -235,7 +235,7 @@ então forçamos ele a abrir ainda em lista-produtos.php
                     $valor_produto_sem_promocao = number_format($valor_produto_sem_promocao, 2, ',', '.');
 
                     //BUSCAR O TOTAL DE PRODUTOS PARA PAGINAR
-                    $query3 = $pdo->query("SELECT * FROM produtos");
+                    $query3 = $pdo->query("SELECT * FROM produtos where ativo = 'Sim' and estoque > 0");
                     $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
                     $num_total = @count($res3);
                     $numero_paginas = ceil($num_total / $itens_por_pagina);

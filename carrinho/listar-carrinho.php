@@ -1,7 +1,7 @@
 <?php
 
 require_once("../conexao.php");
-$pagina = 'produtos';
+
 @session_start();
 $id_usuario = @$_SESSION['id_usuario'];
 
@@ -72,29 +72,37 @@ for ($i = 0; $i < count($dados); $i++) {
     <td class="shoping__cart__item">
                             
     <img src="img/' . $pasta . '/' . $imagem_produto . '" alt="" width="60">
-    <h5>' . $nome_produto  . '
-    <a href="#" title="Incluir/Editar Características" class="ml-1" onclick="addCarac(' . $id_produto . ', ' . $id_carrinho . ')"><i class="fa fa-edit text-info"></i></a>
-   </h5>
-   </td>
+    <h5>' . $nome_produto . '</h5>';
 
+  if ($combo != 'Sim') { //se for produto
+
+    echo '
+    <a href="#" title="Incluir/Editar Características" class="ml-1" onclick="addCarac(' . $id_produto . ', ' . $id_carrinho . ')"><i class="fa fa-edit text-info"></i></a></td>
+  
 <td width="150" align="left" class="shoping__cart__item">
 
 <span class="mt-4 d-none d-sm-none d-md-block" align="center" id="listar-carac-itens2">';
-   
-$query2 = $pdo->query("SELECT * from carac_itens_carrinho WHERE id_carrinho = '$id_carrinho'");
-$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-$total_carac = @count($res2);
 
-if($total_carac == 0 and $combo != 'Sim') { //se não tiver característica adicionada ao produto (o autor exibiu a frase "Selecionar Característica", porém, e se o produto não exigir que uma categoria seja selecinada? Por exemplo, um boné com cor padrão preta, por isso escolhi exibir "Nenhuma Característica Selecionada", e optei por não colocar nessa frase link com onclick levando para a modal de seleção de característica)
-//não será permitido selecionar características para combos, portanto, não exibe a mensagem "Nenhuma Característica Selecionada" 
-  echo '<span class="mr-2">Nenhuma Característica Selecionada</span>';
-} else { //se tiver característica selecionada do produto, lista cada uma delas
+    $query_c = $pdo->query("SELECT * from carac_prod WHERE id_prod = '$id_produto'");
+    $res_c = $query_c->fetchAll(PDO::FETCH_ASSOC);
+    $total_prod_carac = @count($res_c);
 
-for ($i2 = 0; $i2 < count($res2); $i2++) {
-    foreach ($res2[$i2] as $key => $value) {
-    }
+    if ($total_prod_carac > 0) { //isto é, se o produto tiver características a adicionar
 
-/*
+      $query2 = $pdo->query("SELECT * from carac_itens_carrinho WHERE id_carrinho = '$id_carrinho'");
+      $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+      $total_carac = @count($res2);
+
+      if ($total_carac == 0) { //se não tiver característica adicionada ao produto (o autor exibiu a frase "Selecionar Característica", porém, e se o produto não exigir que uma categoria seja selecinada? Por exemplo, um boné com cor padrão preta, por isso escolhi exibir "Nenhuma Característica Selecionada", e optei por não colocar nessa frase link com onclick levando para a modal de seleção de característica)
+        //não será permitido selecionar características para combos, portanto, não exibe a mensagem "Nenhuma Característica Selecionada" 
+        echo '<a class="text-dark mr-1" href="" title="Editar Características" onclick="addCarac(' . $id_produto . ', ' . $id_carrinho . ')"><span class="mr-2">Selecionar Característica</span></a>';
+      } else { //se tiver característica selecionada do produto, lista cada uma delas
+
+        for ($i2 = 0; $i2 < count($res2); $i2++) {
+          foreach ($res2[$i2] as $key => $value) {
+          }
+
+          /*
 não foi necessário fazer:
 
 $res2 = $res2[$i2]['id_carac']
@@ -107,15 +115,21 @@ pois coloquei nome_carac na tabela carac_itens_carrinho
 
 */
 
-    echo '<span class="mr-2"><i class="fa fa-check text-info"></i> ' . $res2[$i2]['nome_carac'] . ': ' . $res2[$i2]['nome_item'] .'</span>';
+          echo '<span class="mr-2"><i class="fa fa-check text-info"></i> ' . $res2[$i2]['nome_carac'] . ': ' . $res2[$i2]['nome_item'] . '</span>
+          
+          </span>
+          </td>'; //span do id="listar-carac-itens2"
+        } //fechamento for
+      } //fechamento if que valida se o produto tem característica adicionada
+    } //fechamento if que valida se o produto tem característica a adicionar
+  } else { //se for combo
 
-  } //fechamento if
-} //fechamento for
-
-
-echo '</span>
-
+    echo '
 </td>
+
+<td></td>';
+  } //fechamento if que verifica se é produto (if $combo!= Sim)
+  echo '
 
    <td class="shoping__cart__price">
    R$ ' . $total_item . '
@@ -211,4 +225,3 @@ $total = number_format($total, 2, ',', '.');
   $("#total_itens").text(itens);
   $("#valor_total").text(total);
 </script>
-

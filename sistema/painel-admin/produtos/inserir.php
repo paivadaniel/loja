@@ -18,6 +18,7 @@ $altura = $_POST['altura'];
 $comprimento = $_POST['comprimento'];
 $modelo = $_POST['modelo'];
 $valor_frete = $_POST['valor_frete'];
+$link = $_POST['link'];
 
 $valor = str_replace(',', '.', $valor);
 $valor_frete = str_replace(',', '.', $valor_frete);
@@ -87,14 +88,14 @@ if ($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif') {
 
 
 if ($id == "") {
-	$res = $pdo->prepare("INSERT INTO produtos (id_categoria, id_subcategoria, nome, nome_url, descricao, descricao_longa, valor, imagem, estoque, tipo_envio, palavras, ativo, peso, largura, altura, comprimento, modelo, valor_frete, promocao) VALUES (:categoria, :subcategoria, :nome, :nome_url, :descricao, :descricao_longa, :valor, :imagem, :estoque, :tipo_envio, :palavras, :ativo, :peso, :largura, :altura, :comprimento, :modelo, :valor_frete, 'Não')");
+	$res = $pdo->prepare("INSERT INTO produtos (id_categoria, id_subcategoria, nome, nome_url, descricao, descricao_longa, valor, imagem, estoque, tipo_envio, palavras, ativo, peso, largura, altura, comprimento, modelo, valor_frete, promocao, link) VALUES (:categoria, :subcategoria, :nome, :nome_url, :descricao, :descricao_longa, :valor, :imagem, :estoque, :tipo_envio, :palavras, :ativo, :peso, :largura, :altura, :comprimento, :modelo, :valor_frete, 'Não', :link)");
 	$res->bindValue(":imagem", $imagem);
 } else {
 
 	if ($imagem == "sem-foto.jpg") {
-		$res = $pdo->prepare("UPDATE produtos SET id_categoria = :categoria, id_subcategoria = :subcategoria, nome = :nome, nome_url = :nome_url, descricao = :descricao, descricao_longa = :descricao_longa, valor = :valor, estoque = :estoque, tipo_envio = :tipo_envio, palavras = :palavras, ativo = :ativo, peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, promocao = 'Não' WHERE id = :id");
+		$res = $pdo->prepare("UPDATE produtos SET id_categoria = :categoria, id_subcategoria = :subcategoria, nome = :nome, nome_url = :nome_url, descricao = :descricao, descricao_longa = :descricao_longa, valor = :valor, estoque = :estoque, tipo_envio = :tipo_envio, palavras = :palavras, ativo = :ativo, peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, promocao = 'Não', link = :link WHERE id = :id");
 	} else {
-		$res = $pdo->prepare("UPDATE produtos SET id_categoria = :categoria, id_subcategoria = :subcategoria, nome = :nome, nome_url = :nome_url,descricao = :descricao,descricao_longa = :descricao_longa,valor = :valor,estoque = :estoque,tipo_envio = :tipo_envio,palavras = :palavras,ativo = :ativo,peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, imagem = :imagem, promocao = 'Não' WHERE id = :id");
+		$res = $pdo->prepare("UPDATE produtos SET id_categoria = :categoria, id_subcategoria = :subcategoria, nome = :nome, nome_url = :nome_url,descricao = :descricao,descricao_longa = :descricao_longa,valor = :valor,estoque = :estoque,tipo_envio = :tipo_envio,palavras = :palavras,ativo = :ativo,peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, imagem = :imagem, promocao = 'Não', link = :link WHERE id = :id");
 		$res->bindValue(":imagem", $imagem);
 	}
 
@@ -118,7 +119,7 @@ $res->bindValue(":altura", $altura);
 $res->bindValue(":comprimento", $comprimento);
 $res->bindValue(":modelo", $modelo);
 $res->bindValue(":valor_frete", $valor_frete);
-
+$res->bindValue(":link", $link);
 
 $res->execute();
 

@@ -171,7 +171,7 @@ aqui tem um action que leva para lista-produtos.php -->
         <div class="row featured__filter">
 
             <?php
-            $query = $pdo->query("SELECT * FROM produtos order by vendas desc limit 5");
+            $query = $pdo->query("SELECT * FROM produtos where ativo = 'Sim' and estoque > 0 order by vendas desc limit 5");
             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
             for ($i = 0; $i < count($res); $i++) {
@@ -318,7 +318,7 @@ aqui tem um action que leva para lista-produtos.php -->
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3");
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by id desc limit 3");
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
@@ -345,13 +345,19 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_ultimos ?></h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_ultimos ?></h6>
 
-                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </a>
 
@@ -365,7 +371,7 @@ aqui tem um action que leva para lista-produtos.php -->
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 3, 3"); //limite de 3, a partir do 3
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by id desc limit 3, 3"); //limite de 3, a partir do 3
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
@@ -392,12 +398,22 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_ultimos ?></h6>
-                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_ultimos ?></h6>
+                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </a>
 
@@ -411,7 +427,7 @@ aqui tem um action que leva para lista-produtos.php -->
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by id desc limit 6, 3"); //limite de 3, a partir do 6
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by id desc limit 6, 3"); //limite de 3, a partir do 6
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
@@ -437,12 +453,23 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="produto-<?php echo $nome_url_produto_ultimos ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_ultimos ?></h6>
-                                        <span>R$ <?php echo $valor_produto_ultimos ?></span>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_ultimos ?>" alt="">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_ultimos ?></h6>
+                                                <span>R$ <?php echo $valor_produto_ultimos ?></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </a>
 
@@ -464,7 +491,7 @@ aqui tem um action que leva para lista-produtos.php -->
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by vendas desc limit 3");
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by vendas desc limit 3");
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
@@ -492,12 +519,77 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="produto-<?php echo $nome_url_produto_mais_vendidos ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_mais_vendidos ?>" alt="">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_mais_vendidos ?>" alt="">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_mais_vendidos ?></h6>
+                                                <span>R$ <?php echo $valor_produto_mais_vendidos ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_mais_vendidos ?></h6>
-                                        <span>R$ <?php echo $valor_produto_mais_vendidos ?></span>
+
+                                </a>
+
+                            <?php
+                            }
+
+                            ?>
+
+                        </div>
+
+                        <div class="latest-prdouct__slider__item">
+
+                            <?php
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by vendas desc limit 3, 3"); //limite de 3, a partir do 3
+                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                            for ($i = 0; $i < count($res); $i++) {
+                                foreach ($res[$i] as $key => $value) {
+                                }
+                                $nome_url_produto_mais_vendidos = $res[$i]['nome_url'];
+                                $nome_produto_mais_vendidos = $res[$i]['nome'];
+                                $valor_produto_mais_vendidos = $res[$i]['valor'];
+                                $imagem_produto_mais_vendidos = $res[$i]['imagem'];
+
+                                $promocao_produto_mais_vendidos = $res[$i]['promocao'];
+                                $id_produto_mais_vendidos = $res[$i]['id'];
+
+                                if ($promocao_produto_mais_vendidos == 'Sim') {
+                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_mais_vendidos'");
+                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $valor_produto_mais_vendidos = $resP[0]['valor'];
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                } else {
+                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
+                                }
+
+                            ?>
+
+                                <a href="produto-<?php echo $nome_url_produto_mais_vendidos ?>" class="latest-product__item">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_mais_vendidos ?>" alt="">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_mais_vendidos ?></h6>
+                                                <span>R$ <?php echo $valor_produto_mais_vendidos ?></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </a>
 
@@ -511,7 +603,7 @@ aqui tem um action que leva para lista-produtos.php -->
                         <div class="latest-prdouct__slider__item">
 
                             <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by vendas desc limit 3, 3"); //limite de 3, a partir do 3
+                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' and estoque > 0 order by vendas desc limit 6, 3"); //limite de 3, a partir do 6
                             $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($res); $i++) {
@@ -538,59 +630,23 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="produto-<?php echo $nome_url_produto_mais_vendidos ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_mais_vendidos ?>" alt="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/produtos/<?php echo $imagem_produto_mais_vendidos ?>" alt="">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_produto_mais_vendidos ?></h6>
+                                                <span>R$ <?php echo $valor_produto_mais_vendidos ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_mais_vendidos ?></h6>
-                                        <span>R$ <?php echo $valor_produto_mais_vendidos ?></span>
-                                    </div>
-                                </a>
 
-                            <?php
-                            }
-
-                            ?>
-
-                        </div>
-
-                        <div class="latest-prdouct__slider__item">
-
-                            <?php
-                            $query = $pdo->query("SELECT * FROM produtos WHERE ativo = 'Sim' order by vendas desc limit 6, 3"); //limite de 3, a partir do 6
-                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
-                            for ($i = 0; $i < count($res); $i++) {
-                                foreach ($res[$i] as $key => $value) {
-                                }
-                                $nome_url_produto_mais_vendidos = $res[$i]['nome_url'];
-                                $nome_produto_mais_vendidos = $res[$i]['nome'];
-                                $valor_produto_mais_vendidos = $res[$i]['valor'];
-                                $imagem_produto_mais_vendidos = $res[$i]['imagem'];
-
-                                $promocao_produto_mais_vendidos = $res[$i]['promocao'];
-                                $id_produto_mais_vendidos = $res[$i]['id'];
-
-                                if ($promocao_produto_mais_vendidos == 'Sim') {
-                                    $queryP = $pdo->query("SELECT * FROM promocoes WHERE id_produto = '$id_produto_mais_vendidos'");
-                                    $resP = $queryP->fetchAll(PDO::FETCH_ASSOC);
-
-                                    $valor_produto_mais_vendidos = $resP[0]['valor'];
-                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
-                                } else {
-                                    $valor_produto_mais_vendidos = number_format($valor_produto_mais_vendidos, 2, ',', '.');
-                                }
-
-                            ?>
-
-                                <a href="produto-<?php echo $nome_url_produto_mais_vendidos ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/produtos/<?php echo $imagem_produto_mais_vendidos ?>" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_produto_mais_vendidos ?></h6>
-                                        <span>R$ <?php echo $valor_produto_mais_vendidos ?></span>
-                                    </div>
                                 </a>
 
                             <?php
@@ -627,13 +683,22 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_combo ?></h6>
+                                                <span>R$ <?php echo $valor_combo ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_combo ?></h6>
-                                        <span>R$ <?php echo $valor_combo ?></span>
-                                    </div>
+
                                 </a>
 
                             <?php
@@ -662,13 +727,23 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_url_combo ?></h6>
+                                                <span>R$ <?php echo $valor_combo ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_url_combo ?></h6>
-                                        <span>R$ <?php echo $valor_combo ?></span>
-                                    </div>
+
                                 </a>
 
                             <?php
@@ -697,13 +772,22 @@ aqui tem um action que leva para lista-produtos.php -->
                             ?>
 
                                 <a href="combo-<?php echo $nome_url_combo ?>" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__pic">
+                                                <img src="img/combos/<?php echo $imagem_combo ?>" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="latest-product__item__text">
+                                                <h6><?php echo $nome_combo ?></h6>
+                                                <span>R$ <?php echo $valor_combo ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6><?php echo $nome_combo ?></h6>
-                                        <span>R$ <?php echo $valor_combo ?></span>
-                                    </div>
+
                                 </a>
 
                             <?php

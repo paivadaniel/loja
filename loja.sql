@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09-Set-2022 às 17:25
+-- Tempo de geração: 13-Set-2022 às 18:36
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -43,7 +43,7 @@ CREATE TABLE `alertas` (
 --
 
 INSERT INTO `alertas` (`id`, `titulo_alerta`, `titulo_mensagem`, `mensagem`, `link`, `imagem`, `data_final`, `ativo`) VALUES
-(1, 'vaifijfigaisgakgslgsddddddddddddddd', 'ds', 'dadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd222222222222222222222222222222222222222222222dadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd222222222222222222222222222222222222222222222dadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd222222222222222222222222222222222222222222222dadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd222222222222222222222222222222222222222222222dadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd222222222222222222222222222222222222222222222dadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd222222222222222222222222222222222222222222222fsfsffdadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd222222222222222222222222222222222222222222222dadada vaifijfigaisgakgslgsddddddddddddddddddddddddddddddddddddddddddddddddddddddddd2222222', 'sbt.com.br', 'banner-1.jpg', '2022-08-26', 'Não'),
+(1, 'Promoção Imperdível', 'Qual é a boa?', 'Sabia que o sabiá sabia subiá?', 'sbt.com.br', 'banner-1.jpg', '2022-09-13', 'Sim'),
 (3, 'arqrq', 'arqrq', 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddaaaaaaaaa2222222222222222', '414141', 'sem-foto.jpg', '2022-08-19', 'Não');
 
 -- --------------------------------------------------------
@@ -156,11 +156,21 @@ CREATE TABLE `carrinho` (
 --
 
 INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidade`, `data`, `combo`) VALUES
-(391, 18, 2, 67, 1, '2022-09-08', 'Não'),
-(395, 18, 2, 71, 1, '2022-09-08', 'Não'),
-(396, 18, 2, 72, 1, '2022-09-09', 'Não'),
-(397, 18, 2, 73, 1, '2022-09-09', 'Não'),
-(398, 18, 2, 74, 1, '2022-09-09', 'Não');
+(472, 18, 7, 89, 1, '2022-09-12', 'Sim'),
+(483, 18, 4, 91, 1, '2022-09-12', 'Não'),
+(496, 18, 8, 92, 1, '2022-09-13', 'Sim'),
+(497, 18, 7, 92, 1, '2022-09-13', 'Sim'),
+(498, 18, 8, 92, 1, '2022-09-13', 'Sim'),
+(499, 18, 7, 92, 1, '2022-09-13', 'Sim'),
+(501, 18, 8, 92, 1, '2022-09-13', 'Sim'),
+(506, 6, 7, 0, 1, '2022-09-13', 'Sim'),
+(511, 6, 17, 0, 1, '2022-09-13', 'Não'),
+(512, 18, 17, 93, 1, '2022-09-13', 'Não'),
+(513, 18, 7, 93, 1, '2022-09-13', 'Não'),
+(514, 18, 17, 94, 1, '2022-09-13', 'Não'),
+(515, 18, 7, 94, 1, '2022-09-13', 'Não'),
+(516, 18, 17, 95, 1, '2022-09-13', 'Não'),
+(517, 18, 17, 96, 1, '2022-09-13', 'Não');
 
 -- --------------------------------------------------------
 
@@ -214,7 +224,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `cpf`, `email`, `telefone`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `cep`, `pais`, `cartoes`) VALUES
-(1, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '(41) 4141-4141', 'qualquer', '32', 'nonsense', 'seido', 'uma cidade', 'CE', '18015-000', NULL, 0);
+(1, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '(41) 4141-4141', 'qualquer', '32', 'nonsense', 'seido', 'uma cidade', 'CE', '18015-000', NULL, 10);
 
 -- --------------------------------------------------------
 
@@ -246,8 +256,8 @@ CREATE TABLE `combos` (
 --
 
 INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`, `vendas`) VALUES
-(7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.50, 0.00, 0.00, 0.00, '0.00', NULL),
-(8, 'combo 5 calças', 'combo-5-calcas', '', '', '50.00', 'banner-teste.jpg', 1, '', 'Sim', 0.80, 0.00, 0.00, 0.00, '0.00', NULL);
+(7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.50, 0.00, 0.00, 0.00, '10.00', 3),
+(8, 'combo 5 calças', 'combo-5-calcas', '', '', '50.00', 'banner-teste.jpg', 2, '', 'Sim', 0.80, 0.00, 0.00, 0.00, '12.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -272,7 +282,8 @@ INSERT INTO `cupons` (`id`, `titulo`, `valor`, `codigo`, `data`, `id_usuario`) V
 (7, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
 (8, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
 (9, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
-(10, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18);
+(10, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
+(11, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-19', 18);
 
 -- --------------------------------------------------------
 
@@ -355,7 +366,8 @@ INSERT INTO `mensagens` (`id`, `id_venda`, `mensagem`, `usuario`, `data`, `hora`
 (34, 67, 'Seu pedido foi enviado, o código de postagem é JB24252252BAZ', 'Admin', '2022-09-09', '08:25:36'),
 (35, 67, 'Mudança de status no pedido, pedido Disponivel', 'Admin', '2022-09-09', '08:25:58'),
 (36, 67, 'Mudança de status no pedido, pedido Entregue', 'Admin', '2022-09-09', '08:27:31'),
-(37, 74, 'Parabéns, você ganhou um novo cupom de desconto no valor de 20 reais, poderá usar até o dia 16/09/2022 o seu código para uso do cupom é 919.191.991-15', 'Admin', '2022-09-09', '12:22:06');
+(37, 74, 'Parabéns, você ganhou um novo cupom de desconto no valor de 20 reais, poderá usar até o dia 16/09/2022 o seu código para uso do cupom é 919.191.991-15', 'Admin', '2022-09-09', '12:22:06'),
+(38, 83, 'Parabéns, você ganhou um novo cupom de desconto no valor de 20 reais, poderá usar até o dia 19/09/2022. O seu código para uso do cupom é 919.191.991-15', 'Admin', '2022-09-12', '09:38:56');
 
 -- --------------------------------------------------------
 
@@ -384,24 +396,26 @@ CREATE TABLE `produtos` (
   `modelo` varchar(100) DEFAULT NULL,
   `valor_frete` decimal(8,2) DEFAULT NULL,
   `promocao` varchar(5) DEFAULT NULL,
-  `vendas` int(11) DEFAULT NULL
+  `vendas` int(11) DEFAULT NULL,
+  `link` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `produtos`
 --
 
-INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`, `vendas`) VALUES
-(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Descrição do Pão de Mel Com Chocolate', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 45, 2, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 0.20, 32, 12, 24, 'doce', '32.00', 'Sim', 4),
-(3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 1.00, 0, 0, 0, '', '0.00', 'Sim', NULL),
-(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
-(6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 0, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
-(7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
-(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 0, 1, 'testando', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
-(9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL),
-(13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 0, 1, '', 'Sim', 0.50, 0, 0, 0, '', '0.00', 'Sim', 12),
-(15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', 9),
-(16, 1, 3, '4242', '4242', '', '', '13.00', 'sem-foto.jpg', 0, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL);
+INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `estoque`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `modelo`, `valor_frete`, `promocao`, `vendas`, `link`) VALUES
+(2, 8, 6, 'Pão de Mel com Chocolate', 'pao-de-mel-com-chocolate', 'Descrição do Pão de Mel Com Chocolate', 'Comida de doce', '53.45', 'doces-coloridos.jpg', 44, 1, 'pão de mel doce, pão de mel gostoso, comprar pão de mel', 'Sim', 0.20, 32, 12, 24, 'doce', '32.00', 'Sim', 19, 'http://www.casadopaodemel.com.br'),
+(3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 1, 3, '', 'Sim', 1.00, 0, 0, 0, '', '0.00', 'Sim', NULL, NULL),
+(4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 5, 2, '', 'Não', 0.00, 0, 0, 0, '', '5.00', 'Não', 3, NULL),
+(6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 1, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
+(7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 6, 2, '', 'Sim', 0.00, 0, 0, 0, '', '15.00', 'Não', 3, NULL),
+(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 5, 1, 'testando', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
+(9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
+(13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 5, 1, '', 'Sim', 0.50, 0, 0, 0, '', '0.00', 'Sim', 12, NULL),
+(15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', 9, NULL),
+(16, 1, 3, '4242', '4242', '', '', '13.00', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
+(17, 8, 4, 'teste do dia 13 do 09', 'teste-do-dia-13-do-09', 'aqui a descrição curta', 'aqui a descrição longa', '49.90', 'sem-foto.jpg', 8, 4, 'teste, setembro', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', 4, 'http://setembroamarelo.com.br');
 
 -- --------------------------------------------------------
 
@@ -569,11 +583,15 @@ CREATE TABLE `vendas` (
 --
 
 INSERT INTO `vendas` (`id`, `total`, `frete`, `subtotal`, `id_usuario`, `data`, `pago`, `status`, `rastreio`) VALUES
-(67, '69.00', '0.00', '0.00', 18, '2022-09-08', 'Sim', 'Entregue', 'JB24252252DOIDO'),
-(71, '69.00', '0.00', '0.00', 18, '2022-09-08', 'Não', 'Não Enviado', 'dadarqrqrq12'),
-(72, '69.00', '0.00', '0.00', 18, '2022-09-09', 'Sim', 'Não Enviado', NULL),
-(73, '69.00', '0.00', '0.00', 18, '2022-09-09', 'Sim', 'Não Enviado', NULL),
-(74, '69.00', '0.00', '0.00', 18, '2022-09-09', 'Sim', 'Não Enviado', NULL);
+(88, '42.00', '0.00', '0.00', 18, '2022-09-12', 'Sim', 'Não Enviado', NULL),
+(89, '42.00', '0.00', '0.00', 18, '2022-09-12', 'Sim', 'Não Enviado', NULL),
+(90, '114.00', '0.00', '0.00', 18, '2022-09-12', 'Sim', 'Não Enviado', NULL),
+(91, '105.00', '0.00', '0.00', 18, '2022-09-12', 'Não', 'Não Enviado', NULL),
+(92, '270.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Não Enviado', NULL),
+(93, '164.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL),
+(94, '164.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL),
+(95, '49.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL),
+(96, '49.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -731,19 +749,19 @@ ALTER TABLE `carac_itens`
 -- AUTO_INCREMENT de tabela `carac_itens_carrinho`
 --
 ALTER TABLE `carac_itens_carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT de tabela `carac_prod`
 --
 ALTER TABLE `carac_prod`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=399;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=520;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -767,7 +785,7 @@ ALTER TABLE `combos`
 -- AUTO_INCREMENT de tabela `cupons`
 --
 ALTER TABLE `cupons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `emails`
@@ -785,13 +803,13 @@ ALTER TABLE `imagens`
 -- AUTO_INCREMENT de tabela `mensagens`
 --
 ALTER TABLE `mensagens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `prod_combos`
@@ -821,7 +839,7 @@ ALTER TABLE `subcategorias`
 -- AUTO_INCREMENT de tabela `tipo_envios`
 --
 ALTER TABLE `tipo_envios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
@@ -833,7 +851,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

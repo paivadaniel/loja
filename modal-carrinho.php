@@ -13,10 +13,11 @@
                 </button>
             </div>
             <form id="form-carrinho" method="POST">
-                <div class="modal-body" style="height:500px; overflow-y:auto;"> <!-- height e overflow-y:auto se colocar na modal-content, vai mudar a forma como a barra de rolagem é disposta -->
+                <div class="modal-body" style="height:500px; overflow-y:auto;">
+                    <!-- height e overflow-y:auto se colocar na modal-content, vai mudar a forma como a barra de rolagem é disposta -->
                     <?php
                     if (@$_SESSION['nivel_usuario'] != 'Cliente') {
-                        echo "Faça login para adicionar produtos ao carrinho! Clique <a href='sistema' class='text-info'>aqui</a> para logar.";
+                        echo "Faça login como cliente para adicionar produtos ao carrinho! Clique <a href='sistema' class='text-info'>aqui</a> para logar.";
                         //exit(); //faz sair da modal
                     } else {
                         echo "<div id='listar-carrinho'></div>";
@@ -43,7 +44,7 @@
 
                     <div align="right" class="col-md-6 mb-4">
                         <button type="button" id="btn-comprar" class="primary-btn bg-secondary btn-sm" data-dismiss="modal">Comprar Mais</button>
-                        <a href="checkout.php" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a> <!-- btn-sm deixa o botão small, não funcionou btn-small -->
+                        <a href="" onclick="finalizarPedido()" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a> <!-- btn-sm deixa o botão small, não funcionou btn-small -->
                     </div>
 
                 </div>
@@ -271,6 +272,42 @@
                 } else {
 
 
+                }
+
+                //$('#mensagem_caracteristicas').text(mensagem)
+
+            },
+
+        })
+
+
+    }
+</script>
+
+
+
+<script type="text/javascript">
+    function finalizarPedido() {
+
+        event.preventDefault();
+
+        $.ajax({
+
+            url: "carrinho/verificar-carac.php",
+            method: "post",
+            data: {},
+            dataType: "text",
+            success: function(result) {
+
+                if (result == 'Selecione as Características dos Produtos!') {
+
+                    $('#mensagem_carrinho').addClass('text-danger')
+                    $('#mensagem_carrinho').text(result);
+
+                } else {
+                    //$('#mensagem_carrinho').text(result);
+
+                    window.location = 'checkout.php';
                 }
 
                 //$('#mensagem_caracteristicas').text(mensagem)

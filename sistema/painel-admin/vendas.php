@@ -2,6 +2,8 @@
 
 require_once('../../conexao.php');
 require_once('verificar.php'); //já tem session_start() aqui
+require_once("../../pagamentos/pagseguro/PagSeguro.class.php");
+$PagSeguro = new PagSeguro();
 
 $id_usuario = $_SESSION['id_usuario'];
 
@@ -32,21 +34,30 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
 
                     <?php
 
-                    $query = $pdo->query("SELECT * FROM vendas order by data desc");
-                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $query_ped = $pdo->query("SELECT * FROM vendas order by id desc");
+                    $res_ped = $query_ped->fetchAll(PDO::FETCH_ASSOC);
 
-                    for ($i = 0; $i < @count($res); $i++) {
-                        foreach ($res[$i] as $key => $value) {
+                    for ($i = 0; $i < @count($res_ped); $i++) {
+                        foreach ($res_ped[$i] as $key => $value) {
                         }
 
-                        $total = $res[$i]['total'];
-                        $data = $res[$i]['data'];
-                        $pago = $res[$i]['pago'];
-                        $status = $res[$i]['status'];
-                        $rastreio = @$res[$i]['rastreio'];
-                        $id_cliente = $res[$i]['id_usuario'];
+                        $total = $res_ped[$i]['total'];
+                        $data = $res_ped[$i]['data'];
+                        $pago = $res_ped[$i]['pago'];
+                        $status = $res_ped[$i]['status'];
+                        $rastreio = @$res_ped[$i]['rastreio'];
+                        $id_cliente = $res_ped[$i]['id_usuario'];
 
-                        $id_venda = $res[$i]['id'];
+                        $id_venda = $res_ped[$i]['id'];
+
+                        //VERIFICAR SE O PAGAMENTO NO PAGSEGURO ESTÁ APROVADO
+                        //COMENTE ESSE TRECHO DE CÓDIGO CASO QUEIRA UM GANHO GRANDE EM VELOCIDADE DE CARREGAMENTO
+                        //variável P recebe a referência do pagamento
+                        $P = $PagSeguro->getStatusByReference($id_venda);
+                        if ($P == 3 || $P == 4) { //p=3 aprovado e p=4 disponível
+                            include_once('../../aprovar_compra.php'); //aprova a compra
+                        }
+
 
                         $query3 = $pdo->query("SELECT * FROM usuarios where id = '$id_cliente'");
                         $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
@@ -122,6 +133,10 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                                 ?>
                                     <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id_venda=<?php echo $id_venda ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
 
+
+                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=aprovar&id_venda=<?php echo $id_venda ?>" class='text-success mr-1' title='Aprovar Pagamento'><i class='far fa-check-circle'></i></a>
+
+
                                 <?php
 
                                 }
@@ -143,7 +158,7 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
         <div class="modal-content">
             <div class="modal-header">
 
-                <h5 class="modal-title" id="exampleModalLabel">Produtos da Compra</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Produtos da Venda</h5>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -238,7 +253,6 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
     </div>
 </div>
 
-
 <!-- modal Excluir -->
 
 <div class="modal" id="modal-excluir" tabindex="-1" role="dialog">
@@ -263,7 +277,7 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-excluir">Cancelar</button>
                 <form method="post">
 
-                    <input type="hidden" id="id_venda" name="id_venda" value="<?php echo @$_GET['id_venda'] ?>" required>
+                    <input type="hidden" id="id_venda" name="id_venda" value="<?php echo @$_GET['id_venda'] ?>">
 
                     <button type="button" id="btn-excluir" name="btn-excluir" class="btn btn-danger">Excluir</button>
                 </form>
@@ -272,6 +286,38 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
     </div>
 </div>
 
+<!-- modal Aprovar Pgto -->
+
+<div class="modal" id="modal-aprovar-pgto" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aprovar Pagamento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p>Deseja Aprovar o Pagamento desta Venda?</p>
+
+                <div align="center" id="mensagem_aprovar_pgto" class="">
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-aprovar-pgto">Cancelar</button>
+                <form method="post">
+
+                    <input type="hidden" id="id_venda" name="id_venda" value="<?php echo @$_GET['id_venda'] ?>">
+                            <!-- não usaremos ajax, então tem que ser type submit -->
+                    <button type="submit" id="btn-aprovar-pgto" name="btn-aprovar-pgto" class="btn btn-success">Aprovar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- modal Pergunta -->
 
@@ -339,72 +385,6 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
     </div>
 </div>
 
-
-<!-- modal Resposta -->
-
-<div class="modal" id="modal-resposta" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Respostas acerca do pedido</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-
-                        <form method="post">
-
-                            <div class="form-group">
-                                <label for="pedidos_mensagem">Elabore uma nova reposta</label>
-                                <textarea class="form-control form-control-sm" id="mensagem_resposta" name="mensagem_resposta" maxlength="1000"></textarea>
-                            </div>
-
-                            <input type="hidden" id="id_venda" name="id_venda" value="<?php echo @$_GET['id_venda'] ?>">
-
-                            <button type="button" id="btn-mensagem-resposta" name="btn-mensagem-resposta" class="btn btn-info">Enviar</button>
-                        </form>
-
-                    </div>
-
-                    <div class="col-md-6 mb-2">
-                        <label class="mb-2">Respostas</label><br>
-
-                        <?php
-
-                        $id_ven = $_GET['id_venda'];
-
-                        $query = $pdo->query("SELECT * FROM mensagens where id_venda = '$id_ven' order by id desc"); //não dá para usar apenas id_venda = $id_venda, pois ele vai pegar o último registro armazenado na variável id_venda, que será o mesmo para todos os produtos, e será o id da última venda
-                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
-
-                        for ($i = 0; $i < @count($res); $i++) {
-                            foreach ($res[$i] as $key => $value) {
-                            }
-
-                            $usuario = $res[$i]['usuario'];
-                            $mensagem = $res[$i]['mensagem'];
-
-                            if ($usuario == 'Admin') { //deixa em negrito as mensagens do admin
-                                echo '<b>' . $i + 1 . ') ' . $mensagem . '</b><br>';
-                            } else {
-                                echo $i + 1 . ') ' . $mensagem . '<br>';
-                            }
-                        }
-                        ?>
-
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!--AJAX PARA INSERÇÃO DOS DADOS VINDO DE UMA FUNÇÃO -->
 <script>
     function verProdutos(id_venda) {
@@ -458,6 +438,18 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
         })
     })
 </script>
+
+<?php
+if (isset($_POST['btn-aprovar-pgto'])) { //o que guarda btn-mensagem-pergunta após ser apertado?
+
+$id_venda = $_GET['id_venda'];
+
+require('../../aprovar_compra.php');
+
+echo "<script> window.location='index.php?pag=vendas'</script>";
+}
+?>
+
 
 <!--AJAX PARA EDITAR STATUS -->
 <script type="text/javascript">
@@ -519,6 +511,14 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
 }
 
 ?>
+
+<?php if (@$_GET["funcao"] != null && @$_GET["funcao"] == "aprovar") {
+    echo "<script>$('#modal-aprovar-pgto').modal('show');</script>";
+}
+
+?>
+
+
 
 <?php
 

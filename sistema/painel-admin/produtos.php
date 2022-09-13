@@ -162,6 +162,7 @@ $agora = date('Y-m-d');
                     $comprimento2 = $res[0]['comprimento'];
                     $modelo2 = $res[0]['modelo'];
                     $valor_frete2 = $res[0]['valor_frete'];
+                    $link2 = $res[0]['link'];
                 } else {
                     $titulo = "Inserir Registro";
                 }
@@ -351,6 +352,19 @@ $agora = date('Y-m-d');
                         </div>
 
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Link </label>
+                                <input type="text" value="<?php echo @$link2 ?>" class="form-control form-control-sm" id="link" name="link">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
 
                     <div class="row">
 
