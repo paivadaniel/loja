@@ -53,10 +53,12 @@ $pag = 'pedidos';
                         //VERIFICAR SE O PAGAMENTO NO PAGSEGURO ESTÁ APROVADO
                         //COMENTE ESSE TRECHO DE CÓDIGO CASO QUEIRA UM GANHO GRANDE EM VELOCIDADE DE CARREGAMENTO
                         //variável P recebe a referência do pagamento
+                        /*
                         $P = $PagSeguro->getStatusByReference($id_venda_ped);
                         if ($P == 3 || $P == 4) { //p=3 aprovado e p=4 disponível
                             include_once('../../aprovar_compra.php'); //aprova a compra
                         }
+                       */
 
                         $total_ped = number_format($total_ped, 2, ',', '.');
                         $data_ped = implode('/', array_reverse(explode('-', $data_ped)));
@@ -103,8 +105,9 @@ $pag = 'pedidos';
                                 <a href="" onclick="verProdutos('<?php echo $id_venda_ped ?>')" title="Ver Produtos">
                                     <i class="fa fa-eye text-primary"></i>
                                     <?php echo $total_produtos ?> Produto(s)
+                                </a>
                             </td>
-                            </a>
+
                             <td>
 
                                 <?php

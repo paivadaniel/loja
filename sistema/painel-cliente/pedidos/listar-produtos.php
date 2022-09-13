@@ -53,7 +53,14 @@ for ($i = 0; $i < count($res); $i++) {
     echo ' 
   <tr> 
   
-  <td> <a href="' . $link . '" title="Acessar Produto Digital" target="_blank">' . $nome_produto . '<i class="fa fa-play ml-2"></i></a></td>';
+  <td> 
+  
+<a href="" class="text-dark" onclick="avaliar('. $id_produto   .')" title="Avaliar Produto">
+  <i class="fa fa-star text-warning"></i>
+</a>
+
+  
+  <a href="' . $link . '" title="Acessar Produto Digital" target="_blank">' . $nome_produto . '<i class="fa fa-play ml-2"></i></a></td>';
   } else {
     echo ' 
   <tr> 

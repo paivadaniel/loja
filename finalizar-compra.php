@@ -89,10 +89,11 @@ $res->bindValue(":cep", $cep);
 
 $res->execute();
 
-$res = $pdo->prepare("INSERT vendas SET total = :total, frete = :frete, subtotal = :subtotal, id_usuario = '$id_usuario', pago = 'Não', data = curDate(), status = 'Não Enviado'");
+$res = $pdo->prepare("INSERT vendas SET total = :total, frete = :frete, subtotal = :subtotal, id_usuario = '$id_usuario', pago = 'Não', data = curDate(), status = :status_venda");
 $res->bindValue(":total", $total_compra);
 $res->bindValue(":frete", $valor_frete);
 $res->bindValue(":subtotal", $subtotal);
+$res->bindValue(":status_venda", $status_venda);
 
 $res->execute();
 

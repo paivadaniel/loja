@@ -53,11 +53,12 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                         //VERIFICAR SE O PAGAMENTO NO PAGSEGURO ESTÁ APROVADO
                         //COMENTE ESSE TRECHO DE CÓDIGO CASO QUEIRA UM GANHO GRANDE EM VELOCIDADE DE CARREGAMENTO
                         //variável P recebe a referência do pagamento
+                        /*
                         $P = $PagSeguro->getStatusByReference($id_venda);
                         if ($P == 3 || $P == 4) { //p=3 aprovado e p=4 disponível
                             include_once('../../aprovar_compra.php'); //aprova a compra
                         }
-
+                        */
 
                         $query3 = $pdo->query("SELECT * FROM usuarios where id = '$id_cliente'");
                         $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
@@ -97,8 +98,9 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                                 <a href="" onclick="verProdutos('<?php echo $id_venda ?>')" title="Ver Produtos">
                                     <i class="fa fa-eye text-primary"></i>
                                     <?php echo $total_produtos ?> Produto(s)
+                                </a>
+
                             </td>
-                            </a>
                             <td>
 
                                 <?php
@@ -135,6 +137,9 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
 
 
                                     <a href="index.php?pag=<?php echo $pag ?>&funcao=aprovar&id_venda=<?php echo $id_venda ?>" class='text-success mr-1' title='Aprovar Pagamento'><i class='far fa-check-circle'></i></a>
+
+                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=cliente&id_venda=<?php echo $id_venda ?>" class='text-info mr-1' title='Dados do Comprador'><i class='far fa-user'></i></a>
+
 
 
                                 <?php
@@ -312,7 +317,7 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                 <form method="post">
 
                     <input type="hidden" id="id_venda" name="id_venda" value="<?php echo @$_GET['id_venda'] ?>">
-                            <!-- não usaremos ajax, então tem que ser type submit -->
+                    <!-- não usaremos ajax, então tem que ser type submit -->
                     <button type="submit" id="btn-aprovar-pgto" name="btn-aprovar-pgto" class="btn btn-success">Aprovar</button>
                 </form>
             </div>
@@ -386,6 +391,68 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
     </div>
 </div>
 
+<!-- modal Cliente -->
+
+<div class="modal" id="modal-cliente" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dados do Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <?php
+                $id_ven = @$_GET['id_venda'];
+
+                //pega o usuários
+                $query_v = $pdo->query("SELECT * FROM vendas where id = '$id_ven' ");
+                $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+                $id_usu = $res_v[0]['id_usuario'];
+
+                //pega o cpf do usuário
+                $query_u = $pdo->query("SELECT * FROM usuarios where id = '$id_usu' ");
+                $res_u = $query_u->fetchAll(PDO::FETCH_ASSOC);
+                $cpf_usu = $res_u[0]['cpf'];
+
+                //pega os dados do usuário, cpf é a chave estrangeira da tabela usuarios na tabela clientes
+                $query = $pdo->query("SELECT * FROM clientes where cpf = '$cpf_usu' ");
+                $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                $nome = $res[0]['nome'];
+                $cpf = $res[0]['cpf'];
+                $telefone = $res[0]['telefone'];
+                $logradouro = $res[0]['logradouro'];
+                $numero = $res[0]['numero'];
+                $cep = $res[0]['cep'];
+                $bairro = $res[0]['bairro'];
+                $cidade = $res[0]['cidade'];
+                $estado = $res[0]['estado'];
+                $email = $res[0]['email'];
+
+
+                ?>
+
+
+                <span><b>Nome: </b><?php echo $nome ?> </span><br>
+                <span><b>CPF: </b> <?php echo $cpf ?></span><span class="ml-2"><b>Email:</b> <?php echo $email ?></span><br>
+
+                <span><b>Logradouro: </b><?php echo $logradouro ?> </span> <span class="ml-2"><b>Número: </b> <?php echo $numero ?></span><br>
+                <span><b>Bairro: </b> <?php echo $bairro ?></span><span class="ml-2"><b>Cidade: </b> <?php echo $cidade ?></span><br>
+
+                <span><b>Estado: </b> <?php echo $estado ?></span><span class="ml-2"><b>CEP: </b> <?php echo $cep ?></span><br>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 <!--AJAX PARA INSERÇÃO DOS DADOS VINDO DE UMA FUNÇÃO -->
 <script>
     function verProdutos(id_venda) {
@@ -443,11 +510,11 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
 <?php
 if (isset($_POST['btn-aprovar-pgto'])) { //o que guarda btn-mensagem-pergunta após ser apertado?
 
-$id_venda = $_GET['id_venda'];
+    $id_venda = $_GET['id_venda'];
 
-require('../../aprovar_compra.php');
+    require('../../aprovar_compra.php');
 
-echo "<script> window.location='index.php?pag=vendas'</script>";
+    echo "<script> window.location='index.php?pag=vendas'</script>";
 }
 ?>
 
@@ -515,6 +582,12 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "editar") {
 
 <?php if (@$_GET["funcao"] != null && @$_GET["funcao"] == "aprovar") {
     echo "<script>$('#modal-aprovar-pgto').modal('show');</script>";
+}
+
+?>
+
+<?php if (@$_GET["funcao"] != null && @$_GET["funcao"] == "cliente") {
+    echo "<script>$('#modal-cliente').modal('show');</script>";
 }
 
 ?>
