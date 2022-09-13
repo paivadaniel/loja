@@ -1,6 +1,5 @@
 <?php
-require_once('cabecalho.php');
-require_once('cabecalho-busca.php');
+
 require_once('conexao.php');
 
 //recuperar o nome do produto para filtrar as informações (como características) dele
@@ -13,9 +12,16 @@ $tem_cor; //essa variável é trabalhada no final dessa página para mostrar a p
 <?php
 
 //trazer os dados do produto
+$query = $pdo->query("SELECT * FROM produtos where nome_url = '$produto_get'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$palavras = $res[0]['palavras'];
+
+//foi colocado aqui para ficar depois de $palavras, confira no $cabecalho, na parte de keywords, que fazemos uso de $palavras, portanto, a variável tem que ser chamada antes
+//tem um SELECT relacionado à produtos em cabecalho.php, dessa forma, autor fez o mesmo SELECT, primeiramente apenas para pegar palavras, e depois, em seguida do cabecalho, para pegar o restante dos dados, e não dar conflito de variáveis 
+require_once('cabecalho.php');
+require_once('cabecalho-busca.php');
 
 $query = $pdo->query("SELECT * FROM produtos where nome_url = '$produto_get'");
-
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
 $id_produto = $res[0]['id'];
@@ -28,7 +34,6 @@ $estoque = $res[0]['estoque'];
 $descricao = $res[0]['descricao'];
 $descricao_longa = $res[0]['descricao_longa'];
 $tipo_envio = $res[0]['tipo_envio'];
-$palavras = $res[0]['palavras'];
 $ativo = $res[0]['ativo'];
 $peso = $res[0]['peso'];
 $largura = $res[0]['largura'];
@@ -37,6 +42,7 @@ $comprimento = $res[0]['comprimento'];
 $modelo = $res[0]['modelo'];
 $valor_frete = $res[0]['valor_frete'];
 $promocao = $res[0]['promocao'];
+
 
 if ($modelo == '') {
     $modelo = 'Nenhum';

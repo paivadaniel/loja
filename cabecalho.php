@@ -10,50 +10,47 @@ $dados = $res->fetchAll(PDO::FETCH_ASSOC);
 $linhas = count($dados);
 
 if ($linhas == 0) {
-  $linhas = 0;
-  $total_carrinho = 0;
+    $linhas = 0;
+    $total_carrinho = 0;
 }
 
 $total;
 
 for ($i = 0; $i < count($dados); $i++) {
-  foreach ($dados[$i] as $key => $value) {
-  }
-
-  $id_produto = $dados[$i]['id_produto'];
-  $quantidade = $dados[$i]['quantidade'];
-  $combo = $dados[$i]['combo'];
-
-  if ($combo == 'Sim') { //para combos
-    $res_p = $pdo->query("SELECT * from combos where id = '$id_produto' ");
-    $dados_p = $res_p->fetchAll(PDO::FETCH_ASSOC);
-
-    $valor_produto = $dados_p[0]['valor'];
-
-  } else { //para produtos
-    $res_p = $pdo->query("SELECT * from produtos where id = '$id_produto' ");
-    $dados_p = $res_p->fetchAll(PDO::FETCH_ASSOC);
-
-    $valor_produto = $dados_p[0]['valor'];
-    $promocao_produto = @$dados_p[0]['promocao'];
-
-    if ($promocao_produto == 'Sim') { //para produtos em promoção
-      $res_p2 = $pdo->query("SELECT * from promocoes where id_produto = '$id_produto' ");
-      $dados_p2 = $res_p2->fetchAll(PDO::FETCH_ASSOC);
-      $valor_produto = $dados_p2[0]['valor'];
+    foreach ($dados[$i] as $key => $value) {
     }
 
-  }
+    $id_produto = $dados[$i]['id_produto'];
+    $quantidade = $dados[$i]['quantidade'];
+    $combo = $dados[$i]['combo'];
 
-  $total_item = $valor_produto * $quantidade;
-  @$total_carrinho = @$total_carrinho + $total_item;
+    if ($combo == 'Sim') { //para combos
+        $res_p = $pdo->query("SELECT * from combos where id = '$id_produto' ");
+        $dados_p = $res_p->fetchAll(PDO::FETCH_ASSOC);
 
-  $valor_produto = number_format($valor_produto, 2, ',', '.');
-  $total_item = number_format($total_item, 2, ',', '.');
+        $valor_produto = $dados_p[0]['valor'];
+    } else { //para produtos
+        $res_p = $pdo->query("SELECT * from produtos where id = '$id_produto' ");
+        $dados_p = $res_p->fetchAll(PDO::FETCH_ASSOC);
 
+        $valor_produto = $dados_p[0]['valor'];
+        $promocao_produto = @$dados_p[0]['promocao'];
+
+        if ($promocao_produto == 'Sim') { //para produtos em promoção
+            $res_p2 = $pdo->query("SELECT * from promocoes where id_produto = '$id_produto' ");
+            $dados_p2 = $res_p2->fetchAll(PDO::FETCH_ASSOC);
+            $valor_produto = $dados_p2[0]['valor'];
+        }
+    }
+
+    $total_item = $valor_produto * $quantidade;
+    @$total_carrinho = @$total_carrinho + $total_item;
+
+    $valor_produto = number_format($valor_produto, 2, ',', '.');
+    $total_item = number_format($total_item, 2, ',', '.');
 }
 
-$total_carrinho = number_format($total_carrinho , 2, ',', '.');
+$total_carrinho = number_format($total_carrinho, 2, ',', '.');
 
 ?>
 
@@ -63,7 +60,23 @@ $total_carrinho = number_format($total_carrinho , 2, ',', '.');
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Venda de Roupas Feminina e Masculina">
+
+    <?php
+
+    if (@$palavras != "") {
+
+    ?>
+    <meta name="keywords" content="<?php echo $palavras ?>">
+    <?php
+
+    } else {
+
+    ?>
     <meta name="keywords" content="vestido, botas feminina, tênis, sobretudo">
+    <?php
+    }
+
+    ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $nome_loja ?></title>
@@ -239,22 +252,22 @@ $total_carrinho = number_format($total_carrinho , 2, ',', '.');
                                     ?>
                                         <a href="sistema/painel-admin/"><i class="fa fa-user"> Painel</i>
 
-                                        <a href="sistema/logout.php"><i class="fa fa-user"> Sair</i>
-
-                                        <?php
-
-                                    } else if ($_SESSION['nivel_usuario'] == 'Cliente') {
-                                        ?>
-
-                                            <a href="sistema/painel-cliente/"><i class="fa fa-user"> Painel</i>
-
                                             <a href="sistema/logout.php"><i class="fa fa-user"> Sair</i>
 
-
                                             <?php
-                                        }
 
+                                        } else if ($_SESSION['nivel_usuario'] == 'Cliente') {
                                             ?>
+
+                                                <a href="sistema/painel-cliente/"><i class="fa fa-user"> Painel</i>
+
+                                                    <a href="sistema/logout.php"><i class="fa fa-user"> Sair</i>
+
+
+                                                    <?php
+                                                }
+
+                                                    ?>
 
 
 

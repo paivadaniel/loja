@@ -39,14 +39,27 @@ for ($i = 0; $i < count($res); $i++) {
 
   $nome_produto = $res2[0]['nome'];
   $valor_produto = $res2[0]['valor'];
+  $tipo_envio = $res2[0]['tipo_envio'];
+  $link = $res2[0]['link'];
 
   $valor_produto = number_format($valor_produto, 2, ',', '.');
   //$total_item = number_format($total_item, 2, ',', '.');
 
-  echo ' 
-    <tr> 
-    
-    <td>' . $nome_produto . '</td>';
+  $query_v = $pdo->query("SELECT * from vendas where id = '$id_venda'");
+  $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+  $pago = $res_v[0]['pago'];
+
+  if ($tipo_envio == 4 and $link != "" and $pago == 'Sim') { //produto digital
+    echo ' 
+  <tr> 
+  
+  <td> <a href="' . $link . '" title="Acessar Produto Digital" target="_blank">' . $nome_produto . '<i class="fa fa-play ml-2"></i></a></td>';
+  } else {
+    echo ' 
+  <tr> 
+  
+  <td>' . $nome_produto . '</td>';
+  }
 
   if ($combo != 'Sim') {
 
@@ -75,7 +88,7 @@ for ($i = 0; $i < count($res); $i++) {
 
     $query2 = $pdo->query("SELECT * from prod_combos where id_combo = '$id_produto'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-  
+
     echo '<td>';
     for ($i2 = 0; $i2 < count($res2); $i2++) {
       foreach ($res2[$i2] as $key => $value) {
@@ -87,10 +100,9 @@ for ($i = 0; $i < count($res); $i++) {
       $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
 
       echo '<span class="ml-2">' . $res3[0]['nome'] . '</span>';
-
     }
-  
-    echo'</td>';
+
+    echo '</td>';
   }
   echo '
     <td>R$ ' . $valor_produto . '</td>

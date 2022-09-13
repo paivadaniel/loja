@@ -163,6 +163,9 @@ $agora = date('Y-m-d');
                     $modelo2 = $res[0]['modelo'];
                     $valor_frete2 = $res[0]['valor_frete'];
                     $link2 = $res[0]['link'];
+
+                    $valor2 = number_format($valor2, 2, ',', '.');
+
                 } else {
                     $titulo = "Inserir Registro";
                 }
@@ -370,28 +373,28 @@ $agora = date('Y-m-d');
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Peso (kg) <small> - Ex.: para 20g, preencha 0.02 </small> </label>
+                                <label>Peso <small>(kg)</small> </label>
                                 <input type="text" value="<?php echo @$peso2 ?>" class="form-control form-control-sm" id="peso" name="peso">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Largura (cm) <small> - Ex.: para 1,5m, preencha 150 </small> </label>
+                                <label>Largura <small>(cm)</small> </label>
                                 <input type="text" value="<?php echo @$largura2 ?>" class="form-control form-control-sm" id="largura" name="largura">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Altura (cm) </label>
+                                <label>Altura <small>(cm)</small> </label>
                                 <input type="text" value="<?php echo @$altura2 ?>" class="form-control form-control-sm" id="altura" name="altura">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Comprimento (cm) </label>
+                                <label>Comprimento <small>(cm)</small> </label>
                                 <input type="text" value="<?php echo @$comprimento2 ?>" class="form-control form-control-sm" id="comprimento" name="comprimento">
                             </div>
 

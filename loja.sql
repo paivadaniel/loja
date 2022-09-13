@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Set-2022 às 18:36
+-- Tempo de geração: 13-Set-2022 às 22:16
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -112,6 +112,14 @@ CREATE TABLE `carac_itens_carrinho` (
   `nome_item` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `carac_itens_carrinho`
+--
+
+INSERT INTO `carac_itens_carrinho` (`id`, `id_carrinho`, `id_carac`, `nome_carac`, `nome_item`) VALUES
+(141, 525, 3, 'Cor', 'vermelho'),
+(142, 527, 3, 'Cor', 'azul');
+
 -- --------------------------------------------------------
 
 --
@@ -170,7 +178,15 @@ INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidad
 (514, 18, 17, 94, 1, '2022-09-13', 'Não'),
 (515, 18, 7, 94, 1, '2022-09-13', 'Não'),
 (516, 18, 17, 95, 1, '2022-09-13', 'Não'),
-(517, 18, 17, 96, 1, '2022-09-13', 'Não');
+(517, 18, 17, 96, 1, '2022-09-13', 'Não'),
+(520, 18, 17, 97, 1, '2022-09-13', 'Não'),
+(521, 6, 13, 0, 1, '2022-09-13', 'Não'),
+(522, 6, 7, 0, 1, '2022-09-13', 'Sim'),
+(523, 18, 7, 98, 1, '2022-09-13', 'Sim'),
+(524, 18, 17, 99, 1, '2022-09-13', 'Não'),
+(525, 18, 2, 99, 1, '2022-09-13', 'Não'),
+(526, 18, 17, 0, 1, '2022-09-13', 'Não'),
+(527, 18, 2, 0, 1, '2022-09-13', 'Não');
 
 -- --------------------------------------------------------
 
@@ -248,16 +264,18 @@ CREATE TABLE `combos` (
   `altura` double(8,2) NOT NULL,
   `comprimento` double(8,2) NOT NULL,
   `valor_frete` decimal(8,2) DEFAULT NULL,
-  `vendas` int(11) DEFAULT NULL
+  `vendas` int(11) DEFAULT NULL,
+  `link` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `combos`
 --
 
-INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`, `vendas`) VALUES
-(7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.50, 0.00, 0.00, 0.00, '10.00', 3),
-(8, 'combo 5 calças', 'combo-5-calcas', '', '', '50.00', 'banner-teste.jpg', 2, '', 'Sim', 0.80, 0.00, 0.00, 0.00, '12.00', NULL);
+INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`, `vendas`, `link`) VALUES
+(7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.50, 0.00, 0.00, 0.00, '10.00', 3, NULL),
+(8, 'combo 5 calças', 'combo-5-calcas', '', '', '50.00', 'banner-teste.jpg', 2, 'calças do seu madruga, calças pretas, calças baratas, calças para vender igual água', 'Sim', 0.80, 0.00, 0.00, 0.00, '12.00', NULL, 'http://www.linkcombo.com'),
+(9, 'combo qualquer para teste', 'combo-qualquer-para-teste', 'blabla', 'blablablablablablablablablablablabla', '41.00', 'sem-foto.jpg', 4, 'bing bing bung bung', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL, 'http://www.linkteste.com');
 
 -- --------------------------------------------------------
 
@@ -414,7 +432,6 @@ INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_u
 (9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
 (13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 5, 1, '', 'Sim', 0.50, 0, 0, 0, '', '0.00', 'Sim', 12, NULL),
 (15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', 9, NULL),
-(16, 1, 3, '4242', '4242', '', '', '13.00', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
 (17, 8, 4, 'teste do dia 13 do 09', 'teste-do-dia-13-do-09', 'aqui a descrição curta', 'aqui a descrição longa', '49.90', 'sem-foto.jpg', 8, 4, 'teste, setembro', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', 4, 'http://setembroamarelo.com.br');
 
 -- --------------------------------------------------------
@@ -436,7 +453,9 @@ CREATE TABLE `prod_combos` (
 INSERT INTO `prod_combos` (`id`, `id_produto`, `id_combo`) VALUES
 (32, 2, 8),
 (33, 3, 8),
-(34, 7, 7);
+(34, 7, 7),
+(35, 9, 9),
+(36, 7, 9);
 
 -- --------------------------------------------------------
 
@@ -591,7 +610,10 @@ INSERT INTO `vendas` (`id`, `total`, `frete`, `subtotal`, `id_usuario`, `data`, 
 (93, '164.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL),
 (94, '164.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL),
 (95, '49.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL),
-(96, '49.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL);
+(96, '49.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Não Enviado', NULL),
+(97, '49.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Não Enviado', NULL),
+(98, '32.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Não Enviado', NULL),
+(99, '87.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Não Enviado', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -749,7 +771,7 @@ ALTER TABLE `carac_itens`
 -- AUTO_INCREMENT de tabela `carac_itens_carrinho`
 --
 ALTER TABLE `carac_itens_carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT de tabela `carac_prod`
@@ -761,7 +783,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=520;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=528;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -779,7 +801,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de tabela `combos`
 --
 ALTER TABLE `combos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `cupons`
@@ -815,7 +837,7 @@ ALTER TABLE `produtos`
 -- AUTO_INCREMENT de tabela `prod_combos`
 --
 ALTER TABLE `prod_combos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de tabela `promocoes`
@@ -851,7 +873,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

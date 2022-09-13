@@ -6,7 +6,7 @@ require_once('conexao.php');
 $id_usuario = @$_SESSION['id_usuario'];
 
 $total_compra = $_POST['total_compra'];
-$valor_frete = $_POST['valor_frete']; //valor do frete, não é valor do frete fixo, tem que mudar o nome da variável $valor_frete no checkout.php para não dar confusão
+$valor_frete = $_POST['valor_frete']; //valor do frete, não é valor do frete fixo, tem que mudar o nome da variável $valor_frete no checkout.php para não dar confusão, e sim é a somatória do frete da compra
 $existe_frete = $_POST['existe_frete'];
 
 $antigoCpf = $_POST['antigoCpf']; //se o usuário trocar de cpf na página de checkout, compara-se o cpf antigo com o nome digitado, se forem diferentes, ele trocou o cpf, e então verifica se o novo cpf digitado já não se encontra no banco de dados
@@ -24,13 +24,20 @@ $cidade = $_POST['cidade'];
 $estado = $_POST['estado'];
 $comentario = $_POST['comentario'];
 $cep = $_POST['cep'];
+$retirada_no_local = @$_POST['retirada_no_local'];
 
 //ERRO_ALGORITMO
 //está dando problema para fazer essa subtração por causa de ser string, em checkout.php eu converti para float com parseFloat, autor não teve o mesmo problema, o problema é no total_compra, pois o frete está sendo passado com ponto para o banco de dados
 //$subtotal = $total_compra - $valor_frete;
 $subtotal = 0;
 
-if ($existe_frete == 'Sim') {
+$status_venda = 'Não Enviado'; //Não Enviado, Enviado, Entregue, Disponível, Retirada
+
+if($retirada_no_local != '') {
+    $status_venda = 'Retirada';
+}
+
+if ($existe_frete == 'Sim' && $retirada_no_local == '') {
     if ($valor_frete == '0' || $valor_frete == "") {
         echo "Selecione um CEP válido!";
         exit();

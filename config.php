@@ -86,4 +86,7 @@ $dias_uso_cupom = 7;
 //VARIÁVEL QUE DEFINE A LIMPEZA DO CARRINHO APÓS O USUÁRIO FICAR X DIAS SEM CONCLUIR A COMPRA
 $dias_limpar_carrinho = 3;
 
+//definir se será possível retirar o produto no local (Sim ou Não)
+$retirada_local = 'Sim';
+
 ?>

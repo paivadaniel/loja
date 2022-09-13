@@ -1,6 +1,4 @@
 <?php
-require_once('cabecalho.php');
-require_once('cabecalho-busca.php');
 require_once('conexao.php');
 
 //recuperar o nome do produto para filtrar as informações (como características) dele
@@ -15,7 +13,16 @@ $tem_cor;
 //trazer os dados do produto
 
 $query = $pdo->query("SELECT * FROM combos where nome_url = '$produto_get'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$palavras = $res[0]['palavras'];
+//foi colocado aqui para ficar depois de $palavras, confira no $cabecalho, na parte de keywords, que fazemos uso de $palavras, portanto, a variável tem que ser chamada antes
+//tem um SELECT relacionado à combos em cabecalho.php, dessa forma, autor fez o mesmo SELECT, primeiramente apenas para pegar palavras, e depois, em seguida do cabecalho, para pegar o restante dos dados, e não dar conflito de variáveis 
 
+require_once('cabecalho.php');
+require_once('cabecalho-busca.php');
+
+
+$query = $pdo->query("SELECT * FROM combos where nome_url = '$produto_get'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
 $id_combo = $res[0]['id'];
@@ -26,7 +33,6 @@ $valor = $res[0]['valor'];
 $descricao = $res[0]['descricao'];
 $descricao_longa = $res[0]['descricao_longa'];
 $tipo_envio = $res[0]['tipo_envio'];
-$palavras = $res[0]['palavras'];
 $ativo = $res[0]['ativo'];
 $peso = $res[0]['peso'];
 $largura = $res[0]['largura'];
@@ -36,6 +42,7 @@ $valor_frete = $res[0]['valor_frete'];
 
 $valor_frete = number_format($valor_frete, 2, ',', '.');
 $valor = number_format($valor, 2, ',', '.');
+
 
 $query_e = $pdo->query("SELECT * FROM tipo_envios where id = '$tipo_envio'");
 $res_e = $query_e->fetchAll(PDO::FETCH_ASSOC);

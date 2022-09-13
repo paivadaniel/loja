@@ -130,6 +130,11 @@ $pag = 'combos';
                     $altura2 = $res[0]['altura'];
                     $comprimento2 = $res[0]['comprimento'];
                     $valor_frete2 = $res[0]['valor_frete'];
+                    $link2 = $res[0]['link'];
+
+                    $valor2 = number_format($valor2, 2, ',', '.');
+
+
                 } else {
                     $titulo = "Inserir Registro";
                 }
@@ -272,31 +277,45 @@ $pag = 'combos';
                     </div>
 
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Link </label>
+                                <input type="text" value="<?php echo @$link2 ?>" class="form-control form-control-sm" id="link" name="link">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row">
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Peso </label>
+                                <label>Peso <small>(kg)</small> </label>
                                 <input type="text" value="<?php echo @$peso2 ?>" class="form-control form-control-sm" id="peso" name="peso">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Largura </label>
+                                <label>Largura <small>(cm)</small></label>
                                 <input type="text" value="<?php echo @$largura2 ?>" class="form-control form-control-sm" id="largura" name="largura">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Altura </label>
+                                <label>Altura <small>(cm)</small></label>
                                 <input type="text" value="<?php echo @$altura2 ?>" class="form-control form-control-sm" id="altura" name="altura">
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Comprimento </label>
+                                <label>Comprimento <small>(cm)</small></label>
                                 <input type="text" value="<?php echo @$comprimento2 ?>" class="form-control form-control-sm" id="comprimento" name="comprimento">
                             </div>
 

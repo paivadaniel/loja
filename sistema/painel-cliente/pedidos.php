@@ -34,7 +34,7 @@ $pag = 'pedidos';
 
                     <?php
 
-//acrescentou _ped de pedido nas variáveis do SELECT e do for a seguir, pois ao incluir aprovar_compra.php, estava encontrando variáveis com o mesmo nome
+                    //acrescentou _ped de pedido nas variáveis do SELECT e do for a seguir, pois ao incluir aprovar_compra.php, estava encontrando variáveis com o mesmo nome
                     $query_ped = $pdo->query("SELECT * FROM vendas where id_usuario = '$id_usuario' order by id desc");
                     $res_ped = $query_ped->fetchAll(PDO::FETCH_ASSOC);
 
@@ -141,6 +141,7 @@ $pag = 'pedidos';
 
                                 }
                                 ?>
+
                             </td>
                         </tr>
                     <?php } ?>

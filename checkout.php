@@ -263,8 +263,10 @@ $estado = $res[0]['estado'];
                                         $frete_correios = 'Sim';
                                         $peso_produto = $res2[0]['peso'];
 
-                                        $total_peso += $peso_produto;
-                                        $existe_frete = 'Sim'; //se existe_frete for Sim e valor_frete (input com id definido ao longo do código, não a variável acima, que é para frete fixo) for zero, há algo errado
+                                        @$total_peso = @$total_peso + $peso_produto;
+                                        @$existe_frete = 'Sim'; //se existe_frete for Sim e valor_frete (input com id definido ao longo do código, não a variável acima, que é para frete fixo) for zero, há algo errado
+                                    } else if ($envio == 'fixo') {
+                                        @$existe_frete = 'Sim';
                                     }
 
                                     if ($combo == 'Não') {
@@ -310,13 +312,31 @@ $estado = $res[0]['estado'];
                             <div class="checkout__order__subtotal">Subtotal <span>R$ <?php echo $total ?></span></div>
 
                             <?php
+                            if (@$existe_frete == 'Sim' && $retirada_local == 'Sim') { //retirada_local é definida como Sim ou Não no config.php
+                            ?>
+
+                                <div class="row mt-4 mb-4 pl-3">
+
+                                    <!-- está dentro do form-principal -->
+                                    <div class="form-check">
+                                        <input type="checkbox" value="Sim" class="form-check-input" id="retirada_no_local" name="retirada_no_local">
+                                        <label class="form-check-label" for="retirada_no_local">Retirar no Local</label>
+                                    </div>
+
+                                </div>
+
+                            <?php
+                            }
+                            ?>
+
+                            <?php
 
                             if (@$frete_correios == 'Sim') {
                             ?>
 
-                                <div class="checkout__order__total">Calcular Frete<br>
-
+                                <div id="div-frete" class="checkout__order__total">Calcular Frete<br>
                                     <form method="post" id="form-correios">
+
                                         <input type="hidden" id="total_peso" name="total_peso" value="<?php echo $total_peso ?>">
                                         <input type="hidden" id="nome_produto" name="nome_produto" value="<?php echo $nome_produto ?>">
 
@@ -578,6 +598,25 @@ require_once('rodape.php');
 
     })
 </script>
+
+<script type="text/javascript">
+    $('#retirada_no_local').change(function(event) {
+        event.preventDefault();
+
+        $('#mensagem-finalizar-compra').text("");
+        var check = document.getElementsByName("retirada_no_local");
+        for (var i = 0; i < check.length; i++) {
+            if (check[i].checked == true) {
+                document.getElementById("div-frete").style.display = 'none';
+
+            } else {
+                document.getElementById("div-frete").style.display = 'block';
+            }
+        }
+
+    })
+</script>
+
 
 <?php
 

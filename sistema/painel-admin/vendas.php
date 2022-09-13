@@ -213,12 +213,13 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label>Categoria</label>
+                                <label>Status da Venda</label>
                                 <select class="form-control form-control-sm" name="status_rastreio" id="status_rastreio">
                                     <option value="Não Enviado" <?php if (@$status == 'Não Enviado') { ?> selected <?php } ?>>Não Enviado</option>
                                     <option value="Enviado" <?php if (@$status == 'Enviado') { ?> selected <?php } ?>>Enviado</option>
                                     <option value="Entregue" <?php if (@$status == 'Entregue') { ?> selected <?php } ?>>Entregue</option>
                                     <option value="Disponivel" <?php if (@$status == 'Disponivel') { ?> selected <?php } ?>>Disponivel</option>
+                                    <option value="Retirada" <?php if (@$status == 'Retirada') { ?> selected <?php } ?>>Retirada</option>
 
                                 </select>
                             </div>

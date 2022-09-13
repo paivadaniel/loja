@@ -4,6 +4,15 @@ erros
 - não está atualizando o preço ao incrementar unidades dos produtos
 - tem que testar se ao excluir itens com características selecionadas no carrinho, se além de apagar na tabela carrinho,
 está apagando tambbém na tabela carac_itens_carrinho
+- na inserção de produtos no combo (painel-admin), desative a opção de adicionar característica no produto quando clica
+nele, ela não está funcionando quando clicada e nem deve funcionar, apenas tem que clicar no check para adicionar o produto no combo
+
+não entendi
+mod09 aula54 01:20
+em checkout.php, aqui: $('#retirada_no_local').change(function(event){
+
+não entendi isso:         for (var i=0;i<check.length;i++){ 
+
 
 -----
 
