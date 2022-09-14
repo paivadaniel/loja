@@ -49,23 +49,44 @@ for ($i = 0; $i < count($res); $i++) {
   $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
   $pago = $res_v[0]['pago'];
 
-  if ($tipo_envio == 4 and $link != "" and $pago == 'Sim') { //produto digital
-    echo ' 
+  if ($tipo_envio == 4 and $link != "") { //tipo_envio = 4 é digital, link != "" é o link para acessar o produto digital, e pago = Sim se o pagamento da compra foi aprovado
+
+    if ($pago == 'Sim') { //se estiver pago
+
+      //para chamar a avaliar tentei passar o combo também, mas não consegui, fiz: (' . $id_produto   . '. '. $combo . ')"
+      echo ' 
   <tr> 
   
   <td> 
   
-<a href="" class="text-dark" onclick="avaliar('. $id_produto   .')" title="Avaliar Produto">
-  <i class="fa fa-star text-warning"></i>
+  
+<a href="" class="text-dark mr-2" onclick="avaliar(' . $id_produto . ')" title="Avaliar Produto">
+  <i class="fa fa-star text-warning mr-1"></i>' .$nome_produto . '
 </a>
 
+<a href="' . $link . '" title="Acessar Produto Digital" target="_blank"> Acessar </a></td>';
+    } else { //se produto digital com link não estiver pago
+
+      echo '
+      <tr> 
   
-  <a href="' . $link . '" title="Acessar Produto Digital" target="_blank">' . $nome_produto . '<i class="fa fa-play ml-2"></i></a></td>';
-  } else {
-    echo ' 
-  <tr> 
-  
-  <td>' . $nome_produto . '</td>';
+      <td>' . $nome_produto . '</td>';
+    }
+  } else { //para produto não digital, ou para produto digital sem link preenchido (o administrador pode enviar o link do curso para o cliente usando outra forma)
+
+    if ($pago == 'Sim') {
+
+      echo '
+      <tr> 
+ 
+      <td> <a href="" class="text-dark" onclick="avaliar(' . $id_produto . ')" title="Avaliar Produto">
+      <i class="fa fa-star text-warning mr-1"></i>' . $nome_produto . '</a></td>';
+    } else {
+      echo ' 
+      <tr> 
+      
+      <td>' . $nome_produto . '</td>';
+    }
   }
 
   if ($combo != 'Sim') {

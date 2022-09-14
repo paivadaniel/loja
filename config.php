@@ -89,4 +89,7 @@ $dias_limpar_carrinho = 3;
 //definir se será possível retirar o produto no local (Sim ou Não)
 $retirada_local = 'Sim';
 
+//nota mínima para mostrar avaliação do produto na página do produto
+$nota_minima = 3;
+
 ?>

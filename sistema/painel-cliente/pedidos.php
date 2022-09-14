@@ -187,6 +187,73 @@ $pag = 'pedidos';
     </div>
 </div>
 
+
+<!-- Modal Avaliar -->
+
+<div class="modal fade" id="modal-avaliar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title">Avaliar Produto</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="form-avaliar">
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="nota">Nota </label>
+
+                                <select class="form-control form-control-sm" name="nota_avaliacao" id="nota_avaliacao">
+                                    <option value='5'>5</option>
+                                    <option value='4'>4</option>
+                                    <option value='3'>3</option>
+                                    <option value='2'>2</option>
+                                    <option value='1'>1</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="comentario_avaliacao">Comentário </label>
+                                <input type="text" maxlength="500" class="form-control form-control-sm" id="comentario_avaliacao" name="comentario_avaliacao">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <input type="hidden" id="id_produto_avaliacao" name="id_produto_avaliacao">
+                    <input type="hidden" id="combo_avaliacao" name="combo_avaliacao">
+
+                    <small>
+                        <div align="center" id="mensagem_avaliar">
+
+                        </div>
+                    </small>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="btn-fechar-avaliar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="btn-avaliar" id="btn-avaliar" class="btn btn-primary">Avaliar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 <!-- modal Excluir -->
 
 <div class="modal" id="modal-excluir" tabindex="-1" role="dialog">
@@ -219,7 +286,6 @@ $pag = 'pedidos';
         </div>
     </div>
 </div>
-
 
 <!-- modal Pergunta -->
 
@@ -384,3 +450,48 @@ if (isset($_POST['btn-mensagem-pergunta'])) { //o que guarda btn-mensagem-pergun
 <!--
     não dá para dar require/include da modal-pagamento.php por que muda as pastas de imagens, por exemplo /img/pagamentos/exemplo.png, viraria ../../img/pagamentos/exemplo.png
 -->
+
+
+<!-- FUNÇÃO PARA CHAMAR MODAL-AVALIAR -->
+<script>
+    function avaliar(id_produto, combo) {
+
+        event.preventDefault();
+        $("#modal-avaliar").modal("show");
+        $('#id_produto_avaliacao').val(id_produto);
+        //$('#combo_avaliacao').val(combo);
+
+        $('#mensagem_avaliar').text(""); //para limpar a mensagem na modal-avaliar (de uma ação anterior, por exemplo de erro no if do result mostrando mensagem com text-danger), caso ela exista
+    }
+</script>
+
+<!-- AJAX PARA AVALIAR PRODUTO/COMBO PAGO -->
+<script type="text/javascript">
+    $('#btn-avaliar').click(function(event) {
+        var pag = "<?= $pag ?>"
+        event.preventDefault();
+
+        $.ajax({
+            url: pag + "/inserir-avaliacao.php",
+            method: "post",
+            data: $('#form-avaliar').serialize(),
+            dataType: "html",
+            success: function(result) {
+
+                if (result.trim() === 'Avaliado com Sucesso!') {
+                    $('#btn-fechar-avaliar').click();
+                    $('#nota_avaliacao').val(''); //limpa a nota, mas não aparece o 5 de começo, ou seja, não aparece nenhum option
+
+                    $('#comentario_avaliacao').val(''); //limpa o comentário
+
+                } else {
+                    $('#mensagem_avaliar').addClass('text-danger');
+                    $('#mensagem_avaliar').text(result);
+
+                }
+
+            },
+        })
+
+    })
+</script>

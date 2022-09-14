@@ -31,10 +31,10 @@ $retirada_no_local = @$_POST['retirada_no_local'];
 //$subtotal = $total_compra - $valor_frete;
 $subtotal = 0;
 
-$status_venda = 'Não Enviado'; //Não Enviado, Enviado, Entregue, Disponível, Retirada
-
 if($retirada_no_local != '') {
     $status_venda = 'Retirada';
+} else {
+    $status_venda = 'Não Enviado'; //Não Enviado, Enviado, Entregue, Disponível, Retirada
 }
 
 if ($existe_frete == 'Sim' && $retirada_no_local == '') {

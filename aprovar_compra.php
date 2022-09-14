@@ -7,7 +7,7 @@ require_once('conexao.php');
 //atualiza o status da venda
 //$id_venda não está nessa página, mas para chegar até aprovar_compra.php, obrigatoriamente tem que ser passado via GET o id_venda, e aprovar_compra.php abre como include em páginas que tem declarado $id_venda
 
-$id_venda = '96'; //para TESTAR VENDA coloque o id_venda gerado em carrinho
+$id_venda = '101'; //para TESTAR VENDA coloque o id_venda gerado em carrinho
 
 $query = $pdo->query("SELECT * FROM vendas where id = '$id_venda'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);

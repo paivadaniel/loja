@@ -7,6 +7,9 @@ $produto_get = @$_GET['nome']; //esse GET vem do htaccess?
 
 $tem_cor; //essa variável é trabalhada no final dessa página para mostrar a paleta de cores do produto
 
+@session_start();
+$nivel_usuario = @$_SESSION['nivel_usuario'];
+
 ?>
 
 <?php
@@ -276,7 +279,9 @@ $tipo_frete = @$res_e[0]['tipo'];
                                         </div>
 
                                     </div>
-                                    <big><div id="listar-frete"></div></big>
+                                    <big>
+                                        <div id="listar-frete"></div>
+                                    </big>
                                 </div>
                             </form>
 
@@ -300,7 +305,7 @@ $tipo_frete = @$res_e[0]['tipo'];
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">Informações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Comentários <span>(1)</span></a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -327,18 +332,85 @@ $tipo_frete = @$res_e[0]['tipo'];
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Products Infomation</h6>
-                                <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                    Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                    sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                                    eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
-                                    sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
-                                    diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
-                                    ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                                    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                                    Proin eget tortor risus.</p>
+                                <h6>Avaliações dos Clientes</h6>
+
+                                <div class="mt-4">
+                                    <?php
+
+                                    $query = $pdo->query("SELECT * from avaliacoes WHERE id_produto = '$id_produto' order by data desc");
+                                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                                    for ($i = 0; $i < count($res); $i++) {
+                                        foreach ($res[$i] as $key => $value) {
+                                        }
+
+                                        $id_avaliacao = $res[$i]['id'];
+                                        $id_cliente_avaliacao = $res[$i]['id_usuario'];
+                                        $texto = $res[$i]['texto'];
+                                        $nota = $res[$i]['nota'];
+
+                                        $data_avaliacao = $res[$i]['data'];
+                                        $data_avaliacao_formatada = implode('/', array_reverse(explode('-', $data_avaliacao)));
+
+                                        $query2 = $pdo->query("SELECT * from usuarios WHERE id = '$id_cliente_avaliacao'");
+                                        $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                                        $nome_cliente_avaliacao = $res2[0]['nome'];
+
+                                        if ($nota == 5) {
+                                            $nota_texto = 'Excelente!';
+                                        } else if ($nota == 4) {
+                                            $nota_texto = 'Muito Bom!';
+                                        } else if ($nota == 3) {
+                                            $nota_texto = 'Bom!';
+                                        } else if ($nota == 2) {
+                                            $nota_texto = 'Mediano!';
+                                        } else if ($nota == 1) {
+                                            $nota_texto = 'Ruim!';
+                                        }
+
+                                        if ($nota >= $nota_minima) {
+
+                                    ?>
+                                            <div class="mb-2">
+
+                                                <div>
+                                                    <span class="mr-1"><u><i><?php echo $nome_cliente_avaliacao ?></i></u></span>
+                                                    <span class="mr-1"><i><?php echo $data_avaliacao_formatada ?></i></span>
+
+
+                                                    <?php
+                                                    for ($i2 = 0; $i2 < $nota; $i2++) {
+                                                        echo '<i class="fa fa-star text-warning mr-1"></i>';
+                                                    }
+                                                    ?>
+
+                                                    <span class="mr-2 text-muted"><i><?php echo $nota_texto ?></i></span>
+
+                                                    <?php
+                                                    if ($nivel_usuario == 'Administrador') {
+                                                        //tem que colocar nome=echo $_GET['nome'] como parâmetro na url, pois lá em cima nessa página, para filtrar as informações do produto, a página exige a informação $_GET['nome']
+                                                    ?>
+                                                        <a href="produto.php?nome=<?php echo $produto_get ?>&acao=deletar&id_avaliacao=<?php echo $id_avaliacao ?>">
+                                                            <i class="fa fa-trash  text-danger"></i>
+                                                        </a>
+
+
+
+                                                    <?php
+
+                                                    }
+                                                    ?>
+                                                    <br>
+
+                                                    <span class="text-muted"><i><small><?php echo $texto ?></small></i></span>
+                                                </div>
+                                            </div>
+
+                                    <?php } //fechamento if nota mínima
+                                    } //fechamento for 
+                                    ?>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -348,6 +420,15 @@ $tipo_frete = @$res_e[0]['tipo'];
     </div>
 </section>
 <!-- Product Details Section End -->
+
+<?php 
+  if(@$_GET['acao'] == 'deletar'){
+    
+    $id_aval = $_GET['id_avaliacao'];
+    $pdo->query("DELETE from avaliacoes WHERE id = '$id_aval'");
+        
+}
+?>
 
 <!-- Related Product Section Begin -->
 <section class="related-product">
@@ -457,8 +538,7 @@ require_once('modal-carrinho.php');
 
 
 <script>
-   
-   /*
+    /*
     //desnecessário, pois modal-carrinho.php já tem um script que faz isso, se descomentar, vai mostrar duas sinal de menos e dois de mais (para remover e adicionar produtos)
 
     //esse script tem que ser chamado após rodape.php, pois a chamada do jQuery é feito em rodape.php

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Set-2022 às 00:59
--- Versão do servidor: 10.4.22-MariaDB
--- versão do PHP: 8.0.15
+-- Tempo de geração: 14-Set-2022 às 22:11
+-- Versão do servidor: 10.4.21-MariaDB
+-- versão do PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,6 +60,13 @@ CREATE TABLE `avaliacoes` (
   `nota` int(11) NOT NULL,
   `data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `avaliacoes`
+--
+
+INSERT INTO `avaliacoes` (`id`, `id_produto`, `id_usuario`, `texto`, `nota`, `data`) VALUES
+(4, 17, 18, 'show!!!!!', 3, '2022-09-14');
 
 -- --------------------------------------------------------
 
@@ -202,8 +209,8 @@ INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidad
 (525, 18, 2, 99, 1, '2022-09-13', 'Não'),
 (527, 18, 2, 100, 1, '2022-09-13', 'Não'),
 (528, 0, 2, 0, 1, '2022-09-13', 'Não'),
-(530, 18, 2, 0, 1, '2022-09-13', 'Não'),
-(531, 18, 13, 0, 1, '2022-09-13', 'Não');
+(532, 6, 7, 0, 1, '2022-09-14', 'Sim'),
+(533, 18, 7, 101, 1, '2022-09-14', 'Sim');
 
 -- --------------------------------------------------------
 
@@ -257,7 +264,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `cpf`, `email`, `telefone`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `cep`, `pais`, `cartoes`) VALUES
-(1, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '(41) 4141-4141', 'qualquer', '32', 'nonsense', 'seido', 'uma cidade', 'CE', '18015-000', NULL, 10);
+(1, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '(41) 4141-4141', 'qualquer', '32', 'nonsense', 'seido', 'uma cidade', 'CE', '18015-000', NULL, 11);
 
 -- --------------------------------------------------------
 
@@ -290,7 +297,7 @@ CREATE TABLE `combos` (
 --
 
 INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, `valor`, `imagem`, `tipo_envio`, `palavras`, `ativo`, `peso`, `largura`, `altura`, `comprimento`, `valor_frete`, `vendas`, `link`) VALUES
-(7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.50, 0.00, 0.00, 0.00, '10.00', 3, NULL),
+(7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.50, 0.00, 0.00, 0.00, '10.00', 4, NULL),
 (8, 'combo 5 calças', 'combo-5-calcas', '', '', '50.00', 'banner-teste.jpg', 2, 'calças do seu madruga, calças pretas, calças baratas, calças para vender igual água', 'Sim', 0.80, 0.00, 0.00, 0.00, '12.00', NULL, 'http://www.linkcombo.com'),
 (9, 'combo qualquer para teste', 'combo-qualquer-para-teste', 'blabla', 'blablablablablablablablablablablabla', '41.00', 'sem-foto.jpg', 4, 'bing bing bung bung', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL, 'http://www.linkteste.com');
 
@@ -445,7 +452,7 @@ INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_u
 (3, 8, 3, 'Pintinho de namquim do Grosso', 'pintinho-de-namquim-do-grosso', '', '', '23.99', 'sem-foto.jpg', 1, 3, '', 'Sim', 1.00, 0, 0, 0, '', '0.00', 'Sim', NULL, NULL),
 (4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 5, 2, '', 'Não', 0.00, 0, 0, 0, '', '5.00', 'Não', 3, NULL),
 (6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 1, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
-(7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 6, 2, '', 'Sim', 0.00, 0, 0, 0, '', '15.00', 'Não', 3, NULL),
+(7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 5, 2, '', 'Sim', 0.00, 0, 0, 0, '', '15.00', 'Não', 3, NULL),
 (8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 5, 1, 'testando', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
 (9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
 (13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 5, 1, '', 'Sim', 0.50, 0, 0, 0, '', '0.00', 'Sim', 12, NULL),
@@ -632,7 +639,8 @@ INSERT INTO `vendas` (`id`, `total`, `frete`, `subtotal`, `id_usuario`, `data`, 
 (97, '49.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Não Enviado', NULL),
 (98, '32.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Não Enviado', NULL),
 (99, '87.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Retirada', ''),
-(100, '37.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Retirada', NULL);
+(100, '37.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Retirada', NULL),
+(101, '32.00', '0.00', '0.00', 18, '2022-09-14', 'Sim', 'Retirada', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -784,7 +792,7 @@ ALTER TABLE `alertas`
 -- AUTO_INCREMENT de tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `carac`
@@ -814,7 +822,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=532;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=534;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -904,7 +912,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
