@@ -81,17 +81,45 @@ if($emailNovo != $emailAntigo) {
 
 }
 
-$query = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, cpf = :cpf, senha = :senha, senha_crip = :senha_crip WHERE id = '$id' and nivel = 'Administrador'");
+//SCRIPT PARA SUBIR FOTO NO BANCO
+$nome_img = preg_replace('/[ -]+/', '-', @$_FILES['imagem-usuario']['name']); //isso foi feito para não dar erros em nomes de imagens com espaçamentos, como "camisa social", assim automaticamente envia a imagem para a pasta como "camisa-social", e para o banco de dados como "camisa-social", isso foi visto no mod05 aula12
+
+$caminho = '../../img/usuarios/' . $nome_img;
+if (@$_FILES['imagem-usuario']['name'] == "") {
+	$imagem = "sem-foto.jpg";
+} else {
+
+	$imagem = $nome_img;
+
+}
+
+$imagem_temp = @$_FILES['imagem-usuario']['tmp_name'];
+
+$ext = pathinfo($imagem, PATHINFO_EXTENSION);
+if ($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif') {
+	move_uploaded_file($imagem_temp, $caminho);
+} else {
+	echo 'Extensão de Imagem não permitida!';
+	exit();
+}
+
+if($imagem == 'sem-foto.jpg') {
+    $query = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, cpf = :cpf, senha = :senha, senha_crip = :senha_crip WHERE id = '$id' and nivel = 'Administrador'");
+
+} else {
+    $query = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, cpf = :cpf, senha = :senha, senha_crip = :senha_crip, imagem = :imagem WHERE id = '$id' and nivel = 'Administrador'");
+    $query->bindValue(':imagem', $imagem);
+
+}
+
 
 $query->bindValue(':nome', $nome);
 $query->bindValue(':email', $emailNovo);
 $query->bindValue(':cpf', $cpfNovo);
-
 $query->bindValue(':senha', $senha);
 $query->bindValue(':senha_crip', md5($senha));
+
 
 $query->execute();
 
 echo 'Perfil Editado com Sucesso!';
-
-?>

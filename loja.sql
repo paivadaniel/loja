@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14-Set-2022 às 22:11
+-- Tempo de geração: 15-Set-2022 às 22:09
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -67,6 +67,34 @@ CREATE TABLE `avaliacoes` (
 
 INSERT INTO `avaliacoes` (`id`, `id_produto`, `id_usuario`, `texto`, `nota`, `data`) VALUES
 (4, 17, 18, 'show!!!!!', 3, '2022-09-14');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `blog`
+--
+
+CREATE TABLE `blog` (
+  `id` int(11) NOT NULL,
+  `id_autor` int(11) NOT NULL,
+  `titulo` varchar(200) NOT NULL,
+  `titulo_url` varchar(200) NOT NULL,
+  `descricao_1` varchar(1000) NOT NULL,
+  `descricao_2` varchar(1000) NOT NULL,
+  `imagem` varchar(150) NOT NULL,
+  `palavras` varchar(250) DEFAULT NULL,
+  `data` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `blog`
+--
+
+INSERT INTO `blog` (`id`, `id_autor`, `titulo`, `titulo_url`, `descricao_1`, `descricao_2`, `imagem`, `palavras`, `data`) VALUES
+(2, 6, 'Meu Primeiro Post no Blog', 'meu-primeiro-post-no-blog', 'Essa é a descrição 1', 'Essa é a descrição 2', '16.png', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15'),
+(3, 6, 'Segundo Post', 'segundo-post', 'Descrição 01 do segundo post', 'Descrição 02 do segundo post', 'container01.jpg', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15'),
+(4, 6, 'Terceiro Post', 'terceiro-post', 'Descrição 01 do terceiro post', 'Descrição 02 do terceiro post', 'container02.jpg', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15'),
+(5, 6, 'Quarto Post', 'quarto-post', 'Descrição 01 do post 04', 'Descrição 02 do post 04', '09.png', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15');
 
 -- --------------------------------------------------------
 
@@ -300,6 +328,21 @@ INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, 
 (7, 'combo 5 camisas', 'combo-5-camisas', '', '', '32.00', 'curso-html-5-css-3.jpg', 1, '', 'Sim', 0.50, 0.00, 0.00, 0.00, '10.00', 4, NULL),
 (8, 'combo 5 calças', 'combo-5-calcas', '', '', '50.00', 'banner-teste.jpg', 2, 'calças do seu madruga, calças pretas, calças baratas, calças para vender igual água', 'Sim', 0.80, 0.00, 0.00, 0.00, '12.00', NULL, 'http://www.linkcombo.com'),
 (9, 'combo qualquer para teste', 'combo-qualquer-para-teste', 'blabla', 'blablablablablablablablablablablabla', '41.00', 'sem-foto.jpg', 4, 'bing bing bung bung', 'Sim', 0.00, 0.00, 0.00, 0.00, '0.00', NULL, 'http://www.linkteste.com');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `comentarios_blog`
+--
+
+CREATE TABLE `comentarios_blog` (
+  `id` int(11) NOT NULL,
+  `id_blog` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `comentario` int(11) NOT NULL,
+  `data` int(11) NOT NULL,
+  `hora` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -591,18 +634,19 @@ CREATE TABLE `usuarios` (
   `senha` varchar(25) NOT NULL,
   `senha_crip` varchar(150) NOT NULL,
   `nivel` varchar(20) NOT NULL,
-  `data_cad` date NOT NULL
+  `data_cad` date NOT NULL,
+  `imagem` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `senha_crip`, `nivel`, `data_cad`) VALUES
-(6, 'Admin Novo', '000.000.000-00', 'danielantunespaiva@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Administrador', '2022-08-08'),
-(15, 'Marcelo Madureira', '103.931.093-10', 'madureira@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08'),
-(16, 'Mardoque', '111.111.111-11', 'mardoqueu@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08'),
-(18, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08');
+INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `senha_crip`, `nivel`, `data_cad`, `imagem`) VALUES
+(6, 'Admin Novo Teste Agora', '000.000.000-00', 'danielantunespaiva@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Administrador', '2022-08-08', 'buzanga.jpg'),
+(15, 'Marcelo Madureira', '103.931.093-10', 'madureira@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08', NULL),
+(16, 'Mardoque', '111.111.111-11', 'mardoqueu@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08', NULL),
+(18, 'Adamastor Pereira Maluco Beleza', '919.191.991-15', 'pereira@gmail.com', '123', '202cb962ac59075b964b07152d234b70', 'Cliente', '2022-08-08', NULL);
 
 -- --------------------------------------------------------
 
@@ -656,6 +700,12 @@ ALTER TABLE `alertas`
 -- Índices para tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `blog`
+--
+ALTER TABLE `blog`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -793,6 +843,12 @@ ALTER TABLE `alertas`
 --
 ALTER TABLE `avaliacoes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `carac`

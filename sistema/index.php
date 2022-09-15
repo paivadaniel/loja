@@ -11,7 +11,7 @@ $senha = '123';
 $senha_crip = md5($senha);
 
 if ($total_reg == 0) {
-    $pdo->query("INSERT INTO usuarios (nome, cpf, email, senha, senha_crip, nivel, data_cad) values ('Admin', '000.000.000-00', '$email_loja', '$senha', '$senha_crip', 'Administrador', curDate())");
+    $pdo->query("INSERT INTO usuarios (nome, cpf, email, senha, senha_crip, nivel, data_cad, imagem) values ('Admin', '000.000.000-00', '$email_loja', '$senha', '$senha_crip', 'Administrador', curDate(), 'sem-foto.jpg')");
 }
 
 

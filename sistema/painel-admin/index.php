@@ -17,6 +17,7 @@ $menu9 = "tipo-envios";
 $menu10 = "carac";
 $menu11 = "alertas";
 $menu12 = "estoque";
+$menu13 = "blog";
 
 $query = $pdo->query("SELECT * FROM usuarios WHERE id = '$_SESSION[id_usuario]' and nivel = 'Administrador'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -25,6 +26,7 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $nome_usuario = $res[0]['nome'];
 $cpf_usuario = $res[0]['cpf'];
 $email_usuario = $res[0]['email'];
+$imagem_usuario = $res[0]['imagem'];
 
 //verifica produtos em promoção
 $query = $pdo->query("SELECT * FROM promocoes WHERE ativo = 'Sim' and data_inicio >= curDate() and data_final >= curDate() and data_inicio <= data_final");
@@ -100,8 +102,6 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-
-
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -109,8 +109,6 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
             <div class="sidebar-heading">
                 Cadastros
             </div>
-
-
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -180,15 +178,6 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
                     <span class="<?php echo $classe_estoque ?>">Estoque Baixo</span></a>
             </li>
 
-
-
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#modalEmail">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Email Marketing</span></a>
-            </li>
-
-
             <li class="nav-item">
                 <a class="nav-link" href="backup.php">
                     <i class="fas fa-fw fa-table"></i>
@@ -197,6 +186,22 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu13 ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Blog</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#modalEmail">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Email Marketing</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -227,7 +232,7 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $nome_usuario ?></span>
-                                <img class="img-profile rounded-circle" src="../../img/sem-foto.jpg">
+                                <img class="img-profile rounded-circle" src="../../img/usuarios/<?php echo $imagem_usuario ?>">
 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -279,6 +284,8 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
                         include_once($menu11 . ".php");
                     } else if ($pag == $menu12) {
                         include_once($menu12 . ".php");
+                    } else if ($pag == $menu13) {
+                        include_once($menu13 . ".php");
                     } else {
                         include_once("home.php");
                     }
@@ -305,10 +312,9 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
         <i class="fas fa-angle-up"></i>
     </a>
 
-
     <!--  Modal Perfil-->
     <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
@@ -316,7 +322,6 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-
 
                 <!-- desnecessário no form
             
@@ -326,47 +331,71 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
         -->
                 <form id="form-perfil" method="POST">
                     <div class="modal-body">
-
-                        <div class="form-group">
-                            <label>Nome</label>
-
-                            <!-- Não pode recuperar value com $_SESSION['nome_usuario'], $_SESSION['cpf_usuario'], $_SESSION['email_usuario'], pois se editar nome, cpf e email, e abrir a modal Editar Perfil novamente, irá carregar os dados que não foram editados, pois foi com eles que a sessão foi iniciada  -->
-                            <input value="<?php echo $nome_usuario ?>" type="text" class="form-control" id="nome-editar-perfil " name="nome-editar-perfil" placeholder="Nome">
-                        </div>
-
-                        <div class="form-group">
-                            <label>CPF</label>
-                            <input value="<?php echo $cpf_usuario ?>" type="text" class="form-control" id="cpf" name="cpf-editar-perfil" placeholder="CPF">
-                            <!-- mantive id="cpf" pois em js/mascara.js a máscara para CPF é para id="cpf" -->
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input value="<?php echo $email_usuario ?>" type="email" class="form-control" id="email-editar-perfil" name="email-editar-perfil" placeholder="Email">
-                        </div>
-
                         <div class="row">
-                            <div class="col-md-6">
+
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>Nome</label>
+
+                                    <!-- Não pode recuperar value com $_SESSION['nome_usuario'], $_SESSION['cpf_usuario'], $_SESSION['email_usuario'], pois se editar nome, cpf e email, e abrir a modal Editar Perfil novamente, irá carregar os dados que não foram editados, pois foi com eles que a sessão foi iniciada  -->
+                                    <input value="<?php echo $nome_usuario ?>" type="text" class="form-control" id="nome-editar-perfil " name="nome-editar-perfil" placeholder="Nome">
+                                </div>
 
                                 <div class="form-group">
-                                    <label>Senha</label>
-                                    <input value="" type="password" class="form-control" id="senha-editar-perfil" name="senha-editar-perfil">
+                                    <label>CPF</label>
+                                    <input value="<?php echo $cpf_usuario ?>" type="text" class="form-control" id="cpf" name="cpf-editar-perfil" placeholder="CPF">
+                                    <!-- mantive id="cpf" pois em js/mascara.js a máscara para CPF é para id="cpf" -->
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input value="<?php echo $email_usuario ?>" type="email" class="form-control" id="email-editar-perfil" name="email-editar-perfil" placeholder="Email">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label>Senha</label>
+                                            <input value="" type="password" class="form-control" id="senha-editar-perfil" name="senha-editar-perfil">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label>Confirmar Senha</label>
+                                            <input value="" type="password" class="form-control" id="confirmar-senha-editar-perfil" name="confirmar-senha-editar-perfil">
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
-                            <div class="col-md-6">
 
-                                <div class="form-group">
-                                    <label>Confirmar Senha</label>
-                                    <input value="" type="password" class="form-control" id="confirmar-senha-editar-perfil" name="confirmar-senha-editar-perfil">
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                    <label>Imagem</label>
+                                    <input type="file" value="<?php echo @$imagem_usuario ?>" class="form-control-file" id="imagem-usuario" name="imagem-usuario" onChange="carregarImg2()">
+                                    <!-- com o onChange, todas as vezes que eu alterar a imagem, ele irá chamar uma função que irá alterar a imagem chamando o id dela na div dela -->
                                 </div>
+
+                                <?php
+
+                                if (@$imagem_usuario != '') { //editar
+                                ?>
+                                    <img src="../../img/usuarios/<?php echo $imagem_usuario ?>" alt="" width="200px" id="target-imagem-usuario">
+
+                                <?php
+                                } else { //inserir (ou editar, se não tiver sido colocada outra imagem diferente de 'sem-foto.jgp' antes)
+                                ?>
+
+                                    <img src="../../img/usuarios/sem-foto.jpg" alt="" width="200px" id="target-imagem-usuario">
+
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
-
-
-
-
-
 
                         <!--
                             <div class="col-md-6 col-sm-12">
@@ -521,35 +550,162 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
 
 <!-- AJAX PARA SALVAR PERFIL -->
 
+
+
 <script type="text/javascript">
-    $('#btn-salvar-perfil').click(function(event) {
+    $("#form-perfil").submit(function () {
+        
         event.preventDefault();
+        var formData = new FormData(this);
 
         $.ajax({
-            url: 'editar-perfil.php',
-            method: 'post',
-            data: $('form').serialize(),
-            dataType: "text",
-            success: function(msg) {
-                if (msg.trim() === 'Perfil Editado com Sucesso!') {
-                    $('#mensagem-perfil').removeClass();
-                    $('#mensagem-perfil').addClass('text-success');
-                    $('#mensagem-perfil').text(msg);
+            url:"editar-perfil.php",
+            type: 'POST',
+            data: formData,
 
-                    //fechar modal perfil
-                    //$('#btn-fechar-perfil').click();
+            success: function (msg) {
+
+                $('#mensagem-perfil').removeClass()
+
+               if(msg.trim() === 'Perfil Editado com Sucesso!'){
+                                        
+                    $('#btn-fechar-perfil').click();
+                    window.location='index.php';
+
+                    }
+                 else{
+                    $('#mensagem-perfil').addClass('text-danger')
+                    $('#mensagem-perfil').text(msg);
+                   
+
+                 }
+
+               
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function () {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
+            }
+        });
+    });
+</script>
+
+
+
+<script type="text/javascript">
+    $("#form-inserir-editar-categoria").submit(function () {
+        var pag = "<?=$pag?>";
+        event.preventDefault();
+        var formData = new FormData(this); //não tem quando se trabalha apenas com type="text"
+
+        $.ajax({
+            url: pag + "/inserir.php",
+            type: 'POST', //pode ser method ao invés de type?
+            data: formData,
+
+            success: function (mensagem) {
+
+                $('#mensagem-inserir-editar-categoria').removeClass()
+
+                if (mensagem.trim() == "Salvo com Sucesso!") {
+                    $('#mensagem-inserir-editar-categoria').addClass('text-success')
+                    //$('#nome').val('');
+                    //$('#cpf').val('');
+
+                    $('#mensagem-inserir-editar-categoria').text(mensagem)
+
+                    //$('#btn-fechar-editar-inserir-categoria').click();
+                    window.location = "index.php?pag="+pag; //refresh na página
 
                 } else {
-                    $('#mensagem-perfil').removeClass();
-                    $('#mensagem-perfil').addClass('text-danger');
-                    $('#mensagem-perfil').text(msg);
 
+                    $('#mensagem-inserir-editar-categoria').addClass('text-danger')
                 }
-            }
-        })
 
-    })
+                $('#mensagem-inserir-editar-categoria').text(mensagem)
+
+            },
+
+            //a partir daqui é apenas para imagem, não tinha para type="text"
+            cache: false,
+            contentType: false, //tem contentType ao invés de dataType
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function () {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
+            }
+        });
+    });
 </script>
+
+
+
+<script type="text/javascript">
+    $("#form-inserir-editar-categoria").submit(function () {
+        var pag = "<?=$pag?>";
+        event.preventDefault();
+        var formData = new FormData(this); //não tem quando se trabalha apenas com type="text"
+
+        $.ajax({
+            url: pag + "/inserir.php",
+            type: 'POST', //pode ser method ao invés de type?
+            data: formData,
+
+            success: function (mensagem) {
+
+                $('#mensagem-inserir-editar-categoria').removeClass()
+
+                if (mensagem.trim() == "Salvo com Sucesso!") {
+                    $('#mensagem-inserir-editar-categoria').addClass('text-success')
+                    //$('#nome').val('');
+                    //$('#cpf').val('');
+
+                    $('#mensagem-inserir-editar-categoria').text(mensagem)
+
+                    //$('#btn-fechar-editar-inserir-categoria').click();
+                    window.location = "index.php?pag="+pag; //refresh na página
+
+                } else {
+
+                    $('#mensagem-inserir-editar-categoria').addClass('text-danger')
+                }
+
+                $('#mensagem-inserir-editar-categoria').text(mensagem)
+
+            },
+
+            //a partir daqui é apenas para imagem, não tinha para type="text"
+            cache: false,
+            contentType: false, //tem contentType ao invés de dataType
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function () {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
+            }
+        });
+    });
+</script>
+
 
 <!-- AJAX PARA ENVIAR EMAIL MARKETING -->
 
@@ -591,4 +747,26 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
         })
 
     })
+</script>
+
+<!--SCRIPT PARA CARREGAR IMAGEM DO USUÁRIO NO EDITAR PERFIL -->
+<script type="text/javascript">
+    function carregarImg2() {
+
+        var target = document.getElementById('target-imagem-usuario');
+        var file = document.querySelector("input[type=file]").files[0]; //pega um input qualquer do tipo file
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            target.src = reader.result; //caminho do campo de imagem recebe o valor que está no input
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+
+        } else {
+            target.src = "";
+        }
+    }
 </script>
