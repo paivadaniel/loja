@@ -8,7 +8,7 @@ $titulo_url_get = $_GET['nome']; //o termo dentro do GET, ou seja, 'nome', é de
 
 $query = $pdo->query("SELECT * FROM blog WHERE titulo_url = '$titulo_url_get'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
-$palavras = $res[0]['palavras'];
+$palavras = @$res[0]['palavras'];
 
 //tem que vir depois de $palavras, confira porquê em cabecalho.php no if (@$palavras != "") 
 
@@ -140,6 +140,7 @@ require_once('cabecalho-busca.php');
                     $descricao_2 = $res[0]['descricao_2'];
                     $imagem = $res[0]['imagem'];
                     $data = $res[0]['data'];
+                    $id_post = $res[0]['id'];
 
                     $data_formatada = implode('/', array_reverse(explode('-', $data)));
 
@@ -204,7 +205,23 @@ require_once('cabecalho-busca.php');
                 if ($id_usuario == "" || $id_usuario == null) { //se o usuário não estiver logado
                     echo '<span>Deseja fazer um comentário? Clique <a href="sistema" title="Fazer Login ou Se Cadastrar" target="_blank">aqui </a> para fazer login ou se cadastrar!</span>';
                 } else {
-                    
+                ?>
+
+<div class="mb-4">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="comentario">Comentário <small>(Máx. 500 Caracteres)</small></label>
+                            <textarea maxlength="1000" class="form-control" name="comentario_post" id="comentario_post"></textarea>
+                        </div>
+                        <div class="mt-1" align="right">
+                            <button type="submit" name="btn-comentario" id="btn-comentario" class="btn btn-info">Publicar</button>
+                        </div>
+                    </form>
+                    </div>
+
+                    <div class=""></div>
+
+                <?php
                 }
 
                 ?>
@@ -243,12 +260,12 @@ require_once('cabecalho-busca.php');
                 $titulo_url = $res[$i]['titulo_url'];
                 $imagem = $res[$i]['imagem'];
                 $data = $res[$i]['data'];
-                $id = $res[$i]['id'];
+                $id_post = $res[$i]['id'];
 
                 $data_formatada = implode('/', array_reverse(explode('-', $data)));
 
                 //total comentários post
-                $query2 = $pdo->query("SELECT * FROM comentarios_blog WHERE id_blog = $id");
+                $query2 = $pdo->query("SELECT * FROM comentarios_blog WHERE id_post = $id_post");
                 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
                 $total_comentarios_post = @count($res2);
 
@@ -278,6 +295,20 @@ require_once('cabecalho-busca.php');
     </div>
 </section>
 <!-- Related Blog Section End -->
+
+<?php 
+  if(isset($_POST['btn-comentario'])){
+    
+    $comentario_post = $_POST['comentario_post'];
+
+    $query = $pdo->prepare("INSERT INTO comentarios_blog (id_post, id_usuario, comentario, data, hora) VALUES ('$id_post' , '$id_usuario', :comentario_post, curDate(), curTime())");
+        
+    $query->bindValue(":comentario_post", "$comentario_post");
+
+    $query->execute();
+
+}
+?>
 
 <?php
 require_once('rodape.php');

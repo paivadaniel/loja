@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15-Set-2022 às 22:09
+-- Tempo de geração: 24-Set-2022 às 12:54
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -337,12 +337,19 @@ INSERT INTO `combos` (`id`, `nome`, `nome_url`, `descricao`, `descricao_longa`, 
 
 CREATE TABLE `comentarios_blog` (
   `id` int(11) NOT NULL,
-  `id_blog` int(11) NOT NULL,
+  `id_post` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `comentario` int(11) NOT NULL,
+  `comentario` varchar(500) NOT NULL,
   `data` int(11) NOT NULL,
   `hora` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `comentarios_blog`
+--
+
+INSERT INTO `comentarios_blog` (`id`, `id_post`, `id_usuario`, `comentario`, `data`, `hora`) VALUES
+(10, 2, 18, 'bibibi', 20220919, 183000);
 
 -- --------------------------------------------------------
 
@@ -757,6 +764,12 @@ ALTER TABLE `combos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `comentarios_blog`
+--
+ALTER TABLE `comentarios_blog`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `cupons`
 --
 ALTER TABLE `cupons`
@@ -897,6 +910,12 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `combos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de tabela `comentarios_blog`
+--
+ALTER TABLE `comentarios_blog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `cupons`

@@ -66,7 +66,7 @@ $nome_pag = 'blog.php';
                 $data_formatada = implode('/', array_reverse(explode('-', $data)));
 
                 //total comentários post
-                $query2 = $pdo->query("SELECT * FROM comentarios_blog WHERE id_blog = $id");
+                $query2 = $pdo->query("SELECT * FROM comentarios_blog WHERE id_post = $id");
                 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
                 $total_comentarios_post = @count($res2);
 
