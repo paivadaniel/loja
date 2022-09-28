@@ -19,9 +19,9 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                    <th>Data</th>
                         <th>Total</th>
                         <th>Cliente</th>
-                        <th>Data</th>
                         <th>Pago</th>
                         <th>Status</th>
                         <th>Produtos</th>
@@ -80,10 +80,12 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                     ?>
 
                         <tr>
-                            <td><i class="fa fa-square mr-2 <?php echo $classe_pago ?>"></i> R$ <?php echo $total ?></td>
+                        <td><i class="fa fa-square mr-2 <?php echo $classe_pago ?>"></i><?php echo $data ?></td>
+
+
+                            <td> R$ <?php echo $total ?></td>
                             <td><?php echo $email_cliente ?></td>
 
-                            <td><?php echo $data ?></td>
                             <td><?php echo $pago ?></td>
                             <td>
                                 <?php
@@ -131,21 +133,22 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                                 <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id_venda=<?php echo $id_venda ?>" class='text-primary mr-1' title='Editar Status'><i class='far fa-edit'></i></a>
 
                                 <?php
-                                if ($pago != "Sim") {
+                                if ($pago != "Sim") { //se não estiver pago
                                 ?>
                                     <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id_venda=<?php echo $id_venda ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
 
 
                                     <a href="index.php?pag=<?php echo $pag ?>&funcao=aprovar&id_venda=<?php echo $id_venda ?>" class='text-success mr-1' title='Aprovar Pagamento'><i class='far fa-check-circle'></i></a>
 
-                                    <a href="index.php?pag=<?php echo $pag ?>&funcao=cliente&id_venda=<?php echo $id_venda ?>" class='text-info mr-1' title='Dados do Comprador'><i class='far fa-user'></i></a>
-
-
 
                                 <?php
 
                                 }
                                 ?>
+
+                                <a href="index.php?pag=<?php echo $pag ?>&funcao=cliente&id_venda=<?php echo $id_venda ?>" class='text-info mr-1' title='Dados do Comprador'><i class='far fa-user'></i></a>
+
+
                             </td>
                         </tr>
                     <?php } ?>
@@ -331,7 +334,7 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Perguntas acerca do pedido</h5>
+                <h5 class="modal-title">Mensagens do pedido</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -354,7 +357,6 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                     </div>
 
                     <div class="col-md-6 mb-2">
-                        <label class="mb-2">Perguntas</label><br>
 
                         <?php
 
@@ -430,14 +432,14 @@ $pag = 'vendas'; //é a página pedidos.php do painel-cliente, e a pasta vendas 
                 $bairro = $res[0]['bairro'];
                 $cidade = $res[0]['cidade'];
                 $estado = $res[0]['estado'];
-                $email = $res[0]['email'];
+                $email_cliente_2 = $res[0]['email']; //já existe variável $email_cliente nessa página, apenas por isso foi chamada de $email_cliente_2 
 
 
                 ?>
 
 
                 <span><b>Nome: </b><?php echo $nome ?> </span><br>
-                <span><b>CPF: </b> <?php echo $cpf ?></span><span class="ml-2"><b>Email:</b> <?php echo $email ?></span><br>
+                <span><b>CPF: </b> <?php echo $cpf ?></span><span class="ml-2"><b>Email:</b> <?php echo $email_cliente_2 ?></span><br>
 
                 <span><b>Logradouro: </b><?php echo $logradouro ?> </span> <span class="ml-2"><b>Número: </b> <?php echo $numero ?></span><br>
                 <span><b>Bairro: </b> <?php echo $bairro ?></span><span class="ml-2"><b>Cidade: </b> <?php echo $cidade ?></span><br>

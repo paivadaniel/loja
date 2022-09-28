@@ -115,7 +115,7 @@ $cpf_usuario = $res[0]['cpf'];
 
 $query = $pdo->query("SELECT * FROM clientes where cpf = '$cpf_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
-$cartoes_cliente = $res[0]['cartoes'];
+$cartoes_cliente = @$res[0]['cartoes'];
 
 ?>
 

@@ -11,6 +11,9 @@ $comentario_avaliacao = $_POST['comentario_avaliacao'];
 //$combo_avaliacao = $_POST['combo_avaliacao'];
 //ideal é fazer a validação se o comentário para o produto já foi feito, vendo se é combo, pois id_produto pode ser o mesmo para produto e combo, para isso tem que chamar combo no argumento da função avaliar, em pedidos/listar-produtos.php, e atribuir o valor combo para o input combo_avaliacao na modal-avaliar em pedidos.php
 
+if($comentario_avaliacao == "") { //se o cliente apenas deu uma nota, mas não escreveu um comentário para a avaliação do produto, coloca o comentário a seguir para mostrar algo
+    $comentario_avaliacao = "Excelente produto, totalmente satisfeito!";
+}
 
 $query = $pdo->query("SELECT * FROM avaliacoes WHERE id_produto = '$id_produto_avaliacao' and id_usuario = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);

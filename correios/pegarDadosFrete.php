@@ -1,6 +1,6 @@
 <?php
 
-include("ClassCorreios.php");
+include("classCorreios.php");
 include("../conexao.php");
 
 //$CepOrigem=filter_input(INPUT_POST,'CepOrigem',FILTER_SANITIZE_SPECIAL_CHARS);

@@ -65,7 +65,7 @@
                         <h6>Cadastre-se em Nossa Lista de Emails</h6>
                         <p>Fique informado sobre nossos últimos lançamentos e promoções!</p>
                         <form action="sistema/index.php" method="get">
-                            <input type="email" name="email" placeholder="Digite seu email" required>
+                            <input type="email" name="email_rodape" placeholder="Digite seu email" required>
                             <button type="submit" class="site-btn">Cadastrar</button>
                         </form>
                         <div class="footer__widget__social">

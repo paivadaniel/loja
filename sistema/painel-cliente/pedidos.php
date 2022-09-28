@@ -50,7 +50,7 @@ $pag = 'pedidos';
 
                         $id_venda_ped = $res_ped[$i]['id'];
 
-                        //VERIFICAR SE O PAGAMENTO NO PAGSEGURO ESTÁ APROVADO
+                        //VERIFICAR SE O PAGAMENTO NO PAGSEGURO ESTÁ APROVADO (POIS CASO SEJA PAGO POR BOLETO, A CADA VEZ QUE O CLIENTE ENTRAR EM pedidos.php, FAZ A REQUISIÇÃO NA API DO PAGSEGURO PARA VER SE O PAGAMENTO DO BOLETO FOI APROVADO)
                         //COMENTE ESSE TRECHO DE CÓDIGO CASO QUEIRA UM GANHO GRANDE EM VELOCIDADE DE CARREGAMENTO
                         //variável P recebe a referência do pagamento
                         /*

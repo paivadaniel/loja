@@ -20,7 +20,7 @@ $tituloNovoCorrigido = strtolower(preg_replace(
   "-",
   strtr(
     utf8_decode(trim($novoTitulo)),
-    utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ"),
+    utf8_decode("áàãâéêíóôõúüñçÁÀÃÂÉÊÍÓÔÕÚÜÑÇ?"), //sinal de interrogação acrescido para não ir para nome_url do post
     "aaaaeeiooouuncAAAAEEIOOOUUNC-"
   )
 ));

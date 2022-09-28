@@ -23,6 +23,8 @@ if ($pago_ven != 'Sim') { //para se rodar aprovar_compra.php manualmente mais de
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
     $cpf_usuario = $res[0]['cpf'];
     $email_cliente = $res[0]['email'];
+    $nome_cliente = $res[0]['nome'];
+
 
     $query2 = $pdo->query("SELECT * FROM clientes where cpf = '$cpf_usuario'");
     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -64,6 +66,7 @@ if ($pago_ven != 'Sim') { //para se rodar aprovar_compra.php manualmente mais de
 
         $id_produto = $res[$i]['id_produto'];
         $combo = $res[$i]['combo']; //Sim (se é combo) ou Não (Se não é combo, ou seja, é produto)
+        $quantidade = $res[$i]['quantidade'];
 
         if ($combo != 'Sim') { //se for produto
             $query2 = $pdo->query("SELECT * FROM produtos where id = '$id_produto'");
@@ -78,7 +81,7 @@ if ($pago_ven != 'Sim') { //para se rodar aprovar_compra.php manualmente mais de
             if($tipo_envio == 4) { //não decrementa estoque de produto digital, tipo_envio = 4 é produto digital
                 $total_estoque = $estoque_produto;
             } else {
-                $total_estoque = $estoque_produto - 1; //optei por decrementar o estoque quando o pagamento for confirmado, e não apenas quando em painel-admin/vendas.php o status do produto for alterado para Enviado
+                $total_estoque = $estoque_produto - $quantidade; //optei por decrementar o estoque quando o pagamento for confirmado, e não apenas quando em painel-admin/vendas.php o status do produto for alterado para Enviado
             }
 
             //incrementa uma venda do produto e decrementa estoque na tabela produtos
@@ -118,10 +121,34 @@ if ($pago_ven != 'Sim') { //para se rodar aprovar_compra.php manualmente mais de
     }
 
     //ENVIAR EMAIL PARA O CLIENTE INFORMANDO DA COMPRA
-    $destinatario = $email_cliente;
-    $assunto = 'Compra Aprovada - ' . $nome_loja;
+    $to = $email_cliente;
+    $url_painel = $url_loja.'sistema/painel-cliente/index.php?pag=pedidos/';
+    $subject = $nome_loja . ' - Compra Aprovada';
+    $message = "Obrigado $nome_cliente ! Sua compra foi aprovada, acesse o seu painel do cliente clicando <a title='$url_painel' href='$url_painel' target='_blank'>aqui</a> para poder acompanhar seu pedido!";
+    
     $remetente = $email_loja;
-    $mensagem_email = utf8_decode('Sua compra foi aprovada! Acesse o painel do cliente para acompanhar o andamento do pedido.');
+    $headers = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=utf-8;' . "\r\n";
+    $headers .= "From: " .$remetente;
+    @mail($to, $subject, $message, $headers);
+        
+    //ENVIAR EMAIL PARA O ADMINISTRADOR INFORMANDO DA VENDA
+    $destinatario = $email_loja;
+    $assunto = 'Nova Venda Aprovada - ' . $nome_loja;
+    $remetente = $email_loja;
+    $mensagem_email = utf8_decode('O cliente ' . $nome_cliente . ' ('. $email_cliente .') acaba de ter uma compra aprovada em sua loja!');
     $cabecalhos = 'From: ' . $remetente;
     @mail($destinatario, $assunto, $mensagem_email, $cabecalhos);
+
+    $to = $email_loja;
+    $subject = $nome_loja . ' - Nova Venda Aprovada';
+    $message = "Você recebeu uma compra de $nome_cliente, o email do cliente é $email_cliente.";
+    
+    $headers = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=utf-8;' . "\r\n";
+    $headers .= "From: " .$nome_loja;
+    @mail($to, $subject, $message, $headers);
+    
+
+
 } //fechamento do if do pago_ven

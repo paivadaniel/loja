@@ -49,6 +49,15 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
     $classe_estoque = '';
 }
 
+//verificar se a tabela envio_emails está vazia, se tiver inserir um registro
+$query = $pdo->query("SELECT * FROM envios_email");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+if(@count($res) == 0) {
+    $pdo->query("INSERT INTO envios_email (data, final, assunto, mensagem, link) VALUES (curDate(), 0, '', '', '')"); //quando final é 0, não envia email marketing
+
+}
+
 
 ?>
 
@@ -95,7 +104,6 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-
                 <div class="sidebar-brand-text mx-3">Administrador</div>
             </a>
 
@@ -178,12 +186,6 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
                     <span class="<?php echo $classe_estoque ?>">Estoque Baixo</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="backup.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Backup</span></a>
-            </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -198,6 +200,13 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
                     <i class="fas fa-fw fa-table"></i>
                     <span>Email Marketing</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="backup.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Backup</span></a>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -465,7 +474,7 @@ if (@count($res) > 0) { //se houver produtos com estoque baixo
                         ?>
 
 
-                        <p><small>Total de Email Cadastrados - <?php echo $total_emails_clientes ?></small></p>
+                        <p><small>Total de Email Cadastrados Ativos - <?php echo $total_emails_clientes ?></small></p>
 
                         <div class="row">
                             <div class="col-md-12">

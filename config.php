@@ -5,6 +5,7 @@ $servidor = 'localhost';
 $banco = 'loja';
 $usuario = 'root'; //para quem usa xampp é root
 $senha = ''; //para quem usa xampp é vazia
+$url_loja = 'http://localhost/dashboard/www/loja/';
 
 /*
 //VARIÁVEIS DO SERVIDOR HOSPEDADO
@@ -12,6 +13,7 @@ $servidor = 'xxx';
 $banco = 'xxx';
 $usuario = 'xxx';
 $senha = 'localhost';
+$url_loja = 'http://minhaloja.com.br/';
 */
 
 //url sistema
@@ -22,7 +24,6 @@ $senha = 'localhost';
 	//$url_loja = "http://$_SERVER[HTTP_HOST]/loja/";
 //}
 
-$url_loja = 'http://localhost/dashboard/www/loja/';
 
 //VARIÁVEIS GLOBAIS
 $nome_loja = 'Lojinha do Daniel'; //esse é o nome padrão, depois o usuário pode mudar o nome do site
@@ -91,5 +92,10 @@ $retirada_local = 'Sim';
 
 //nota mínima para mostrar avaliação do produto na página do produto
 $nota_minima = 3;
+
+//disparos automatizados de email marketing
+//total de emails que o servidor suporta enviar por hora (pergunte para o suporte da hospedagem)
+$enviar_total_emails = 6;
+$intervalo_envio_emails = 70; //(em minutos, enviar de 70 em 70 minutos 480 emails por vez)
 
 ?>

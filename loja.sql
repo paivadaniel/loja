@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24-Set-2022 às 12:54
+-- Tempo de geração: 28-Set-2022 às 15:29
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 8.0.10
 
@@ -93,7 +93,7 @@ CREATE TABLE `blog` (
 INSERT INTO `blog` (`id`, `id_autor`, `titulo`, `titulo_url`, `descricao_1`, `descricao_2`, `imagem`, `palavras`, `data`) VALUES
 (2, 6, 'Meu Primeiro Post no Blog', 'meu-primeiro-post-no-blog', 'Essa é a descrição 1', 'Essa é a descrição 2', '16.png', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15'),
 (3, 6, 'Segundo Post', 'segundo-post', 'Descrição 01 do segundo post', 'Descrição 02 do segundo post', 'container01.jpg', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15'),
-(4, 6, 'Terceiro Post', 'terceiro-post', 'Descrição 01 do terceiro post', 'Descrição 02 do terceiro post', 'container02.jpg', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15'),
+(4, 6, 'Terceiro Post', 'terceiro-post', 'Descrição 01 do terceiro post', 'Descrição 02 do terceiro post', 'container02.jpg', 'Palavra chave01, palavra chave 02, palavra chave03 do terceiro post que tem id 4', '2022-09-15'),
 (5, 6, 'Quarto Post', 'quarto-post', 'Descrição 01 do post 04', 'Descrição 02 do post 04', '09.png', 'Palavra chave01, palavra chave 02, palavra chave03', '2022-09-15');
 
 -- --------------------------------------------------------
@@ -221,8 +221,6 @@ INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidad
 (498, 18, 8, 92, 1, '2022-09-13', 'Sim'),
 (499, 18, 7, 92, 1, '2022-09-13', 'Sim'),
 (501, 18, 8, 92, 1, '2022-09-13', 'Sim'),
-(506, 6, 7, 0, 1, '2022-09-13', 'Sim'),
-(511, 6, 17, 0, 1, '2022-09-13', 'Não'),
 (512, 18, 17, 93, 1, '2022-09-13', 'Não'),
 (513, 18, 7, 93, 1, '2022-09-13', 'Não'),
 (514, 18, 17, 94, 1, '2022-09-13', 'Não'),
@@ -230,15 +228,12 @@ INSERT INTO `carrinho` (`id`, `id_usuario`, `id_produto`, `id_venda`, `quantidad
 (516, 18, 17, 95, 1, '2022-09-13', 'Não'),
 (517, 18, 17, 96, 1, '2022-09-13', 'Não'),
 (520, 18, 17, 97, 1, '2022-09-13', 'Não'),
-(521, 6, 13, 0, 1, '2022-09-13', 'Não'),
-(522, 6, 7, 0, 1, '2022-09-13', 'Sim'),
 (523, 18, 7, 98, 1, '2022-09-13', 'Sim'),
 (524, 18, 17, 99, 1, '2022-09-13', 'Não'),
 (525, 18, 2, 99, 1, '2022-09-13', 'Não'),
 (527, 18, 2, 100, 1, '2022-09-13', 'Não'),
-(528, 0, 2, 0, 1, '2022-09-13', 'Não'),
-(532, 6, 7, 0, 1, '2022-09-14', 'Sim'),
-(533, 18, 7, 101, 1, '2022-09-14', 'Sim');
+(533, 18, 7, 101, 1, '2022-09-14', 'Sim'),
+(534, 18, 13, 0, 1, '2022-09-27', 'Não');
 
 -- --------------------------------------------------------
 
@@ -340,8 +335,8 @@ CREATE TABLE `comentarios_blog` (
   `id_post` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `comentario` varchar(500) NOT NULL,
-  `data` int(11) NOT NULL,
-  `hora` int(11) NOT NULL
+  `data` date NOT NULL,
+  `hora` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -349,7 +344,13 @@ CREATE TABLE `comentarios_blog` (
 --
 
 INSERT INTO `comentarios_blog` (`id`, `id_post`, `id_usuario`, `comentario`, `data`, `hora`) VALUES
-(10, 2, 18, 'bibibi', 20220919, 183000);
+(4, 2, 15, 'buxada de bode', '2022-09-26', '20:50:54'),
+(5, 5, 18, 'cuzero!', '2022-09-26', '20:51:09'),
+(6, 5, 15, 'Bixa!', '2022-09-26', '20:53:44'),
+(7, 5, 16, 'Pé de burro!', '2022-09-26', '20:54:10'),
+(9, 2, 6, 'Post do adm', '2022-09-27', '14:04:48'),
+(10, 2, 6, 'outro post do adm', '2022-09-27', '14:05:03'),
+(11, 4, 6, 'first!', '2022-09-27', '14:05:22');
 
 -- --------------------------------------------------------
 
@@ -365,17 +366,6 @@ CREATE TABLE `cupons` (
   `data` date NOT NULL,
   `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `cupons`
---
-
-INSERT INTO `cupons` (`id`, `titulo`, `valor`, `codigo`, `data`, `id_usuario`) VALUES
-(7, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
-(8, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
-(9, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
-(10, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-16', 18),
-(11, 'Cupom por Cartões Fidelidade', '20.00', '919.191.991-15', '2022-09-19', 18);
 
 -- --------------------------------------------------------
 
@@ -405,6 +395,28 @@ INSERT INTO `emails` (`id`, `nome`, `email`, `ativo`) VALUES
 (9, 'Marcelo Madureira', 'madureira@gmail.com', 'Sim'),
 (11, 'Mardoque', 'mardoqueu@gmail.com', 'Não'),
 (12, 'Adamastor Pereira', 'pereira@gmail.com', 'Sim');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `envios_email`
+--
+
+CREATE TABLE `envios_email` (
+  `id` int(11) NOT NULL,
+  `data` datetime NOT NULL,
+  `final` int(11) NOT NULL,
+  `assunto` varchar(100) NOT NULL,
+  `mensagem` varchar(1000) NOT NULL,
+  `link` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `envios_email`
+--
+
+INSERT INTO `envios_email` (`id`, `data`, `final`, `assunto`, `mensagem`, `link`) VALUES
+(1, '2022-09-27 18:46:22', 0, 'Lascado!', ' Son of a biti', 'produto-pao-de-mel-com-chocolate');
 
 -- --------------------------------------------------------
 
@@ -460,7 +472,8 @@ INSERT INTO `mensagens` (`id`, `id_venda`, `mensagem`, `usuario`, `data`, `hora`
 (36, 67, 'Mudança de status no pedido, pedido Entregue', 'Admin', '2022-09-09', '08:27:31'),
 (37, 74, 'Parabéns, você ganhou um novo cupom de desconto no valor de 20 reais, poderá usar até o dia 16/09/2022 o seu código para uso do cupom é 919.191.991-15', 'Admin', '2022-09-09', '12:22:06'),
 (38, 83, 'Parabéns, você ganhou um novo cupom de desconto no valor de 20 reais, poderá usar até o dia 19/09/2022. O seu código para uso do cupom é 919.191.991-15', 'Admin', '2022-09-12', '09:38:56'),
-(39, 99, 'Mudança de status no pedido, pedido Retirada', 'Admin', '2022-09-13', '19:06:28');
+(39, 99, 'Mudança de status no pedido, pedido Retirada', 'Admin', '2022-09-13', '19:06:28'),
+(40, 101, 'Seu pedido foi enviado, o código de postagem é JB24252252BAC', 'Admin', '2022-09-27', '23:34:08');
 
 -- --------------------------------------------------------
 
@@ -503,7 +516,7 @@ INSERT INTO `produtos` (`id`, `id_categoria`, `id_subcategoria`, `nome`, `nome_u
 (4, 1, 3, 'ffsfs', 'ffsfs', '', '', '100.00', 'sem-foto.jpg', 5, 2, '', 'Não', 0.00, 0, 0, 0, '', '5.00', 'Não', 3, NULL),
 (6, 9, 4, 'teste produto novo', 'teste-produto-novo', '', '', '49.00', 'sem-foto.jpg', 1, 1, '', 'Não', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
 (7, 9, 3, 'produto teste promoção', 'produto-teste-promocao', '', '', '99.99', 'sem-foto.jpg', 5, 2, '', 'Sim', 0.00, 0, 0, 0, '', '15.00', 'Não', 3, NULL),
-(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 5, 1, 'testando', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
+(8, 1, 3, 'x9', 'x9', '', '', '32.00', 'sem-foto.jpg', 5, 1, 'testando', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Sim', NULL, NULL),
 (9, 1, 3, 'x91', 'x91', '', '', '13.50', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', NULL, NULL),
 (13, 1, 3, '424qrsfsfsfs', '424qrsfsfsfs', '', '', '42.00', 'buzanga.jpg', 5, 1, '', 'Sim', 0.50, 0, 0, 0, '', '0.00', 'Sim', 12, NULL),
 (15, 1, 3, 'affafarrr5tet2242', 'affafarrr5tet2242', '', '', '67.00', 'sem-foto.jpg', 5, 1, '', 'Sim', 0.00, 0, 0, 0, '', '0.00', 'Não', 9, NULL),
@@ -691,7 +704,7 @@ INSERT INTO `vendas` (`id`, `total`, `frete`, `subtotal`, `id_usuario`, `data`, 
 (98, '32.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Não Enviado', NULL),
 (99, '87.00', '0.00', '0.00', 18, '2022-09-13', 'Não', 'Retirada', ''),
 (100, '37.00', '0.00', '0.00', 18, '2022-09-13', 'Sim', 'Retirada', NULL),
-(101, '32.00', '0.00', '0.00', 18, '2022-09-14', 'Sim', 'Retirada', NULL);
+(101, '32.00', '0.00', '0.00', 18, '2022-09-14', 'Sim', 'Enviado', 'JB24252252BAC');
 
 --
 -- Índices para tabelas despejadas
@@ -779,6 +792,12 @@ ALTER TABLE `cupons`
 -- Índices para tabela `emails`
 --
 ALTER TABLE `emails`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `envios_email`
+--
+ALTER TABLE `envios_email`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -891,7 +910,7 @@ ALTER TABLE `carac_prod`
 -- AUTO_INCREMENT de tabela `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=534;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=536;
 
 --
 -- AUTO_INCREMENT de tabela `categorias`
@@ -915,7 +934,7 @@ ALTER TABLE `combos`
 -- AUTO_INCREMENT de tabela `comentarios_blog`
 --
 ALTER TABLE `comentarios_blog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `cupons`
@@ -930,6 +949,12 @@ ALTER TABLE `emails`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT de tabela `envios_email`
+--
+ALTER TABLE `envios_email`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de tabela `imagens`
 --
 ALTER TABLE `imagens`
@@ -939,7 +964,7 @@ ALTER TABLE `imagens`
 -- AUTO_INCREMENT de tabela `mensagens`
 --
 ALTER TABLE `mensagens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de tabela `produtos`

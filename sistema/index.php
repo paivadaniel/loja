@@ -119,7 +119,7 @@ if ($total_reg == 0) {
 
                     <div class="form-group">
                         <label for="email_cad">Email</label>
-                        <input type="email" class="form-control" name="email_cad" id="email_cad" placeholder="Digite seu email" value="<?php echo @$_GET['email'] ?>">
+                        <input type="email" class="form-control" name="email_cad" id="email_cad" placeholder="Digite seu email" value="<?php echo @$_GET['email_rodape'] ?>">
                     </div>
 
                     <div class="form-group">
@@ -291,7 +291,7 @@ if ($total_reg == 0) {
 
 <?php 
 
-if (@$_GET["email"] != null) {
+if (@$_GET["email_rodape"] != null) {
     echo "<script>$('#modalCadastro').modal('show');</script>";
 }
 

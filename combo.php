@@ -71,12 +71,58 @@ $tipo_frete = @$res_e[0]['tipo'];
                 <div class="product__details__text">
                     <h3><?php echo $nome ?></h3>
                     <div class="product__details__rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                        <span>(18 reviews)</span>
+
+                        <?php
+
+                        $total_avaliacoes_produto = 0;
+                        $nota_avaliacao_produto_media_aritmetica = 0;
+                        $soma_nota = 0;
+
+                        $query = $pdo->query("SELECT * FROM avaliacoes where id_produto = '$id_combo'");
+                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                        $total_avaliacoes_produto = @count($res);
+
+                        if ($total_avaliacoes_produto > 0) {
+
+                            for ($i = 0; $i < $total_avaliacoes_produto; $i++) {
+                                foreach ($res[$i] as $key => $value) {
+                                }
+
+                                $nota_avaliacao_produto = $res[$i]['nota'];
+
+                                $soma_nota += $nota_avaliacao_produto;
+                            }
+
+                            $nota_avaliacao_produto_media_aritmetica = $soma_nota / $total_avaliacoes_produto;
+                        }
+
+                        for ($i2 = 0; $i2 < $nota_avaliacao_produto_media_aritmetica; $i2++) {
+
+                            echo '<i class="fa fa-star"></i>';
+                        }
+
+                        ?>
+
+
+                        <span>(<?php
+                                if ($total_avaliacoes_produto != 1) {
+                                    echo $total_avaliacoes_produto
+                                ?> avaliações)
+
+                        <?php
+
+                                } else {
+                                    echo $total_avaliacoes_produto
+
+                        ?>
+                            avaliação)
+
+                        <?php
+
+                                }
+                        ?>
+
+                        </span>
                     </div>
                     <div class="product__details__price">R$ <?php echo $valor ?></div>
                     <p><?php echo $descricao ?></p>
@@ -191,7 +237,7 @@ $tipo_frete = @$res_e[0]['tipo'];
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">Informações</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Comentários <span>(<?php echo $total_avaliacoes_produto ?>)</span></a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -305,12 +351,11 @@ $tipo_frete = @$res_e[0]['tipo'];
 </section>
 <!-- Product Details Section End -->
 
-<?php 
-  if(@$_GET['acao'] == 'deletar'){
-    
+<?php
+if (@$_GET['acao'] == 'deletar') {
+
     $id_aval = $_GET['id_avaliacao'];
     $pdo->query("DELETE from avaliacoes WHERE id = '$id_aval'");
-        
 }
 ?>
 
